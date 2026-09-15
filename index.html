@@ -13,7 +13,7 @@
         .china-badge { background: #de2910; color: #ffde00; font-weight: bold; padding: 2px 8px; border-radius: 3px; font-size: 12px; }
 
         /* Header */
-        header { background-color: #ffffff; border-bottom: 1px solid #e1e1e1; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; sticky: top; position: sticky; top: 0; z-index: 100; }
+        header { background-color: #ffffff; border-bottom: 1px solid #e1e1e1; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; }
         header h1 { font-size: 22px; font-weight: bold; color: #111; }
 
         .cart-btn-header { background: #de2910; color: white; padding: 8px 15px; border-radius: 20px; border: none; font-weight: bold; cursor: pointer; display: flex; align-items: center; gap: 8px; }
@@ -41,7 +41,7 @@
         .btn-detail { background-color: #222; color: white; padding: 8px; border: none; border-radius: 4px; cursor: pointer; font-size: 12px; flex: 1; font-weight: bold; }
         .btn-add-cart { background-color: #de2910; color: white; padding: 8px; border: none; border-radius: 4px; cursor: pointer; font-size: 12px; flex: 1; font-weight: bold; }
 
-        /* Modals (Detail & Cart/Payment) */
+        /* Modals */
         .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); justify-content: center; align-items: center; z-index: 999; }
         .modal-content { background: white; padding: 25px; border-radius: 8px; width: 90%; max-width: 550px; text-align: left; max-height: 90vh; overflow-y: auto; position: relative; }
         .modal-close-x { position: absolute; top: 15px; right: 15px; font-size: 20px; font-weight: bold; cursor: pointer; color: #888; }
@@ -88,26 +88,8 @@
     <div class="container">
         <h2 class="section-title">优质精选产品 Premium Direct Products</h2>
         
-        <div class="product-grid">
-            
-            <!-- Item 1 (Video Link) -->
-            <div class="product-card" onclick="openDetail('Eden Premium Motion Edition', 'https://cdn4.edenfantasys.com/assets/2024/9/4e3b28a78cde4b16afcd14411b092e5c.mp4', 'video', 35.00, 17.50, 'High-frequency ergonomic motion system designed with ultra-soft medical silicone. Fully waterproof IPX7, USB rechargeable, silent motor Technology.')">
-                <span class="product-tag">视频展示 Featured</span>
-                <video autoplay loop muted playsinline>
-                    <source src="https://cdn4.edenfantasys.com/assets/2024/9/4e3b28a78cde4b16afcd14411b092e5c.mp4" type="video/mp4">
-                </video>
-                <div class="product-title">Eden Premium Motion Edition</div>
-                <div class="cn-sub">动态精选版 - 中国工厂直供</div>
-                <div class="price-box">
-                    <span class="original-price">$35.00</span>
-                    <span class="price">$17.50 USD</span>
-                </div>
-                <div class="card-actions">
-                    <button class="btn-detail" onclick="event.stopPropagation(); openDetail('Eden Premium Motion Edition', 'https://cdn4.edenfantasys.com/assets/2024/9/4e3b28a78cde4b16afcd14411b092e5c.mp4', 'video', 35.00, 17.50, 'High-frequency ergonomic motion system designed with ultra-soft medical silicone. Fully waterproof IPX7, USB rechargeable, silent motor Technology.')">Details / 详情</button>
-                    <button class="btn-add-cart" onclick="event.stopPropagation(); addToCart('Eden Premium Motion Edition', 17.50)">+ Cart / 加入购物车</button>
-                </div>
-            </div>
-
+        <div class="product-grid" id="productGrid">
+            <!-- Products will be loaded via JavaScript -->
         </div>
     </div>
 
@@ -175,29 +157,186 @@
     </div>
 
     <script>
+        // 10 Products with your exact links and formulas applied automatically
+        const products = [
+            {
+                title: "Elite Motion Pro Edition",
+                cnSub: "高端动态精选 - 官方正品",
+                url: "https://cdn4.edenfantasys.com/assets/2024/12/3e30b92834034df3bd0faedaf610ff24.mp4",
+                type: "video",
+                origPrice: 40.00, // >$20 gets 50% off -> $20.00
+                tag: "热销 Hot",
+                desc: "High-frequency multi-speed motion system crafted with smooth medical-grade silicone. USB rechargeable and fully waterproof IPX7."
+            },
+            {
+                title: "Silky Comfort Curve",
+                cnSub: "丝滑舒适版 - 工厂直供",
+                url: "https://cdn5.edenfantasys.com/assets/2025/3/8b1d790e2ab94582a5a915d2efaa20ba.jpg?width=500&format=webp",
+                type: "image",
+                origPrice: 15.00, // $8-$20 gets 40% off -> $9.00
+                tag: "新品 New",
+                desc: "Ergonomic curvature with silent high-power motor technology and skin-friendly velvety texture."
+            },
+            {
+                title: "Mini Pocket Delight",
+                cnSub: "迷你便携版 - 限时特惠",
+                url: "https://cdn5.edenfantasys.com/assets/2026/6/d3fca1b4d4a8489ea6a14ae02873c3b9.jpg?width=500&format=webp",
+                type: "image",
+                origPrice: 6.00, // <$8 gets 30% off -> $4.20
+                tag: "特惠 Sale",
+                desc: "Compact travel design offering strong vibration modes in a discreet, waterproof pocket size."
+            },
+            {
+                title: "Supreme Deluxe Series X",
+                cnSub: "豪华旗舰版 - 全球配送",
+                url: "https://cdn5.edenfantasys.com/assets/ProductImages/1000x1000/JTSE019_2.jpg?width=500&format=webp",
+                type: "image",
+                origPrice: 35.00, // >$20 gets 50% off -> $17.50
+                tag: "推荐 Top",
+                desc: "Professional-grade dual stimulation engine featuring wireless remote control and warm-touch technology."
+            },
+            {
+                title: "Velvet Touch Contour",
+                cnSub: "柔滑触感 - 工厂直供",
+                url: "https://cdn5.edenfantasys.com/assets/2025/6/4c6900ad17cd45d3a4b5e11be5ffab3c.jpg?width=500&format=webp",
+                type: "image",
+                origPrice: 18.00, // $8-$20 gets 40% off -> $10.80
+                tag: "热卖 Hot",
+                desc: "Designed for precise target pleasure with ultra-soft silicone shell and whisper-quiet operation."
+            },
+            {
+                title: "Advanced Pulse Motion System",
+                cnSub: "脉冲运动系统 - 官方正品",
+                url: "https://cdn4.edenfantasys.com/assets/2024/10/f517865a90b340e89b3f68892487786f.mp4",
+                type: "video",
+                origPrice: 50.00, // >$20 gets 50% off -> $25.00
+                tag: "视频展示 Featured",
+                desc: "State-of-the-art interactive pulse mechanism with deep vibration patterns and fast USB-C charging."
+            },
+            {
+                title: "Compact Vibration Companion",
+                cnSub: "便携震动伴侣 - 限时特惠",
+                url: "https://cdn4.edenfantasys.com/assets/2024/8/3cf3f1832949427f8d75dcf554a963aa.mp4",
+                type: "video",
+                origPrice: 12.00, // $8-$20 gets 40% off -> $7.20
+                tag: "特惠 Sale",
+                desc: "Lightweight and versatile video-showcased model with flexible soft body and intuitive single-button control."
+            },
+            {
+                title: "Classic Edition Standard",
+                cnSub: "经典标准版 - 原厂直供",
+                url: "https://cdn5.edenfantasys.com/assets/ProductImages/original/listing/ET121620.jpg?width=500&format=webp",
+                type: "image",
+                origPrice: 7.00, // <$8 gets 30% off -> $4.90
+                tag: "热销 Hot",
+                desc: "Reliable best-seller featuring durable construction, easy cleaning, and smooth finish."
+            },
+            {
+                title: "Classic Edition Pro Variant",
+                cnSub: "经典Pro版 - 官方精选",
+                url: "https://cdn5.edenfantasys.com/assets/ProductImages/original/listing/ET121620.jpg?width=500&format=webp",
+                type: "image",
+                origPrice: 22.00, // >$20 gets 50% off -> $11.00
+                tag: "推荐 Top",
+                desc: "Upgraded version of our classic lineup with enhanced motor strength and extended battery life."
+            },
+            {
+                title: "Ultimate Motion Experience",
+                cnSub: "终极动态体验 - 中国直发",
+                url: "https://cdn4.edenfantasys.com/assets/2024/8/49e47ef5b31b47cb8ec57b3d3d26ea7b.mp4",
+                type: "video",
+                origPrice: 60.00, // >$20 gets 50% off -> $30.00
+                tag: "旗舰 Flagship",
+                desc: "The pinnacle of engineering. Fully featured dynamic motion package with app connectivity and maximum power output."
+            },
+            {
+                title: "Pure Velvet Contour",
+                cnSub: "纯净柔滑轮廓 - 顺丰包邮",
+                url: "https://cdn5.edenfantasys.com/assets/2024/11/69458cd66b7943abb298d90151bf7c81.jpg?width=500&format=webp",
+                type: "image",
+                origPrice: 14.00, // $8-$20 gets 40% off -> $8.40
+                tag: "新品 New",
+                desc: "Delicate aesthetic build combining body-safe silicone with deep rumbling vibrations."
+            }
+        ];
+
+        // Automatic discount calculator based on your rules
+        function calculateDiscount(price) {
+            if (price < 8) {
+                return price * 0.70; // 30% Off
+            } else if (price <= 20) {
+                return price * 0.60; // 40% Off
+            } else {
+                return price * 0.50; // 50% Off
+            }
+        }
+
+        // Render products into grid
+        function renderProducts() {
+            let grid = document.getElementById('productGrid');
+            let html = '';
+            
+            products.forEach((p, index) => {
+                let discountedPrice = calculateDiscount(p.origPrice);
+                let mediaHtml = '';
+                if(p.type === 'video') {
+                    mediaHtml = `<video autoplay loop muted playsinline><source src="${p.url}" type="video/mp4"></video>`;
+                } else {
+                    mediaHtml = `<img src="${p.url}" alt="${p.title}">`;
+                }
+
+                html += `
+                    <div class="product-card" onclick="openDetail(${index})">
+                        <span class="product-tag">${p.tag}</span>
+                        ${mediaHtml}
+                        <div class="product-title">${p.title}</div>
+                        <div class="cn-sub">${p.cnSub}</div>
+                        <div class="price-box">
+                            <span class="original-price">$${p.origPrice.toFixed(2)}</span>
+                            <span class="price">$${discountedPrice.toFixed(2)} USD</span>
+                        </div>
+                        <div class="card-actions">
+                            <button class="btn-detail" onclick="event.stopPropagation(); openDetail(${index})">Details / 详情</button>
+                            <button class="btn-add-cart" onclick="event.stopPropagation(); addToCartFromGrid(${index})">+ Cart / 加入购物车</button>
+                        </div>
+                    </div>
+                `;
+            });
+            grid.innerHTML = html;
+        }
+
         let cart = [];
         let selectedDelivery = 'normal';
 
-        function openDetail(title, mediaUrl, type, origPrice, discountedPrice, desc) {
-            document.getElementById('detailTitle').innerText = title;
-            document.getElementById('detailOrigPrice').innerText = '$' + origPrice.toFixed(2);
+        function openDetail(index) {
+            let p = products[index];
+            let discountedPrice = calculateDiscount(p.origPrice);
+
+            document.getElementById('detailTitle').innerText = p.title;
+            document.getElementById('detailOrigPrice').innerText = '$' + p.origPrice.toFixed(2);
             document.getElementById('detailPrice').innerText = '$' + discountedPrice.toFixed(2) + ' USD';
-            document.getElementById('detailDesc').innerText = desc;
+            document.getElementById('detailDesc').innerText = p.desc;
             
             let container = document.getElementById('detailMediaContainer');
-            if(type === 'video') {
-                container.innerHTML = `<video class="modal-media" controls autoplay loop muted><source src="${mediaUrl}" type="video/mp4"></video>`;
+            if(p.type === 'video') {
+                container.innerHTML = `<video class="modal-media" controls autoplay loop muted><source src="${p.url}" type="video/mp4"></video>`;
             } else {
-                container.innerHTML = `<img src="${mediaUrl}" class="modal-media">`;
+                container.innerHTML = `<img src="${p.url}" class="modal-media">`;
             }
 
             document.getElementById('detailAddCartBtn').onclick = function() {
-                addToCart(title, discountedPrice);
+                addToCart(p.title, discountedPrice);
                 closeModal('detailModal');
                 openCartModal();
             };
 
             document.getElementById('detailModal').style.display = 'flex';
+        }
+
+        function addToCartFromGrid(index) {
+            let p = products[index];
+            let discountedPrice = calculateDiscount(p.origPrice);
+            addToCart(p.title, discountedPrice);
         }
 
         function addToCart(title, price) {
@@ -262,6 +401,9 @@
         function closeModal(id) {
             document.getElementById(id).style.display = 'none';
         }
+
+        // Initialize grid on load
+        window.onload = renderProducts;
     </script>
 
 </body>
