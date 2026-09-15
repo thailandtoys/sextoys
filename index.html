@@ -13,8 +13,11 @@
         .china-badge { background: #de2910; color: #ffde00; font-weight: bold; padding: 2px 8px; border-radius: 3px; font-size: 12px; }
 
         /* Header */
-        header { background-color: #ffffff; border-bottom: 1px solid #e1e1e1; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; }
-        header h1 { font-size: 24px; font-weight: bold; color: #111; }
+        header { background-color: #ffffff; border-bottom: 1px solid #e1e1e1; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; sticky: top; position: sticky; top: 0; z-index: 100; }
+        header h1 { font-size: 22px; font-weight: bold; color: #111; }
+
+        .cart-btn-header { background: #de2910; color: white; padding: 8px 15px; border-radius: 20px; border: none; font-weight: bold; cursor: pointer; display: flex; align-items: center; gap: 8px; }
+        .cart-count { background: white; color: #de2910; border-radius: 50%; padding: 2px 7px; font-size: 12px; }
 
         .announcement { background-color: #de2910; color: white; text-align: center; padding: 10px; font-size: 14px; font-weight: bold; }
 
@@ -23,8 +26,8 @@
         .section-title { text-align: center; margin-bottom: 25px; font-size: 24px; text-transform: uppercase; letter-spacing: 1px; }
 
         .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 25px; }
-        .product-card { background: white; border: 1px solid #eee; border-radius: 8px; padding: 15px; text-align: center; transition: 0.3s; box-shadow: 0 2px 5px rgba(0,0,0,0.05); position: relative; }
-        .product-card:hover { box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        .product-card { background: white; border: 1px solid #eee; border-radius: 8px; padding: 15px; text-align: center; transition: 0.3s; box-shadow: 0 2px 5px rgba(0,0,0,0.05); position: relative; cursor: pointer; }
+        .product-card:hover { box-shadow: 0 4px 15px rgba(0,0,0,0.12); transform: translateY(-3px); }
         .product-card img, .product-card video { width: 100%; height: 220px; object-fit: cover; border-radius: 6px; background-color: #f0f0f0; }
         
         .product-tag { position: absolute; top: 25px; left: 25px; background: #de2910; color: #fff; font-size: 11px; padding: 3px 8px; border-radius: 3px; font-weight: bold; z-index: 2; }
@@ -34,19 +37,25 @@
         .original-price { text-decoration: line-through; color: #888; font-size: 14px; margin-right: 6px; }
         .price { color: #de2910; font-size: 18px; font-weight: bold; }
         
-        .btn-buy { background-color: #000; color: white; padding: 10px 15px; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; width: 100%; transition: 0.2s; }
-        .btn-buy:hover { background-color: #333; }
+        .card-actions { display: flex; gap: 8px; margin-top: 10px; }
+        .btn-detail { background-color: #222; color: white; padding: 8px; border: none; border-radius: 4px; cursor: pointer; font-size: 12px; flex: 1; font-weight: bold; }
+        .btn-add-cart { background-color: #de2910; color: white; padding: 8px; border: none; border-radius: 4px; cursor: pointer; font-size: 12px; flex: 1; font-weight: bold; }
 
-        /* Modal / Checkout */
+        /* Modals (Detail & Cart/Payment) */
         .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); justify-content: center; align-items: center; z-index: 999; }
-        .modal-content { background: white; padding: 25px; border-radius: 8px; width: 90%; max-width: 480px; text-align: center; max-height: 90vh; overflow-y: auto; }
-        
+        .modal-content { background: white; padding: 25px; border-radius: 8px; width: 90%; max-width: 550px; text-align: left; max-height: 90vh; overflow-y: auto; position: relative; }
+        .modal-close-x { position: absolute; top: 15px; right: 15px; font-size: 20px; font-weight: bold; cursor: pointer; color: #888; }
+
+        .modal-media { width: 100%; max-height: 300px; object-fit: contain; background: #000; border-radius: 6px; margin-bottom: 15px; }
+
         .delivery-option { border: 2px solid #ddd; padding: 10px; border-radius: 6px; margin: 8px 0; cursor: pointer; text-align: left; transition: 0.2s; }
         .delivery-option:hover, .delivery-option.active { border-color: #de2910; background: #fff8f8; }
         
         .wallet-box { background: #f1f2f6; padding: 10px; margin: 8px 0; word-break: break-all; font-size: 12px; border: 1px dashed #ccc; border-radius: 4px; text-align: left; }
-        .paypal-btn { background-color: #0070ba; color: white; padding: 12px; border: none; border-radius: 4px; width: 100%; font-weight: bold; margin-top: 10px; cursor: pointer; text-decoration: none; display: block; }
-        .close-btn { background: #ff4757; color: white; border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer; margin-top: 15px; }
+        .paypal-btn { background-color: #0070ba; color: white; padding: 12px; border: none; border-radius: 4px; width: 100%; font-weight: bold; margin-top: 10px; cursor: pointer; text-decoration: none; display: block; text-align: center; }
+        .close-btn { background: #666; color: white; border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer; margin-top: 15px; width: 100%; }
+        
+        .cart-item { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee; padding: 10px 0; font-size: 14px; }
     </style>
 
     <!-- Google Translate Code -->
@@ -66,7 +75,10 @@
     </div>
 
     <header>
-        <h1>6Toys Store <span style="font-size:14px; font-weight:normal; color:#666;">(中国官方直营店)</span></h1>
+        <h1>6Toys Store <span style="font-size:13px; font-weight:normal; color:#666;">(中国官方直营店)</span></h1>
+        <button class="cart-btn-header" onclick="openCartModal()">
+            🛒 Cart / 购物车 <span class="cart-count" id="cartCount">0</span>
+        </button>
     </header>
 
     <div class="announcement">
@@ -78,12 +90,11 @@
         
         <div class="product-grid">
             
-            <!-- Item 1 (Video Link Product: $35.00 original -> 50% Off -> $17.50) -->
-            <div class="product-card">
+            <!-- Item 1 (Video Link) -->
+            <div class="product-card" onclick="openDetail('Eden Premium Motion Edition', 'https://cdn4.edenfantasys.com/assets/2024/9/4e3b28a78cde4b16afcd14411b092e5c.mp4', 'video', 35.00, 17.50, 'High-frequency ergonomic motion system designed with ultra-soft medical silicone. Fully waterproof IPX7, USB rechargeable, silent motor Technology.')">
                 <span class="product-tag">视频展示 Featured</span>
                 <video autoplay loop muted playsinline>
                     <source src="https://cdn4.edenfantasys.com/assets/2024/9/4e3b28a78cde4b16afcd14411b092e5c.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
                 </video>
                 <div class="product-title">Eden Premium Motion Edition</div>
                 <div class="cn-sub">动态精选版 - 中国工厂直供</div>
@@ -91,74 +102,59 @@
                     <span class="original-price">$35.00</span>
                     <span class="price">$17.50 USD</span>
                 </div>
-                <button class="btn-buy" onclick="openPayment('Eden Premium Motion Edition (动态精选)', 17.50)">Buy Now / 立即购买</button>
-            </div>
-
-            <!-- Item 2 ($7.00 original -> 30% Off -> $4.90) -->
-            <div class="product-card">
-                <span class="product-tag">热销包邮 Hot</span>
-                <img src="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=500&auto=format&fit=crop&q=60" alt="Product 2">
-                <div class="product-title">Mini Pocket Companion</div>
-                <div class="cn-sub">迷你精选 - 原厂正品</div>
-                <div class="price-box">
-                    <span class="original-price">$7.00</span>
-                    <span class="price">$4.90 USD</span>
+                <div class="card-actions">
+                    <button class="btn-detail" onclick="event.stopPropagation(); openDetail('Eden Premium Motion Edition', 'https://cdn4.edenfantasys.com/assets/2024/9/4e3b28a78cde4b16afcd14411b092e5c.mp4', 'video', 35.00, 17.50, 'High-frequency ergonomic motion system designed with ultra-soft medical silicone. Fully waterproof IPX7, USB rechargeable, silent motor Technology.')">Details / 详情</button>
+                    <button class="btn-add-cart" onclick="event.stopPropagation(); addToCart('Eden Premium Motion Edition', 17.50)">+ Cart / 加入购物车</button>
                 </div>
-                <button class="btn-buy" onclick="openPayment('Mini Pocket Companion (迷你精选)', 4.90)">Buy Now / 立即购买</button>
-            </div>
-
-            <!-- Item 3 ($15.00 original -> 40% Off -> $9.00) -->
-            <div class="product-card">
-                <span class="product-tag">新品上市 New</span>
-                <img src="https://images.unsplash.com/photo-1563245372-f21724e3856d?w=500&auto=format&fit=crop&q=60" alt="Product 3">
-                <div class="product-title">Classic Silicone Series</div>
-                <div class="cn-sub">限时特惠 - 高品质保证</div>
-                <div class="price-box">
-                    <span class="original-price">$15.00</span>
-                    <span class="price">$9.00 USD</span>
-                </div>
-                <button class="btn-buy" onclick="openPayment('Classic Silicone Series (高品质)', 9.00)">Buy Now / 立即购买</button>
-            </div>
-
-            <!-- Item 4 ($45.00 original -> 50% Off -> $22.50) -->
-            <div class="product-card">
-                <span class="product-tag">官方推荐 Top</span>
-                <img src="https://images.unsplash.com/photo-1513151233558-d860c5398176?w=500&auto=format&fit=crop&q=60" alt="Product 4">
-                <div class="product-title">Ultra Automatic Deluxe</div>
-                <div class="cn-sub">豪华多功能 - 全球配送</div>
-                <div class="price-box">
-                    <span class="original-price">$45.00</span>
-                    <span class="price">$22.50 USD</span>
-                </div>
-                <button class="btn-buy" onclick="openPayment('Ultra Automatic Deluxe (豪华多功能)', 22.50)">Buy Now / 立即购买</button>
             </div>
 
         </div>
     </div>
 
-    <!-- Payment Checkout Modal -->
-    <div class="modal" id="paymentModal">
+    <!-- Product Detail Modal -->
+    <div class="modal" id="detailModal">
         <div class="modal-content">
-            <h3 id="modalTitle">Checkout / 结账</h3>
+            <span class="modal-close-x" onclick="closeModal('detailModal')">&times;</span>
+            <div id="detailMediaContainer"></div>
+            <h2 id="detailTitle" style="font-size: 20px; margin-bottom: 5px;"></h2>
+            <p id="detailCnSub" style="color: #888; font-size: 13px; margin-bottom: 10px;">中国工厂直供 - 官方正品保证</p>
+            <div style="margin-bottom: 15px;">
+                <span id="detailOrigPrice" style="text-decoration: line-through; color: #888; margin-right: 8px;"></span>
+                <span id="detailPrice" style="color: #de2910; font-size: 22px; font-weight: bold;"></span>
+            </div>
+            <p style="font-size: 14px; color: #444; line-height: 1.5; margin-bottom: 20px;" id="detailDesc"></p>
+            <button class="btn-add-cart" style="width:100%; padding: 12px; font-size: 15px;" id="detailAddCartBtn">+ Add to Shopping Cart / 加入购物车</button>
+        </div>
+    </div>
+
+    <!-- Cart / Checkout Modal -->
+    <div class="modal" id="cartModal">
+        <div class="modal-content">
+            <span class="modal-close-x" onclick="closeModal('cartModal')">&times;</span>
+            <h3 style="margin-bottom: 15px;">Your Shopping Cart / 您的购物车</h3>
             
-            <hr style="margin:12px 0; border:0; border-top:1px solid #eee;">
+            <div id="cartItemsList">
+                <p style="text-align: center; color: #888; padding: 20px 0;">Cart is empty / 购物车是空的</p>
+            </div>
+
+            <hr style="margin:15px 0; border:0; border-top:1px solid #eee;">
 
             <!-- Delivery Options -->
-            <p style="text-align:left; font-size:13px; font-weight:bold; margin-bottom:5px;">Select Delivery Option / 选择配送方式:</p>
+            <p style="text-align:left; font-size:13px; font-weight:bold; margin-bottom:5px;">Select Delivery Method / 选择配送方式:</p>
             
             <div class="delivery-option active" id="opt-normal" onclick="setDelivery('normal')">
-                <strong>📦 Standard Delivery (标准配送)</strong><br>
-                <span style="font-size:12px; color:#555;">Delivery Time: 3 - 4 Days (Base Price / 免费)</span>
+                <strong>📦 Standard Air Shipping (标准配送)</strong><br>
+                <span style="font-size:12px; color:#555;">Delivery Time: 3 - 4 Days (Base Rate)</span>
             </div>
 
             <div class="delivery-option" id="opt-fast" onclick="setDelivery('fast')">
-                <strong>⚡ VIP Express Delivery (⚡ 24小时极速达)</strong><br>
-                <span style="font-size:12px; color:#de2910; font-weight:bold;">Delivery Time: 24 Hours (+30% Express Surcharge)</span>
+                <strong>⚡ VIP Express Air Dispatch (⚡ 24小时极速达)</strong><br>
+                <span style="font-size:12px; color:#de2910; font-weight:bold;">Guaranteed Within 24 Hours (+30% Express Surcharge)</span>
             </div>
 
-            <div style="margin: 15px 0; background: #fff0f0; padding: 10px; border-radius: 5px;">
-                <span style="font-size:14px;">Total Payable / 应付总额:</span>
-                <span id="modalPrice" style="font-size:20px; font-weight:bold; color:#de2910;"></span>
+            <div style="margin: 15px 0; background: #fff0f0; padding: 12px; border-radius: 5px; text-align: center;">
+                <span style="font-size:14px;">Total Amount Payable / 应付总额:</span><br>
+                <span id="cartTotalPrice" style="font-size:24px; font-weight:bold; color:#de2910;">$0.00 USD</span>
             </div>
 
             <p style="text-align:left; font-size:13px;"><strong>Option 1: Crypto Payment (USDT / BTC)</strong></p>
@@ -174,23 +170,68 @@
             <p style="text-align:left; font-size:13px; margin-top:10px;"><strong>Option 2: Credit Card / PayPal</strong></p>
             <a href="https://www.paypal.com" target="_blank" class="paypal-btn">Pay via PayPal / 💳 信用卡支付</a>
 
-            <button class="close-btn" onclick="closePayment()">Close Window / 关闭</button>
+            <button class="close-btn" onclick="closeModal('cartModal')">Close Window / 关闭</button>
         </div>
     </div>
 
     <script>
-        let currentBasePrice = 0;
+        let cart = [];
         let selectedDelivery = 'normal';
 
-        function openPayment(productName, basePrice) {
-            currentBasePrice = basePrice;
-            selectedDelivery = 'normal';
-            document.getElementById('opt-normal').classList.add('active');
-            document.getElementById('opt-fast').classList.remove('active');
+        function openDetail(title, mediaUrl, type, origPrice, discountedPrice, desc) {
+            document.getElementById('detailTitle').innerText = title;
+            document.getElementById('detailOrigPrice').innerText = '$' + origPrice.toFixed(2);
+            document.getElementById('detailPrice').innerText = '$' + discountedPrice.toFixed(2) + ' USD';
+            document.getElementById('detailDesc').innerText = desc;
             
-            document.getElementById('modalTitle').innerText = productName;
-            updatePriceDisplay();
-            document.getElementById('paymentModal').style.display = 'flex';
+            let container = document.getElementById('detailMediaContainer');
+            if(type === 'video') {
+                container.innerHTML = `<video class="modal-media" controls autoplay loop muted><source src="${mediaUrl}" type="video/mp4"></video>`;
+            } else {
+                container.innerHTML = `<img src="${mediaUrl}" class="modal-media">`;
+            }
+
+            document.getElementById('detailAddCartBtn').onclick = function() {
+                addToCart(title, discountedPrice);
+                closeModal('detailModal');
+                openCartModal();
+            };
+
+            document.getElementById('detailModal').style.display = 'flex';
+        }
+
+        function addToCart(title, price) {
+            cart.push({ title: title, price: price });
+            updateCartUI();
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            updateCartUI();
+        }
+
+        function updateCartUI() {
+            document.getElementById('cartCount').innerText = cart.length;
+            let list = document.getElementById('cartItemsList');
+            
+            if(cart.length === 0) {
+                list.innerHTML = '<p style="text-align: center; color: #888; padding: 20px 0;">Cart is empty / 购物车是空的</p>';
+            } else {
+                let html = '';
+                cart.forEach((item, index) => {
+                    html += `
+                        <div class="cart-item">
+                            <div>
+                                <strong>${item.title}</strong><br>
+                                <span style="color:#de2910;">$${item.price.toFixed(2)} USD</span>
+                            </div>
+                            <button onclick="removeFromCart(${index})" style="background:none; border:none; color:red; cursor:pointer; font-size:16px;">🗑️</button>
+                        </div>
+                    `;
+                });
+                list.innerHTML = html;
+            }
+            updateCartTotalPrice();
         }
 
         function setDelivery(type) {
@@ -202,19 +243,24 @@
                 document.getElementById('opt-normal').classList.add('active');
                 document.getElementById('opt-fast').classList.remove('active');
             }
-            updatePriceDisplay();
+            updateCartTotalPrice();
         }
 
-        function updatePriceDisplay() {
-            let finalPrice = currentBasePrice;
-            if(selectedDelivery === 'fast') {
-                finalPrice = currentBasePrice * 1.30; // Adds 30% for Express Delivery
+        function updateCartTotalPrice() {
+            let baseTotal = cart.reduce((sum, item) => sum + item.price, 0);
+            let finalTotal = baseTotal;
+            if(selectedDelivery === 'fast' && baseTotal > 0) {
+                finalTotal = baseTotal * 1.30; // 30% Extra for Express Delivery
             }
-            document.getElementById('modalPrice').innerText = '$' + finalPrice.toFixed(2) + ' USD';
+            document.getElementById('cartTotalPrice').innerText = '$' + finalTotal.toFixed(2) + ' USD';
         }
 
-        function closePayment() {
-            document.getElementById('paymentModal').style.display = 'none';
+        function openCartModal() {
+            document.getElementById('cartModal').style.display = 'flex';
+        }
+
+        function closeModal(id) {
+            document.getElementById(id).style.display = 'none';
         }
     </script>
 
