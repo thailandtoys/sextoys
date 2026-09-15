@@ -3,39 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>6Toys Store - Online Shop</title>
+    <title>6Toys Store - 直销专营店 Direct Factory Store</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: Arial, sans-serif; }
         body { background-color: #f8f9fa; color: #333; }
         
         /* Top Banner */
         .top-bar { background-color: #000; color: #fff; padding: 8px 15px; font-size: 13px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; }
-        
+        .china-badge { background: #de2910; color: #ffde00; font-weight: bold; padding: 2px 8px; border-radius: 3px; font-size: 12px; }
+
         /* Header */
         header { background-color: #ffffff; border-bottom: 1px solid #e1e1e1; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; }
         header h1 { font-size: 24px; font-weight: bold; color: #111; }
 
-        .announcement { background-color: #e63946; color: white; text-align: center; padding: 10px; font-size: 14px; font-weight: bold; }
+        .announcement { background-color: #de2910; color: white; text-align: center; padding: 10px; font-size: 14px; font-weight: bold; }
 
         /* Container & Grid */
         .container { max-width: 1200px; margin: 30px auto; padding: 0 15px; }
-        .section-title { text-align: center; margin-bottom: 25px; font-size: 26px; text-transform: uppercase; letter-spacing: 1px; }
+        .section-title { text-align: center; margin-bottom: 25px; font-size: 24px; text-transform: uppercase; letter-spacing: 1px; }
 
-        .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 25px; }
-        .product-card { background: white; border: 1px solid #eee; border-radius: 8px; padding: 15px; text-align: center; transition: 0.3s; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 25px; }
+        .product-card { background: white; border: 1px solid #eee; border-radius: 8px; padding: 15px; text-align: center; transition: 0.3s; box-shadow: 0 2px 5px rgba(0,0,0,0.05); position: relative; }
         .product-card:hover { box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
         .product-card img { width: 100%; height: 220px; object-fit: cover; border-radius: 6px; background-color: #f0f0f0; }
         
-        .product-title { font-size: 16px; margin: 12px 0 6px; font-weight: 600; color: #222; }
-        .price { color: #2ed573; font-size: 18px; font-weight: bold; margin-bottom: 12px; }
+        .product-tag { position: absolute; top: 25px; left: 25px; background: #de2910; color: #fff; font-size: 11px; padding: 3px 8px; border-radius: 3px; font-weight: bold; }
+        .product-title { font-size: 15px; margin: 12px 0 6px; font-weight: 600; color: #222; }
+        .cn-sub { font-size: 12px; color: #888; margin-bottom: 8px; }
+        .price { color: #de2910; font-size: 18px; font-weight: bold; margin-bottom: 12px; }
         
         .btn-buy { background-color: #000; color: white; padding: 10px 15px; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; width: 100%; transition: 0.2s; }
         .btn-buy:hover { background-color: #333; }
 
         /* Modal / Checkout */
         .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); justify-content: center; align-items: center; z-index: 999; }
-        .modal-content { background: white; padding: 25px; border-radius: 8px; width: 90%; max-width: 450px; text-align: center; }
-        .wallet-box { background: #f1f2f6; padding: 10px; margin: 10px 0; word-break: break-all; font-size: 13px; border: 1px dashed #ccc; border-radius: 4px; text-align: left; }
+        .modal-content { background: white; padding: 25px; border-radius: 8px; width: 90%; max-width: 480px; text-align: center; max-height: 90vh; overflow-y: auto; }
+        
+        .delivery-option { border: 2px solid #ddd; padding: 10px; border-radius: 6px; margin: 8px 0; cursor: pointer; text-align: left; transition: 0.2s; }
+        .delivery-option:hover, .delivery-option.active { border-color: #de2910; background: #fff8f8; }
+        
+        .wallet-box { background: #f1f2f6; padding: 10px; margin: 8px 0; word-break: break-all; font-size: 12px; border: 1px dashed #ccc; border-radius: 4px; text-align: left; }
         .paypal-btn { background-color: #0070ba; color: white; padding: 12px; border: none; border-radius: 4px; width: 100%; font-weight: bold; margin-top: 10px; cursor: pointer; text-decoration: none; display: block; }
         .close-btn { background: #ff4757; color: white; border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer; margin-top: 15px; }
     </style>
@@ -51,53 +58,62 @@
 <body>
 
     <div class="top-bar">
-        <span>✈️ Worldwide Fast & Discreet Shipping</span>
+        <span>🇨🇳 中国直发 Direct Air Shipping From China Mainland</span>
+        <span class="china-badge">中国制造 Authentic Chinese Supply</span>
         <div id="google_translate_element"></div>
     </div>
 
     <header>
-        <h1>6Toys Store</h1>
+        <h1>6Toys Store <span style="font-size:14px; font-weight:normal; color:#666;">(中国官方直营店)</span></h1>
     </header>
 
     <div class="announcement">
-        🔥 Special Discounts Available | Express Delivery Within 3-4 Days
+        🔥 限时优惠 | Direct Factory Price | Choose Fast 24-Hour Express Delivery
     </div>
 
     <div class="container">
-        <h2 class="section-title">New Collection Products</h2>
+        <h2 class="section-title">优质精选产品 Premium Selected Products</h2>
         
         <div class="product-grid">
             
             <!-- Product Item 1 -->
             <div class="product-card">
+                <span class="product-tag">热销包邮 Hot</span>
                 <img src="https://images.unsplash.com/photo-1563245372-f21724e3856d?w=500&auto=format&fit=crop&q=60" alt="Product 1">
                 <div class="product-title">Luxury Special Toy Set</div>
+                <div class="cn-sub">优质精选产品 - 中国制造</div>
                 <div class="price">$35.00 USD</div>
-                <button class="btn-buy" onclick="openPayment('Luxury Special Toy Set', '$35.00')">Buy Now / Purchase</button>
+                <button class="btn-buy" onclick="openPayment('Luxury Special Toy Set (优质精选)', 35)">Buy Now / 立即购买</button>
             </div>
 
             <!-- Product Item 2 -->
             <div class="product-card">
+                <span class="product-tag">新品上市 New</span>
                 <img src="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=500&auto=format&fit=crop&q=60" alt="Product 2">
                 <div class="product-title">Premium Comfort Edition</div>
+                <div class="cn-sub">限时优惠 - 高品质保证</div>
                 <div class="price">$45.00 USD</div>
-                <button class="btn-buy" onclick="openPayment('Premium Comfort Edition', '$45.00')">Buy Now / Purchase</button>
+                <button class="btn-buy" onclick="openPayment('Premium Comfort Edition (限时优惠)', 45)">Buy Now / 立即购买</button>
             </div>
 
             <!-- Product Item 3 -->
             <div class="product-card">
+                <span class="product-tag">官方推荐 Top</span>
                 <img src="https://images.unsplash.com/photo-1513151233558-d860c5398176?w=500&auto=format&fit=crop&q=60" alt="Product 3">
                 <div class="product-title">Ultra Automatic Model</div>
+                <div class="cn-sub">原装正品 - 全球配送</div>
                 <div class="price">$50.00 USD</div>
-                <button class="btn-buy" onclick="openPayment('Ultra Automatic Model', '$50.00')">Buy Now / Purchase</button>
+                <button class="btn-buy" onclick="openPayment('Ultra Automatic Model (原装正品)', 50)">Buy Now / 立即购买</button>
             </div>
 
             <!-- Product Item 4 -->
             <div class="product-card">
+                <span class="product-tag">豪华套餐 Deluxe</span>
                 <img src="https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?w=500&auto=format&fit=crop&q=60" alt="Product 4">
                 <div class="product-title">Exclusive Deluxe Pack</div>
+                <div class="cn-sub">厂家直销 - 免费配送</div>
                 <div class="price">$65.00 USD</div>
-                <button class="btn-buy" onclick="openPayment('Exclusive Deluxe Pack', '$65.00')">Buy Now / Purchase</button>
+                <button class="btn-buy" onclick="openPayment('Exclusive Deluxe Pack (厂家直销)', 65)">Buy Now / 立即购买</button>
             </div>
 
         </div>
@@ -106,12 +122,29 @@
     <!-- Payment Checkout Modal -->
     <div class="modal" id="paymentModal">
         <div class="modal-content">
-            <h3 id="modalTitle">Checkout</h3>
-            <p id="modalPrice" style="margin: 10px 0; font-weight: bold; color:#2ed573;"></p>
+            <h3 id="modalTitle">Checkout / 结账</h3>
             
-            <hr style="margin:15px 0; border:0; border-top:1px solid #eee;">
+            <hr style="margin:12px 0; border:0; border-top:1px solid #eee;">
 
-            <p style="text-align:left; font-size:14px;"><strong>Option 1: Crypto Payment (USDT / BTC)</strong></p>
+            <!-- Delivery Options -->
+            <p style="text-align:left; font-size:13px; font-weight:bold; margin-bottom:5px;">Select Delivery Speed / 选择配送方式:</p>
+            
+            <div class="delivery-option active" id="opt-normal" onclick="setDelivery('normal')">
+                <strong>📦 Standard Air Shipping (标准配送)</strong><br>
+                <span style="font-size:12px; color:#555;">Delivery Time: 3 - 4 Days (Base Price / 免费)</span>
+            </div>
+
+            <div class="delivery-option" id="opt-fast" onclick="setDelivery('fast')">
+                <strong>⚡ VIP Express Air Dispatch (⚡ 24小时极速达)</strong><br>
+                <span style="font-size:12px; color:#de2910; font-weight:bold;">Guaranteed Within 24 Hours (+30% Express Surcharge)</span>
+            </div>
+
+            <div style="margin: 15px 0; background: #fff0f0; padding: 10px; border-radius: 5px;">
+                <span style="font-size:14px;">Total Payable / 应付总额:</span>
+                <span id="modalPrice" style="font-size:20px; font-weight:bold; color:#de2910;"></span>
+            </div>
+
+            <p style="text-align:left; font-size:13px;"><strong>Option 1: Crypto Payment (USDT / BTC)</strong></p>
             <div class="wallet-box">
                 <strong>USDT (TRC20):</strong><br>
                 <span>YOUR_USDT_TRC20_WALLET_ADDRESS</span>
@@ -121,22 +154,46 @@
                 <span>YOUR_BITCOIN_WALLET_ADDRESS</span>
             </div>
 
-            <p style="text-align:left; font-size:14px; margin-top:15px;"><strong>Option 2: PayPal / Credit Card</strong></p>
-            <a href="https://www.paypal.com" target="_blank" class="paypal-btn">Pay via PayPal</a>
+            <p style="text-align:left; font-size:13px; margin-top:10px;"><strong>Option 2: Credit Card / PayPal</strong></p>
+            <a href="https://www.paypal.com" target="_blank" class="paypal-btn">Pay via PayPal / 💳 信用卡支付</a>
 
-            <p style="font-size: 11px; color: #666; margin-top: 15px;">
-                * Send payment confirmation screenshot to complete delivery.
-            </p>
-
-            <button class="close-btn" onclick="closePayment()">Close Window</button>
+            <button class="close-btn" onclick="closePayment()">Close Window / 关闭</button>
         </div>
     </div>
 
     <script>
-        function openPayment(productName, price) {
-            document.getElementById('modalTitle').innerText = 'Pay for ' + productName;
-            document.getElementById('modalPrice').innerText = 'Total Price: ' + price;
+        let currentBasePrice = 0;
+        let selectedDelivery = 'normal';
+
+        function openPayment(productName, basePrice) {
+            currentBasePrice = basePrice;
+            selectedDelivery = 'normal';
+            document.getElementById('opt-normal').classList.add('active');
+            document.getElementById('opt-fast').classList.remove('active');
+            
+            document.getElementById('modalTitle').innerText = productName;
+            updatePriceDisplay();
             document.getElementById('paymentModal').style.display = 'flex';
+        }
+
+        function setDelivery(type) {
+            selectedDelivery = type;
+            if(type === 'fast') {
+                document.getElementById('opt-fast').classList.add('active');
+                document.getElementById('opt-normal').classList.remove('active');
+            } else {
+                document.getElementById('opt-normal').classList.add('active');
+                document.getElementById('opt-fast').classList.remove('active');
+            }
+            updatePriceDisplay();
+        }
+
+        function updatePriceDisplay() {
+            let finalPrice = currentBasePrice;
+            if(selectedDelivery === 'fast') {
+                finalPrice = currentBasePrice * 1.30; // 30% increase for express delivery
+            }
+            document.getElementById('modalPrice').innerText = '$' + finalPrice.toFixed(2) + ' USD';
         }
 
         function closePayment() {
