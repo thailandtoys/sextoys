@@ -30,7 +30,9 @@
         .product-tag { position: absolute; top: 25px; left: 25px; background: #de2910; color: #fff; font-size: 11px; padding: 3px 8px; border-radius: 3px; font-weight: bold; }
         .product-title { font-size: 15px; margin: 12px 0 6px; font-weight: 600; color: #222; }
         .cn-sub { font-size: 12px; color: #888; margin-bottom: 8px; }
-        .price { color: #de2910; font-size: 18px; font-weight: bold; margin-bottom: 12px; }
+        .price-box { margin-bottom: 12px; }
+        .original-price { text-decoration: line-through; color: #888; font-size: 14px; margin-right: 6px; }
+        .price { color: #de2910; font-size: 18px; font-weight: bold; }
         
         .btn-buy { background-color: #000; color: white; padding: 10px 15px; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; width: 100%; transition: 0.2s; }
         .btn-buy:hover { background-color: #333; }
@@ -68,52 +70,116 @@
     </header>
 
     <div class="announcement">
-        🔥 限时优惠 | Direct Factory Price | Choose Fast 24-Hour Express Delivery
+        🔥 限时特惠 | Direct Factory Discount | Fast 24-Hour Express Shipping Available
     </div>
 
     <div class="container">
-        <h2 class="section-title">优质精选产品 Premium Selected Products</h2>
+        <h2 class="section-title">优质精选产品 Premium Direct Products</h2>
         
         <div class="product-grid">
             
-            <!-- Product Item 1 -->
+            <!-- Item 1 (Was $6.99 -> 30% Off -> $4.89) -->
             <div class="product-card">
                 <span class="product-tag">热销包邮 Hot</span>
-                <img src="https://images.unsplash.com/photo-1563245372-f21724e3856d?w=500&auto=format&fit=crop&q=60" alt="Product 1">
-                <div class="product-title">Luxury Special Toy Set</div>
-                <div class="cn-sub">优质精选产品 - 中国制造</div>
-                <div class="price">$35.00 USD</div>
-                <button class="btn-buy" onclick="openPayment('Luxury Special Toy Set (优质精选)', 35)">Buy Now / 立即购买</button>
+                <img src="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=500&auto=format&fit=crop&q=60" alt="Product 1">
+                <div class="product-title">Tush Mini Delight Toy</div>
+                <div class="cn-sub">迷你精选版 - 中国工厂直供</div>
+                <div class="price-box">
+                    <span class="original-price">$6.99</span>
+                    <span class="price">$4.89 USD</span>
+                </div>
+                <button class="btn-buy" onclick="openPayment('Tush Mini Delight Toy (迷你精选)', 4.89)">Buy Now / 立即购买</button>
             </div>
 
-            <!-- Product Item 2 -->
+            <!-- Item 2 (Was $7.99 -> 30% Off -> $5.59) -->
             <div class="product-card">
                 <span class="product-tag">新品上市 New</span>
-                <img src="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=500&auto=format&fit=crop&q=60" alt="Product 2">
-                <div class="product-title">Premium Comfort Edition</div>
-                <div class="cn-sub">限时优惠 - 高品质保证</div>
-                <div class="price">$45.00 USD</div>
-                <button class="btn-buy" onclick="openPayment('Premium Comfort Edition (限时优惠)', 45)">Buy Now / 立即购买</button>
+                <img src="https://images.unsplash.com/photo-1563245372-f21724e3856d?w=500&auto=format&fit=crop&q=60" alt="Product 2">
+                <div class="product-title">Classic Beginner Edition</div>
+                <div class="cn-sub">限时特惠 - 原厂正品</div>
+                <div class="price-box">
+                    <span class="original-price">$7.99</span>
+                    <span class="price">$5.59 USD</span>
+                </div>
+                <button class="btn-buy" onclick="openPayment('Classic Beginner Edition (原厂正品)', 5.59)">Buy Now / 立即购买</button>
             </div>
 
-            <!-- Product Item 3 -->
+            <!-- Item 3 (Was $17.99 -> 40% Off -> $10.79) -->
             <div class="product-card">
                 <span class="product-tag">官方推荐 Top</span>
                 <img src="https://images.unsplash.com/photo-1513151233558-d860c5398176?w=500&auto=format&fit=crop&q=60" alt="Product 3">
-                <div class="product-title">Ultra Automatic Model</div>
-                <div class="cn-sub">原装正品 - 全球配送</div>
-                <div class="price">$50.00 USD</div>
-                <button class="btn-buy" onclick="openPayment('Ultra Automatic Model (原装正品)', 50)">Buy Now / 立即购买</button>
+                <div class="product-title">Elite Silicone Comfort System</div>
+                <div class="cn-sub">优质硅胶材质 - 全球配送</div>
+                <div class="price-box">
+                    <span class="original-price">$17.99</span>
+                    <span class="price">$10.79 USD</span>
+                </div>
+                <button class="btn-buy" onclick="openPayment('Elite Silicone Comfort System (优质硅胶)', 10.79)">Buy Now / 立即购买</button>
             </div>
 
-            <!-- Product Item 4 -->
+            <!-- Item 4 (Was $19.99 -> 40% Off -> $11.99) -->
             <div class="product-card">
-                <span class="product-tag">豪华套餐 Deluxe</span>
+                <span class="product-tag">热销爆款 Popular</span>
                 <img src="https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?w=500&auto=format&fit=crop&q=60" alt="Product 4">
-                <div class="product-title">Exclusive Deluxe Pack</div>
-                <div class="cn-sub">厂家直销 - 免费配送</div>
-                <div class="price">$65.00 USD</div>
-                <button class="btn-buy" onclick="openPayment('Exclusive Deluxe Pack (厂家直销)', 65)">Buy Now / 立即购买</button>
+                <div class="product-title">Sensual Overloader Pack</div>
+                <div class="cn-sub">厂家直销 - 高品质保证</div>
+                <div class="price-box">
+                    <span class="original-price">$19.99</span>
+                    <span class="price">$11.99 USD</span>
+                </div>
+                <button class="btn-buy" onclick="openPayment('Sensual Overloader Pack (高品质)', 11.99)">Buy Now / 立即购买</button>
+            </div>
+
+            <!-- Item 5 (Was $34.99 -> 50% Off -> $17.50) -->
+            <div class="product-card">
+                <span class="product-tag">豪华套装 Deluxe</span>
+                <img src="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=500&auto=format&fit=crop&q=60" alt="Product 5">
+                <div class="product-title">Love Wag Deluxe Edition</div>
+                <div class="cn-sub">豪华多功能 - 50%限时折扣</div>
+                <div class="price-box">
+                    <span class="original-price">$34.99</span>
+                    <span class="price">$17.50 USD</span>
+                </div>
+                <button class="btn-buy" onclick="openPayment('Love Wag Deluxe Edition (豪华多功能)', 17.50)">Buy Now / 立即购买</button>
+            </div>
+
+            <!-- Item 6 (Was $39.99 -> 50% Off -> $20.00) -->
+            <div class="product-card">
+                <span class="product-tag">震动旗舰 Vibro</span>
+                <img src="https://images.unsplash.com/photo-1563245372-f21724e3856d?w=500&auto=format&fit=crop&q=60" alt="Product 6">
+                <div class="product-title">Octobooty Dual-Motor Model</div>
+                <div class="cn-sub">双马达强力震动 - 原装正品</div>
+                <div class="price-box">
+                    <span class="original-price">$39.99</span>
+                    <span class="price">$20.00 USD</span>
+                </div>
+                <button class="btn-buy" onclick="openPayment('Octobooty Dual-Motor (双马达强力)', 20.00)">Buy Now / 立即购买</button>
+            </div>
+
+            <!-- Item 7 (Was $49.99 -> 50% Off -> $25.00) -->
+            <div class="product-card">
+                <span class="product-tag">极品推荐 Premium</span>
+                <img src="https://images.unsplash.com/photo-1513151233558-d860c5398176?w=500&auto=format&fit=crop&q=60" alt="Product 7">
+                <div class="product-title">Booty Shaker Ultra System</div>
+                <div class="cn-sub">智能多频调速 - 中国直运</div>
+                <div class="price-box">
+                    <span class="original-price">$49.99</span>
+                    <span class="price">$25.00 USD</span>
+                </div>
+                <button class="btn-buy" onclick="openPayment('Booty Shaker Ultra System (智能多频)', 25.00)">Buy Now / 立即购买</button>
+            </div>
+
+            <!-- Item 8 (Was $89.99 -> 50% Off -> $45.00) -->
+            <div class="product-card">
+                <span class="product-tag">尊享旗舰 VIP</span>
+                <img src="https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?w=500&auto=format&fit=crop&q=60" alt="Product 8">
+                <div class="product-title">Unity C-Shaped Dual Vibrator</div>
+                <div class="cn-sub">C型双电机 - 工厂直供全防水</div>
+                <div class="price-box">
+                    <span class="original-price">$89.99</span>
+                    <span class="price">$45.00 USD</span>
+                </div>
+                <button class="btn-buy" onclick="openPayment('Unity C-Shaped Vibrator (C型双电机)', 45.00)">Buy Now / 立即购买</button>
             </div>
 
         </div>
@@ -127,11 +193,11 @@
             <hr style="margin:12px 0; border:0; border-top:1px solid #eee;">
 
             <!-- Delivery Options -->
-            <p style="text-align:left; font-size:13px; font-weight:bold; margin-bottom:5px;">Select Delivery Speed / 选择配送方式:</p>
+            <p style="text-align:left; font-size:13px; font-weight:bold; margin-bottom:5px;">Select Shipping Method / 选择配送方式:</p>
             
             <div class="delivery-option active" id="opt-normal" onclick="setDelivery('normal')">
                 <strong>📦 Standard Air Shipping (标准配送)</strong><br>
-                <span style="font-size:12px; color:#555;">Delivery Time: 3 - 4 Days (Base Price / 免费)</span>
+                <span style="font-size:12px; color:#555;">Delivery Time: 3 - 4 Days (Normal Rate / 免费)</span>
             </div>
 
             <div class="delivery-option" id="opt-fast" onclick="setDelivery('fast')">
@@ -140,7 +206,7 @@
             </div>
 
             <div style="margin: 15px 0; background: #fff0f0; padding: 10px; border-radius: 5px;">
-                <span style="font-size:14px;">Total Payable / 应付总额:</span>
+                <span style="font-size:14px;">Total Amount / 应付总额:</span>
                 <span id="modalPrice" style="font-size:20px; font-weight:bold; color:#de2910;"></span>
             </div>
 
@@ -191,7 +257,7 @@
         function updatePriceDisplay() {
             let finalPrice = currentBasePrice;
             if(selectedDelivery === 'fast') {
-                finalPrice = currentBasePrice * 1.30; // 30% increase for express delivery
+                finalPrice = currentBasePrice * 1.30; // Adds 30% for Express 24-Hour Delivery
             }
             document.getElementById('modalPrice').innerText = '$' + finalPrice.toFixed(2) + ' USD';
         }
