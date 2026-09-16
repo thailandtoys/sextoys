@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Store - Premium E-Commerce</title>
+    <title>Edenic - Premium Store</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
@@ -12,8 +12,8 @@
     <!-- Header / Logo -->
     <header class="sticky top-0 z-50 bg-zinc-900/90 backdrop-blur border-b border-zinc-800 px-6 py-4 flex justify-between items-center">
         <div class="flex items-center space-x-3">
-            <div class="bg-rose-600 text-white font-bold px-3 py-1.5 rounded-lg text-xl tracking-wider">STORE</div>
-            <span class="text-xs text-zinc-400 hidden sm:inline">Secure Crypto Checkout</span>
+            <div class="bg-rose-600 text-white font-extrabold px-3 py-1.5 rounded-lg text-xl tracking-wider">EDENIC</div>
+            <span class="text-xs text-zinc-400 hidden sm:inline">Luxury & Wellness Collection</span>
         </div>
         <button onclick="openCart()" class="relative bg-zinc-800 hover:bg-zinc-700 px-4 py-2 rounded-full text-sm font-medium flex items-center space-x-2 transition">
             <i class="fa-solid fa-cart-shopping text-rose-500"></i>
@@ -30,17 +30,19 @@
         </div>
     </main>
 
-    <!-- Product Detail Modal -->
-    <div id="product-modal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-4 overflow-y-auto">
-        <div class="bg-zinc-900 border border-zinc-800 rounded-2xl max-w-4xl w-full p-6 relative max-h-[90vh] overflow-y-auto">
-            <button onclick="closeProductModal()" class="absolute top-4 right-4 text-zinc-400 hover:text-white text-xl bg-zinc-800 w-10 h-10 rounded-full flex items-center justify-center">
+    <!-- Product Detail Modal (EdenFantasys Style) -->
+    <div id="product-modal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-sm hidden flex items-center justify-center p-4 overflow-y-auto">
+        <div class="bg-zinc-900 border border-zinc-800 rounded-2xl max-w-4xl w-full p-6 relative max-h-[90vh] overflow-y-auto shadow-2xl">
+            <button onclick="closeProductModal()" class="absolute top-4 right-4 text-zinc-400 hover:text-white text-xl bg-zinc-800 w-10 h-10 rounded-full flex items-center justify-center transition">
                 <i class="fa-solid fa-xmark"></i>
             </button>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div>
-                    <div class="bg-zinc-950 rounded-xl overflow-hidden mb-4 border border-zinc-800 h-80 flex items-center justify-center">
-                        <img id="modal-main-img" src="" alt="" class="max-h-full max-w-full object-cover">
+                    <!-- Main Media Display (Image or Video) -->
+                    <div id="modal-media-container" class="bg-zinc-950 rounded-xl overflow-hidden mb-4 border border-zinc-800 h-80 flex items-center justify-center relative">
+                        <!-- Injected via JS -->
                     </div>
+                    <!-- Thumbnails Gallery -->
                     <div id="modal-thumbnails" class="flex space-x-2 overflow-x-auto pb-2">
                         <!-- Thumbnails -->
                     </div>
@@ -70,7 +72,7 @@
     </div>
 
     <!-- Checkout / Cart Drawer & Modal -->
-    <div id="cart-drawer" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex justify-end">
+    <div id="cart-drawer" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-sm hidden flex justify-end">
         <div class="bg-zinc-900 border-l border-zinc-800 w-full max-w-md h-full flex flex-col justify-between p-6 overflow-y-auto">
             <div>
                 <div class="flex justify-between items-center mb-6 border-b border-zinc-800 pb-4">
@@ -101,15 +103,29 @@
                     </button>
                 </div>
 
-                <!-- Step 2: Customer Details & Shipping Option -->
+                <!-- Step 2: Customer Details & Shipping Option with Country Code -->
                 <div id="step-2-content" class="hidden space-y-4">
                     <div>
                         <label class="block text-xs text-zinc-400 mb-1">Full Name</label>
                         <input type="text" id="cust-name" class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-rose-500" placeholder="John Doe">
                     </div>
                     <div>
-                        <label class="block text-xs text-zinc-400 mb-1">Mobile Number</label>
-                        <input type="text" id="cust-phone" class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-rose-500" placeholder="+92 300 1234567">
+                        <label class="block text-xs text-zinc-400 mb-1">Mobile Number (with Country Code)</label>
+                        <div class="flex space-x-2">
+                            <select id="cust-country-code" class="bg-zinc-950 border border-zinc-800 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:border-rose-500 text-zinc-200">
+                                <option value="+92">+92 (PK)</option>
+                                <option value="+1">+1 (US/CA)</option>
+                                <option value="+44">+44 (UK)</option>
+                                <option value="+971">+971 (UAE)</option>
+                                <option value="+966">+966 (KSA)</option>
+                                <option value="+91">+91 (IN)</option>
+                                <option value="+49">+49 (DE)</option>
+                                <option value="+33">+33 (FR)</option>
+                                <option value="+61">+61 (AU)</option>
+                                <option value="+81">+81 (JP)</option>
+                            </select>
+                            <input type="text" id="cust-phone" class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-rose-500" placeholder="3001234567">
+                        </div>
                     </div>
                     <div>
                         <label class="block text-xs text-zinc-400 mb-1">Delivery Address</label>
@@ -134,7 +150,7 @@
                         <label class="block text-xs text-zinc-400 mb-1">Select Cryptocurrency Wallet</label>
                         <select id="crypto-select" onchange="renderPaymentQR()" class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-rose-500">
                             <option value="usdt_trc20">USDT (TRC20 - Binance)</option>
-                            <option value="usdt_erc20">USDT (ERC/Trust Wallet)</option>
+                            <option value="usdt_erc20">USDT (ERC20 / Trust Wallet)</option>
                             <option value="btc_binance">Bitcoin (Binance)</option>
                             <option value="btc_trust">Bitcoin (Trust Wallet)</option>
                             <option value="bnb_bsc">BNB / BSC (Binance)</option>
@@ -169,41 +185,53 @@
     </div>
 
     <script>
-        // Sample Products (representing initial links)
+        // Products built using your exact provided media links (Images and Videos)
         const products = [
             {
                 id: 1,
-                name: "Premium Wellness Formula Ronic N",
-                price: 45.00,
-                desc: "High-grade premium formulation designed for maximum daily vitality. Crafted with international standards.",
-                images: [
-                    "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=600",
-                    "https://images.unsplash.com/photo-1471864190281-a93a3070b6de?w=600"
+                name: "Luxury Dual Pleasure Device",
+                price: 65.00,
+                desc: "State-of-the-art ergonomic design with multi-speed vibration patterns, whisper-quiet motors, and premium body-safe silicone.",
+                media: [
+                    { type: 'image', url: 'https://cdn5.edenfantasys.com/assets/2025/3/8b1d790e2ab94582a5a915d2efaa20ba.jpg?width=500&format=webp' },
+                    { type: 'video', url: 'https://cdn4.edenfantasys.com/assets/2024/12/3e30b92834034df3bd0faedaf610ff24.mp4' }
                 ]
             },
             {
                 id: 2,
-                name: "Advanced Centrovit Supplement",
-                price: 30.00,
-                desc: "Complete multivitamin complex supporting holistic health and sustained daily performance.",
-                images: [
-                    "https://images.unsplash.com/photo-1550572017-edd951b55104?w=600",
-                    "https://images.unsplash.com/photo-1584017911766-d451b3d0e843?w=600"
+                name: "Advanced Stimulator Elite",
+                price: 79.00,
+                desc: "Engineered for simultaneous dual-action pleasure with waterproof build and high-intensity customizable pulsation modes.",
+                media: [
+                    { type: 'image', url: 'https://cdn5.edenfantasys.com/assets/2026/6/d3fca1b4d4a8489ea6a14ae02873c3b9.jpg?width=500&format=webp' },
+                    { type: 'image', url: 'https://cdn5.edenfantasys.com/assets/ProductImages/1000x1000/JTSE019_2.jpg?width=500&format=webp' },
+                    { type: 'video', url: 'https://cdn4.edenfantasys.com/assets/2024/10/f517865a90b340e89b3f68892487786f.mp4' }
                 ]
             },
             {
                 id: 3,
-                name: "D3 Life Immunity Booster",
-                price: 25.00,
-                desc: "Essential vitamin support for bone health, immune defense, and cellular protection.",
-                images: [
-                    "https://images.unsplash.com/photo-1576602976047-174e57a47881?w=600",
-                    "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=600"
+                name: "Pro Wand Massager",
+                price: 89.00,
+                desc: "Deep penetrating power waves designed to relieve tension and deliver intense satisfaction with flexible neck support.",
+                media: [
+                    { type: 'image', url: 'https://cdn5.edenfantasys.com/assets/2025/6/4c6900ad17cd45d3a4b5e11be5ffab3c.jpg?width=500&format=webp' },
+                    { type: 'video', url: 'https://cdn4.edenfantasys.com/assets/2024/8/3cf3f1832949427f8d75dcf554a963aa.mp4' }
+                ]
+            },
+            {
+                id: 4,
+                name: "Compact Travel Elegance",
+                price: 49.00,
+                desc: "Discreet, rechargeable, and travel-friendly luxury design offering powerful performance and waterproof capability on the go.",
+                media: [
+                    { type: 'image', url: 'https://cdn5.edenfantasys.com/assets/ProductImages/original/listing/ET121620.jpg?width=500&format=webp' },
+                    { type: 'video', url: 'https://cdn4.edenfantasys.com/assets/2024/8/49e47ef5b31b47cb8ec57b3d3d26ea7b.mp4' },
+                    { type: 'image', url: 'https://cdn5.edenfantasys.com/assets/2024/11/69458cd66b7943abb298d90151bf7c81.jpg?width=500&format=webp' }
                 ]
             }
         ];
 
-        // Wallet Addresses from your provided screenshots
+        // Your exact wallet addresses from screenshots
         const wallets = {
             usdt_trc20: "TFQvBjw2BioW9V32XLuMRy9R8V3iMFB5VY",
             usdt_erc20: "0xc5ccE5826F48C601fD75682D19a1e3D99d16aC13",
@@ -219,20 +247,23 @@
         // Render Product Grid
         function renderProducts() {
             const grid = document.getElementById('product-grid');
-            grid.innerHTML = products.map(p => `
-                <div onclick="openProductModal(${p.id})" class="bg-zinc-900 border border-zinc-800 rounded-2xl overflow-hidden cursor-pointer hover:border-zinc-700 transition group">
-                    <div class="h-48 bg-zinc-950 overflow-hidden flex items-center justify-center p-4">
-                        <img src="${p.images[0]}" alt="${p.name}" class="object-cover h-full group-hover:scale-105 transition duration-300">
+            grid.innerHTML = products.map(p => {
+                let thumb = p.media[0].type === 'image' ? p.media[0].url : p.media[1]?.url || p.media[0].url;
+                return `
+                    <div onclick="openProductModal(${p.id})" class="bg-zinc-900 border border-zinc-800 rounded-2xl overflow-hidden cursor-pointer hover:border-zinc-700 transition group shadow-lg">
+                        <div class="h-48 bg-zinc-950 overflow-hidden flex items-center justify-center p-4 relative">
+                            <img src="${thumb}" alt="${p.name}" class="object-cover h-full w-full group-hover:scale-105 transition duration-300">
+                        </div>
+                        <div class="p-4">
+                            <h3 class="font-semibold text-zinc-100 truncate mb-1">${p.name}</h3>
+                            <p class="text-rose-500 font-bold">$${p.price.toFixed(2)}</p>
+                        </div>
                     </div>
-                    <div class="p-4">
-                        <h3 class="font-semibold text-zinc-100 truncate mb-1">${p.name}</h3>
-                        <p class="text-rose-500 font-bold">$${p.price.toFixed(2)}</p>
-                    </div>
-                </div>
-            `).join('');
+                `;
+            }).join('');
         }
 
-        // Modal Handling
+        // Modal Handling with EdenFantasys style media viewer
         function openProductModal(id) {
             currentModalProduct = products.find(p => p.id === id);
             modalQty = 1;
@@ -240,14 +271,27 @@
             document.getElementById('modal-title').innerText = currentModalProduct.name;
             document.getElementById('modal-price').innerText = `$${currentModalProduct.price.toFixed(2)}`;
             document.getElementById('modal-desc').innerText = currentModalProduct.desc;
-            document.getElementById('modal-main-img').src = currentModalProduct.images[0];
+            
+            setModalMedia(currentModalProduct.media[0]);
 
             const thumbContainer = document.getElementById('modal-thumbnails');
-            thumbContainer.innerHTML = currentModalProduct.images.map((img, idx) => `
-                <img src="${img}" onclick="document.getElementById('modal-main-img').src='${img}'" class="w-16 h-16 object-cover rounded-lg border border-zinc-700 cursor-pointer hover:opacity-75">
+            thumbContainer.innerHTML = currentModalProduct.media.map((m, idx) => `
+                <div onclick='setModalMedia(${JSON.stringify(m)})' class="w-16 h-16 bg-zinc-950 rounded-lg border border-zinc-700 cursor-pointer hover:opacity-75 overflow-hidden flex items-center justify-center relative flex-shrink-0">
+                    ${m.type === 'video' ? '<i class="fa-solid fa-play absolute text-white text-xs bg-black/50 p-1.5 rounded-full"></i>' : ''}
+                    <img src="${m.type === 'image' ? m.url : 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=200'}" class="object-cover w-full h-full">
+                </div>
             `).join('');
 
             document.getElementById('product-modal').classList.remove('hidden');
+        }
+
+        function setModalMedia(mediaObj) {
+            const container = document.getElementById('modal-media-container');
+            if (mediaObj.type === 'video') {
+                container.innerHTML = `<video src="${mediaObj.url}" controls autoplay loop muted class="max-h-full max-w-full object-cover rounded-lg"></video>`;
+            } else {
+                container.innerHTML = `<img src="${mediaObj.url}" class="max-h-full max-w-full object-cover rounded-lg">`;
+            }
         }
 
         function closeProductModal() {
@@ -362,12 +406,11 @@
 
             document.getElementById('wallet-address-text').innerText = address;
             
-            // Generate dynamic QR code matching wallet address and amount
             let qrData = address;
             if (cryptoKey.includes('usdt')) {
                 qrData = `ethereum:${address}?value=${finalAmount.toFixed(2)}`;
             } else if (cryptoKey.includes('btc')) {
-                qrData = `bitcoin:${address}?amount=${(finalAmount / 60000).toFixed(6)}`; // Approximate BTC conversion rate mockup
+                qrData = `bitcoin:${address}?amount=${(finalAmount / 60000).toFixed(6)}`;
             }
 
             document.getElementById('dynamic-qr-img').src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(qrData)}`;
@@ -381,7 +424,9 @@
 
         function completeOrderWhatsApp() {
             const name = document.getElementById('cust-name').value;
+            const countryCode = document.getElementById('cust-country-code').value;
             const phone = document.getElementById('cust-phone').value;
+            const fullPhone = `${countryCode} ${phone}`;
             const address = document.getElementById('cust-address').value;
             const speed = document.getElementById('delivery-speed').value;
             const crypto = document.getElementById('crypto-select').value;
@@ -390,9 +435,9 @@
 
             let itemsText = cart.map(i => `- ${i.name} (Qty: ${i.qty}) - $${(i.price * i.qty).toFixed(2)}`).join('\n');
 
-            let message = `🚀 *New Order Received!*\n\n` +
+            let message = `🚀 *New Order Received!* \n\n` +
                           `👤 *Customer Name:* ${name}\n` +
-                          `📞 *Phone:* ${phone}\n` +
+                          `📞 *Phone:* ${fullPhone}\n` +
                           `📍 *Address:* ${address}\n` +
                           `🚚 *Delivery:* ${speed === 'fast' ? '24-Hour Express (+30%)' : 'Standard'}\n\n` +
                           `📦 *Products:*\n${itemsText}\n\n` +
@@ -400,7 +445,6 @@
                           `🪙 *Payment Crypto:* ${crypto.toUpperCase()}\n` +
                           `📫 *Wallet Used:* ${wallets[crypto]}`;
 
-            // Replace with your actual WhatsApp phone number if needed, or leave it ready for user
             let whatsappUrl = `https://wa.me/?text=${encodeURIComponent(message)}`;
             window.open(whatsappUrl, '_blank');
         }
