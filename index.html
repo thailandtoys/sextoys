@@ -50,7 +50,6 @@
 
             <!-- Action Buttons -->
             <div class="flex items-center space-x-3">
-                <!-- Secret Admin Login Button (Only Admin Password Opens Orders Log) -->
                 <button onclick="promptAdminLogin()" class="bg-zinc-800/80 hover:bg-zinc-700 text-zinc-400 px-3 py-2 rounded-xl text-xs font-semibold border border-zinc-700 transition flex items-center gap-1.5" title="Admin Access Only">
                     <i class="fa-solid fa-lock text-rose-500"></i>
                     <span>Admin</span>
@@ -181,7 +180,6 @@
                         <input type="text" id="cust-name" class="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-rose-500" placeholder="Enter full name">
                     </div>
                     
-                    <!-- Mobile Number with Global Country Code Select Box -->
                     <div>
                         <label class="block text-xs font-medium text-zinc-400 mb-1">Mobile / Phone Number / 电话 *</label>
                         <div class="flex space-x-2">
@@ -268,7 +266,7 @@
         </div>
     </div>
 
-    <!-- Admin Orders Dashboard Modal (Password Protected) -->
+    <!-- Admin Orders Dashboard Modal -->
     <div id="admin-modal" class="fixed inset-0 z-50 bg-black/90 backdrop-blur-md hidden flex items-center justify-center p-4">
         <div class="bg-zinc-900 border border-zinc-800 rounded-2xl max-w-6xl w-full p-6 relative max-h-[90vh] overflow-y-auto">
             <div class="flex justify-between items-center mb-6 border-b border-zinc-800 pb-4">
@@ -322,7 +320,6 @@
         let currentPaymentID = null;
         let pollingInterval = null;
 
-        // Auto Detect Country Code
         async function autoDetectCountryCode() {
             try {
                 const res = await fetch('https://ipapi.co/json/');
@@ -340,19 +337,91 @@
             } catch (e) { console.log("Country auto-detect skipped"); }
         }
 
-        // Base Products Array (With Real Factory Base Prices)
+        // Standardized Products List with Isolated Media Items (No Cross-Mixing)
         const products = [
-            { id: 1, name: "Sex Toys Motion Elegance Probe", category: "women", basePrice: 6.50, desc: "Dual motion precision stimulator featuring ultra-smooth silicone finish, dual motor design, and ergonomic curve.", media: [{ type: 'video', url: 'https://cdn4.edenfantasys.com/assets/2024/12/3e30b92834034df3bd0faedaf610ff24.mp4' }, { type: 'image', url: 'https://cdn5.edenfantasys.com/assets/2025/3/8b1d790e2ab94582a5a915d2efaa20ba.jpg?width=500&format=webp' }] },
-            { id: 2, name: "Sex Toys Aura Pulse Dual Stimulator", category: "women", basePrice: 15.00, desc: "Waterproof luxury dual stimulator designed for maximum ergonomics and deep resonance waves.", media: [{ type: 'image', url: 'https://cdn5.edenfantasys.com/assets/2026/6/d3fca1b4d4a8489ea6a14ae02873c3b9.jpg?width=500&format=webp' }, { type: 'image', url: 'https://cdn5.edenfantasys.com/assets/ProductImages/1000x1000/JTSE019_2.jpg?width=500&format=webp' }] },
-            { id: 3, name: "Sex Toys Velvet Touch Precision Wand", category: "women", basePrice: 28.00, desc: "Rechargeable deep-tissue massager with dynamic flexibility and multi-speed vibration intensity.", media: [{ type: 'image', url: 'https://cdn5.edenfantasys.com/assets/2025/6/4c6900ad17cd45d3a4b5e11be5ffab3c.jpg?width=500&format=webp' }, { type: 'video', url: 'https://cdn4.edenfantasys.com/assets/2024/10/f517865a90b340e89b3f68892487786f.mp4' }] },
-            { id: 4, name: "Sex Toys Shared Intimacy Couples Loop", category: "couples", basePrice: 35.00, desc: "Ergonomic couples stimulator for enhanced shared intimacy and synchronized dual vibrations.", media: [{ type: 'video', url: 'https://cdn4.edenfantasys.com/assets/2024/8/3cf3f1832949427f8d75dcf554a963aa.mp4' }, { type: 'image', url: 'https://cdn5.edenfantasys.com/assets/ProductImages/original/listing/ET121620.jpg?width=500&format=webp' }] },
-            { id: 5, name: "Sex Toys Ergonomic Men's Power Enhancer", category: "men", basePrice: 5.00, desc: "Premium body-safe silicone power enhancer designed for long-lasting stamina, comfort and flexibility.", media: [{ type: 'image', url: 'https://cdn5.edenfantasys.com/assets/2026/4/8bfbecac78334ce2a193adcfa57c2cc1.jpg?width=500&format=webp' }, { type: 'video', url: 'https://cdn4.edenfantasys.com/assets/2024/8/49e47ef5b31b47cb8ec57b3d3d26ea7b.mp4' }] },
-            { id: 6, name: "Sex Toys Whisper Dual Motor Massager", category: "toys", basePrice: 12.00, desc: "Ultra-quiet dual motor probe with medical grade waterproof casing and rapid magnetic charging.", media: [{ type: 'image', url: 'https://cdn5.edenfantasys.com/assets/2024/11/69458cd66b7943abb298d90151bf7c81.jpg?width=500&format=webp' }, { type: 'image', url: 'https://cdn5.edenfantasys.com/assets/2024/10/4ee70baa88f64823b59841736075157a.jpg?width=500&format=webp' }] },
-            { id: 7, name: "Sex Toys Compact Pocket Massager", category: "toys", basePrice: 4.50, desc: "Discreet travel massager with multi-pattern vibrations and compact ergonomic build.", media: [{ type: 'image', url: 'https://cdn5.edenfantasys.com/assets/ProductImages/original/02091814PA1.jpg?width=500&format=webp' }, { type: 'image', url: 'https://cdn5.edenfantasys.com/assets/ProductImages/original/listing/ET21223.jpg?width=500&format=webp' }] },
-            { id: 8, name: "Sex Toys Pro Contour Curved Stimulator", category: "women", basePrice: 22.00, desc: "Precision curved body with target wave pulsation modes and silky soft silicone touch.", media: [{ type: 'image', url: 'https://cdn5.edenfantasys.com/assets/2025/3/47cc205c44a34d7ebb55d0a580ebf10e.jpg?width=500&format=webp' }, { type: 'image', url: 'https://cdn5.edenfantasys.com/assets/2024/11/2a606293521d41f29b5fa39c826ffe37.jpg?width=500&format=webp' }] }
+            { 
+                id: 1, 
+                name: "Sex Toys Motion Elegance Probe", 
+                category: "women", 
+                basePrice: 12.00, 
+                desc: "Dual motion precision stimulator featuring ultra-smooth silicone finish, dual motor design, and ergonomic curve.", 
+                media: [
+                    { type: 'video', url: 'https://cdn4.edenfantasys.com/assets/2024/12/3e30b92834034df3bd0faedaf610ff24.mp4' }
+                ] 
+            },
+            { 
+                id: 2, 
+                name: "Sex Toys Aura Pulse Dual Stimulator", 
+                category: "women", 
+                basePrice: 18.00, 
+                desc: "Waterproof luxury dual stimulator designed for maximum ergonomics and deep resonance waves.", 
+                media: [
+                    { type: 'image', url: 'https://cdn5.edenfantasys.com/assets/2026/6/d3fca1b4d4a8489ea6a14ae02873c3b9.jpg?width=500&format=webp' }
+                ] 
+            },
+            { 
+                id: 3, 
+                name: "Sex Toys Velvet Touch Precision Wand", 
+                category: "women", 
+                basePrice: 28.00, 
+                desc: "Rechargeable deep-tissue massager with dynamic flexibility and multi-speed vibration intensity.", 
+                media: [
+                    { type: 'image', url: 'https://cdn5.edenfantasys.com/assets/2025/6/4c6900ad17cd45d3a4b5e11be5ffab3c.jpg?width=500&format=webp' }
+                ] 
+            },
+            { 
+                id: 4, 
+                name: "Sex Toys Shared Intimacy Couples Loop", 
+                category: "couples", 
+                basePrice: 35.00, 
+                desc: "Ergonomic couples stimulator for enhanced shared intimacy and synchronized dual vibrations.", 
+                media: [
+                    { type: 'image', url: 'https://cdn5.edenfantasys.com/assets/ProductImages/original/listing/ET121620.jpg?width=500&format=webp' }
+                ] 
+            },
+            { 
+                id: 5, 
+                name: "Sex Toys Ergonomic Men's Power Enhancer", 
+                category: "men", 
+                basePrice: 6.50, 
+                desc: "Premium body-safe silicone power enhancer designed for long-lasting stamina, comfort and flexibility.", 
+                media: [
+                    { type: 'image', url: 'https://cdn5.edenfantasys.com/assets/2026/4/8bfbecac78334ce2a193adcfa57c2cc1.jpg?width=500&format=webp' }
+                ] 
+            },
+            { 
+                id: 6, 
+                name: "Sex Toys Whisper Dual Motor Massager", 
+                category: "toys", 
+                basePrice: 14.00, 
+                desc: "Ultra-quiet dual motor probe with medical grade waterproof casing and rapid magnetic charging.", 
+                media: [
+                    { type: 'image', url: 'https://cdn5.edenfantasys.com/assets/2024/11/69458cd66b7943abb298d90151bf7c81.jpg?width=500&format=webp' }
+                ] 
+            },
+            { 
+                id: 7, 
+                name: "Sex Toys Compact Pocket Massager", 
+                category: "toys", 
+                basePrice: 5.50, 
+                desc: "Discreet travel massager with multi-pattern vibrations and compact ergonomic build.", 
+                media: [
+                    { type: 'image', url: 'https://cdn5.edenfantasys.com/assets/ProductImages/original/02091814PA1.jpg?width=500&format=webp' }
+                ] 
+            },
+            { 
+                id: 8, 
+                name: "Sex Toys Pro Contour Curved Stimulator", 
+                category: "women", 
+                basePrice: 22.00, 
+                desc: "Precision curved body with target wave pulsation modes and silky soft silicone touch.", 
+                media: [
+                    { type: 'image', url: 'https://cdn5.edenfantasys.com/assets/2025/3/47cc205c44a34d7ebb55d0a580ebf10e.jpg?width=500&format=webp' }
+                ] 
+            }
         ];
 
-        // Price Formulation Helper Function
+        // Automatic Dynamic Discount Math Engine
         function calculateProductPrice(basePrice) {
             let discountPercent = 0;
             if (basePrice >= 1 && basePrice <= 7) {
@@ -648,7 +717,6 @@
             localStorage.setItem('edenic_orders', JSON.stringify(existingOrders));
         }
 
-        // Secret Admin Password Logic
         function promptAdminLogin() {
             const pass = prompt("Enter Admin Password (ایڈمن پاسورڈ درج کریں):");
             if (pass === "admin123") {
