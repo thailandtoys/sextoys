@@ -3,79 +3,84 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Product Store</title>
-  <!-- Tailwind CSS -->
+  <title>Exclusive Product Store</title>
+  <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     body {
       background-color: #0f172a;
       color: #f8fafc;
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     }
   </style>
 </head>
-<body class="p-6">
+<body class="min-h-screen p-4 md:p-8">
 
+  <!-- Header Section -->
   <div class="max-w-7xl mx-auto">
-    <!-- Header -->
-    <header class="mb-8 text-center border-b border-slate-700 pb-4">
-      <h1 class="text-3xl font-bold tracking-tight text-white">Exclusive Collection</h1>
-      <p class="text-slate-400 text-sm mt-1">Select any product to view full media details and discounted offers</p>
+    <header class="mb-10 text-center border-b border-slate-800 pb-6">
+      <h1 class="text-3xl md:text-5xl font-extrabold tracking-tight text-white mb-2">Featured Collection</h1>
+      <p class="text-slate-400 text-sm md:text-base">Click on any product to view exclusive discounts, videos, and full detail gallery.</p>
     </header>
 
-    <!-- Product Grid (Shows ALL products without limits) -->
+    <!-- Product Grid Section (Displays ALL items) -->
     <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-      <!-- Dynamic Products Will Render Here -->
+      <!-- Dynamic Products Rendered via JS -->
     </div>
   </div>
 
   <!-- Product Detail Modal Popup -->
-  <div id="product-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-4 z-50">
-    <div class="bg-slate-900 border border-slate-800 rounded-xl max-w-3xl w-full p-6 relative shadow-2xl overflow-hidden">
+  <div id="product-modal" class="fixed inset-0 bg-black/85 backdrop-blur-md hidden flex items-center justify-center p-4 z-50 transition-opacity duration-300">
+    <div class="bg-slate-900 border border-slate-800 rounded-2xl max-w-4xl w-full p-6 md:p-8 relative shadow-2xl overflow-hidden max-h-[90vh] overflow-y-auto">
       
       <!-- Close Button -->
-      <button onclick="closeModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white text-2xl font-bold z-10">&times;</button>
+      <button onclick="closeModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white bg-slate-800 hover:bg-slate-700 w-10 h-10 rounded-full flex items-center justify-center text-2xl font-bold z-10 transition">&times;</button>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
         
-        <!-- Left: Main Media & Thumbnails -->
-        <div>
-          <!-- Main Media Display Box -->
-          <div id="modal-main-media" class="w-full h-72 bg-slate-950 rounded-lg overflow-hidden flex items-center justify-center border border-slate-800">
-            <!-- Dynamic Image or Video -->
+        <!-- Left: Main Media Box & Thumbnails Gallery -->
+        <div class="flex flex-col">
+          <!-- Main Display Container (Video or Image) -->
+          <div id="modal-main-media" class="w-full h-80 bg-slate-950 rounded-xl overflow-hidden flex items-center justify-center border border-slate-800 shadow-inner">
+            <!-- Dynamic Main Media -->
           </div>
 
-          <!-- Media Thumbnails Box -->
-          <div id="modal-thumbnails" class="flex gap-2 mt-4 overflow-x-auto pb-2">
-            <!-- Dynamic Media Thumbnails for THIS SPECIFIC PRODUCT ONLY -->
+          <!-- Gallery Thumbnails (Mapped ONLY to current product) -->
+          <div class="mt-4">
+            <span class="text-xs text-slate-400 uppercase tracking-wider font-semibold mb-2 block">Media Gallery:</span>
+            <div id="modal-thumbnails" class="flex gap-3 overflow-x-auto pb-2">
+              <!-- Dynamic Thumbnails -->
+            </div>
           </div>
         </div>
 
-        <!-- Right: Details & Pricing -->
+        <!-- Right: Product Information & Pricing -->
         <div class="flex flex-col justify-between">
           <div>
-            <span id="modal-category" class="text-xs font-semibold uppercase tracking-wider text-rose-500">WOMEN</span>
-            <h2 id="modal-title" class="text-2xl font-bold mt-1 text-white">Product Title</h2>
+            <span id="modal-category" class="text-xs font-bold uppercase tracking-widest text-rose-500 bg-rose-500/10 px-2.5 py-1 rounded-md">Category</span>
+            <h2 id="modal-title" class="text-2xl md:text-3xl font-extrabold mt-3 text-white">Product Title</h2>
             
-            <!-- Price Display -->
-            <div class="flex items-baseline gap-3 my-4">
+            <!-- Pricing Section with Automatic Discounting -->
+            <div class="flex items-center gap-3 my-5">
               <span id="modal-final-price" class="text-3xl font-extrabold text-rose-500">$0.00</span>
               <span id="modal-original-price" class="text-lg text-slate-500 line-through">$0.00</span>
-              <span id="modal-discount-badge" class="bg-rose-500/20 text-rose-400 text-xs px-2 py-1 rounded font-bold">50% OFF</span>
+              <span id="modal-discount-badge" class="bg-rose-600 text-white text-xs px-2.5 py-1 rounded-full font-bold shadow-sm">0% OFF</span>
             </div>
 
             <div class="border-t border-slate-800 pt-4 mt-2">
-              <p id="modal-description" class="text-slate-300 text-sm leading-relaxed">Product description goes here...</p>
+              <h3 class="text-sm font-semibold text-slate-300 mb-1">Product Details:</h3>
+              <p id="modal-description" class="text-slate-400 text-sm leading-relaxed">Detailed description will appear here...</p>
             </div>
           </div>
 
-          <!-- Add to Cart Section -->
-          <div class="mt-6 pt-4 border-t border-slate-800 flex items-center gap-4">
-            <div class="flex items-center border border-slate-700 rounded-lg overflow-hidden bg-slate-800">
-              <button onclick="adjustQuantity(-1)" class="px-3 py-1 text-slate-300 hover:bg-slate-700">-</button>
-              <span id="modal-quantity" class="px-4 text-sm font-semibold text-white">1</span>
-              <button onclick="adjustQuantity(1)" class="px-3 py-1 text-slate-300 hover:bg-slate-700">+</button>
+          <!-- Quantity Selector and Add to Cart Button -->
+          <div class="mt-8 pt-4 border-t border-slate-800 flex flex-col sm:flex-row items-center gap-4">
+            <div class="flex items-center border border-slate-700 rounded-xl overflow-hidden bg-slate-800 w-full sm:w-auto justify-between">
+              <button onclick="adjustQuantity(-1)" class="px-4 py-2.5 text-slate-300 hover:bg-slate-700 text-lg font-bold transition">-</button>
+              <span id="modal-quantity" class="px-5 text-sm font-bold text-white">1</span>
+              <button onclick="adjustQuantity(1)" class="px-4 py-2.5 text-slate-300 hover:bg-slate-700 text-lg font-bold transition">+</button>
             </div>
-            <button class="flex-1 bg-rose-600 hover:bg-rose-700 text-white font-semibold py-2.5 px-4 rounded-lg transition-colors flex items-center justify-center gap-2">
+            <button onclick="addToCart()" class="w-full sm:flex-1 bg-rose-600 hover:bg-rose-700 text-white font-bold py-3 px-6 rounded-xl transition shadow-lg shadow-rose-600/30 flex items-center justify-center gap-2">
               <span>🛒</span> Add to Cart
             </button>
           </div>
@@ -86,17 +91,17 @@
     </div>
   </div>
 
-  <!-- JavaScript Logic -->
+  <!-- JavaScript Functionality -->
   <script>
-    // 1. Discount Formulation Function
-    function getDiscountedPricing(originalPrice) {
+    // 1. Discount Formulation Logic ($1-$7 -> 30%, $7-$20 -> 40%, >$20 -> 50%)
+    function calculateDiscountedPrice(originalPrice) {
       let discount = 0;
       if (originalPrice >= 1 && originalPrice <= 7) {
-        discount = 30; // 30% Off for $1 to $7
+        discount = 30;
       } else if (originalPrice > 7 && originalPrice <= 20) {
-        discount = 40; // 40% Off for $7 to $20
+        discount = 40;
       } else if (originalPrice > 20) {
-        discount = 50; // 50% Off for $20+
+        discount = 50;
       }
 
       const finalPrice = originalPrice - (originalPrice * (discount / 100));
@@ -107,7 +112,7 @@
       };
     }
 
-    // 2. Strict Product Database mapped ONLY to their exact links/media
+    // 2. Strict Product Database (Mapped with all your provided media links)
     const products = [
       {
         id: "prod-1",
@@ -119,7 +124,7 @@
           { type: "video", url: "https://cdn4.edenfantasys.com/assets/2024/12/3e30b92834034df3bd0faedaf610ff24.mp4" },
           { type: "image", url: "https://cdn5.edenfantasys.com/assets/2025/3/8b1d790e2ab94582a5a915d2efaa20ba.jpg?width=500&format=webp" }
         ],
-        description: "Dual motion precision stimulator featuring ultra-smooth silicone finish, dual motor design, and ergonomic curve."
+        description: "Dual motion precision stimulator featuring ultra-smooth silicone finish, dual motor design, and ergonomic curve for ultimate satisfaction."
       },
       {
         id: "prod-2",
@@ -131,7 +136,7 @@
           { type: "image", url: "https://cdn5.edenfantasys.com/assets/2026/6/d3fca1b4d4a8489ea6a14ae02873c3b9.jpg?width=500&format=webp" },
           { type: "image", url: "https://cdn5.edenfantasys.com/assets/ProductImages/1000x1000/JTSE019_2.jpg?width=500&format=webp" }
         ],
-        description: "Ergonomic body massager with multiple speed settings and whisper-quiet operation."
+        description: "Ergonomic body massager with multiple speed settings, whisper-quiet operation, and smooth contours."
       },
       {
         id: "prod-3",
@@ -143,7 +148,7 @@
           { type: "video", url: "https://cdn4.edenfantasys.com/assets/2024/10/f517865a90b340e89b3f68892487786f.mp4" },
           { type: "image", url: "https://cdn5.edenfantasys.com/assets/2025/6/4c6900ad17cd45d3a4b5e11be5ffab3c.jpg?width=500&format=webp" }
         ],
-        description: "Compact waterproof stimulator with magnetic USB rechargeability."
+        description: "Compact waterproof stimulator with magnetic USB rechargeability, built for travel and quiet performance."
       },
       {
         id: "prod-4",
@@ -156,7 +161,7 @@
           { type: "image", url: "https://cdn5.edenfantasys.com/assets/ProductImages/original/listing/ET121620.jpg?width=500&format=webp" },
           { type: "image", url: "https://cdn5.edenfantasys.com/assets/2026/4/8bfbecac78334ce2a193adcfa57c2cc1.jpg?width=500&format=webp" }
         ],
-        description: "Medical grade silicone finish with ultra-quiet dual motor stimulation."
+        description: "Medical grade silicone finish with ultra-quiet dual motor stimulation and versatile modes."
       },
       {
         id: "prod-5",
@@ -169,7 +174,7 @@
           { type: "image", url: "https://cdn5.edenfantasys.com/assets/2024/11/69458cd66b7943abb298d90151bf7c81.jpg?width=500&format=webp" },
           { type: "image", url: "https://cdn5.edenfantasys.com/assets/2024/10/4ee70baa88f64823b59841736075157a.jpg?width=500&format=webp" }
         ],
-        description: "IPX7 fully waterproof flexible wand designed for targeted comfort."
+        description: "IPX7 fully waterproof flexible wand designed for targeted comfort and deep vibration pulse."
       },
       {
         id: "prod-6",
@@ -181,7 +186,7 @@
           { type: "image", url: "https://cdn5.edenfantasys.com/assets/ProductImages/original/02091814PA1.jpg?width=500&format=webp" },
           { type: "image", url: "https://cdn5.edenfantasys.com/assets/ProductImages/original/listing/ET21223.jpg?width=500&format=webp" }
         ],
-        description: "Advanced dual motor system with seamless USB charging and waterproof body."
+        description: "Advanced dual motor system with seamless USB charging and complete body-safe waterproof construction."
       },
       {
         id: "prod-7",
@@ -193,44 +198,44 @@
           { type: "image", url: "https://cdn5.edenfantasys.com/assets/2025/3/47cc205c44a34d7ebb55d0a580ebf10e.jpg?width=500&format=webp" },
           { type: "image", url: "https://cdn5.edenfantasys.com/assets/2024/11/2a606293521d41f29b5fa39c826ffe37.jpg?width=500&format=webp" }
         ],
-        description: "Sleek ergonomic curve with ultra-soft body-safe material."
+        description: "Sleek ergonomic curve with ultra-soft body-safe material and targeted relaxation features."
       }
     ];
 
-    let currentQty = 1;
+    let selectedQty = 1;
 
-    // 3. Render All Products to Grid
+    // 3. Render All Products in Main Screen Grid
     function renderProductGrid() {
       const grid = document.getElementById("product-grid");
       grid.innerHTML = "";
 
       products.forEach(p => {
-        const pricing = getDiscountedPricing(p.originalPrice);
+        const pricing = calculateDiscountedPrice(p.originalPrice);
 
         const card = document.createElement("div");
-        card.className = "bg-slate-900 border border-slate-800 rounded-xl overflow-hidden hover:border-slate-700 transition cursor-pointer flex flex-col justify-between";
+        card.className = "bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden hover:border-slate-700 transition duration-300 cursor-pointer flex flex-col justify-between shadow-lg hover:shadow-slate-800/50";
         card.onclick = () => openModal(p.id);
 
         card.innerHTML = `
           <div>
-            <div class="h-56 bg-slate-950 overflow-hidden relative">
-              <img src="${p.mainImage}" alt="${p.name}" class="w-full h-full object-cover hover:scale-105 transition duration-300" />
-              <span class="absolute top-2 right-2 bg-rose-600 text-white text-xs font-bold px-2 py-1 rounded">
+            <div class="h-60 bg-slate-950 overflow-hidden relative group">
+              <img src="${p.mainImage}" alt="${p.name}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" />
+              <span class="absolute top-3 right-3 bg-rose-600 text-white text-xs font-extrabold px-2.5 py-1 rounded-md shadow">
                 ${pricing.discountPercent}% OFF
               </span>
             </div>
-            <div class="p-4">
-              <span class="text-xs text-rose-500 font-semibold uppercase">${p.category}</span>
-              <h3 class="text-base font-semibold text-white mt-1 line-clamp-1">${p.name}</h3>
-              <p class="text-xs text-slate-400 mt-1 line-clamp-2">${p.description}</p>
+            <div class="p-5">
+              <span class="text-xs text-rose-500 font-bold uppercase tracking-wider">${p.category}</span>
+              <h3 class="text-lg font-bold text-white mt-1 line-clamp-1">${p.name}</h3>
+              <p class="text-xs text-slate-400 mt-2 line-clamp-2 leading-relaxed">${p.description}</p>
             </div>
           </div>
-          <div class="p-4 pt-0 flex items-center justify-between mt-2">
+          <div class="p-5 pt-0 flex items-center justify-between mt-2">
             <div>
-              <span class="text-lg font-bold text-rose-500">$${pricing.finalPrice}</span>
-              <span class="text-xs text-slate-500 line-through ml-1">$${pricing.originalPrice}</span>
+              <span class="text-xl font-extrabold text-rose-500">$${pricing.finalPrice}</span>
+              <span class="text-xs text-slate-500 line-through ml-1.5">$${pricing.originalPrice}</span>
             </div>
-            <button class="bg-slate-800 hover:bg-slate-700 text-xs text-white px-3 py-1.5 rounded transition">
+            <button class="bg-slate-800 hover:bg-slate-700 text-xs font-semibold text-white px-3.5 py-2 rounded-lg transition">
               View Product
             </button>
           </div>
@@ -240,15 +245,15 @@
       });
     }
 
-    // 4. Open Modal Popup and LOAD ONLY SPECIFIC PRODUCT MEDIA
+    // 4. Open Modal Popup and PREVENT MEDIA MIXING
     function openModal(productId) {
       const product = products.find(p => p.id === productId);
       if (!product) return;
 
-      currentQty = 1;
-      document.getElementById("modal-quantity").innerText = currentQty;
+      selectedQty = 1;
+      document.getElementById("modal-quantity").innerText = selectedQty;
 
-      const pricing = getDiscountedPricing(product.originalPrice);
+      const pricing = calculateDiscountedPrice(product.originalPrice);
 
       document.getElementById("modal-title").innerText = product.name;
       document.getElementById("modal-category").innerText = product.category;
@@ -260,44 +265,51 @@
       const mainMediaBox = document.getElementById("modal-main-media");
       const thumbBox = document.getElementById("modal-thumbnails");
 
-      // Set default main display to main image
-      mainMediaBox.innerHTML = `<img src="${product.mainImage}" class="w-full h-full object-contain" />`;
-
-      // CLEAR OLD THUMBNAILS AND LOAD ONLY CURRENT PRODUCT GALLERY
+      // CLEAR OLD MEDIA FIRST to avoid showing previous product files
+      mainMediaBox.innerHTML = `<img src="${product.mainImage}" class="w-full h-full object-contain p-2" />`;
       thumbBox.innerHTML = "";
 
-      product.gallery.forEach(media => {
+      // Load ONLY this specific product's gallery
+      product.gallery.forEach((media, index) => {
         const thumb = document.createElement("div");
-        thumb.className = "w-14 h-14 bg-slate-950 border border-slate-700 rounded overflow-hidden cursor-pointer flex-shrink-0 hover:border-rose-500";
+        thumb.className = "w-16 h-16 bg-slate-950 border border-slate-700 rounded-lg overflow-hidden cursor-pointer flex-shrink-0 hover:border-rose-500 transition relative flex items-center justify-center";
 
         if (media.type === "video") {
-          thumb.innerHTML = `<div class="w-full h-full flex items-center justify-center bg-slate-800 text-rose-400 text-xs font-bold">▶ VIDEO</div>`;
+          thumb.innerHTML = `<div class="w-full h-full bg-slate-900 flex flex-col items-center justify-center text-rose-400 text-[10px] font-bold"><span>▶</span><span>VIDEO</span></div>`;
           thumb.onclick = () => {
             mainMediaBox.innerHTML = `<video src="${media.url}" controls autoplay class="w-full h-full object-contain"></video>`;
           };
         } else {
           thumb.innerHTML = `<img src="${media.url}" class="w-full h-full object-cover" />`;
           thumb.onclick = () => {
-            mainMediaBox.innerHTML = `<img src="${media.url}" class="w-full h-full object-contain" />`;
+            mainMediaBox.innerHTML = `<img src="${media.url}" class="w-full h-full object-contain p-2" />`;
           };
         }
 
         thumbBox.appendChild(thumb);
       });
 
+      // Show Popup
       document.getElementById("product-modal").classList.remove("hidden");
     }
 
+    // 5. Close Modal Popup & Stop Playing Videos
     function closeModal() {
       document.getElementById("product-modal").classList.add("hidden");
-      // Stop video playing on modal close
-      document.getElementById("modal-main-media").innerHTML = "";
+      document.getElementById("modal-main-media").innerHTML = ""; // Stop video playback
     }
 
+    // 6. Adjust Quantity
     function adjustQuantity(amount) {
-      currentQty += amount;
-      if (currentQty < 1) currentQty = 1;
-      document.getElementById("modal-quantity").innerText = currentQty;
+      selectedQty += amount;
+      if (selectedQty < 1) selectedQty = 1;
+      document.getElementById("modal-quantity").innerText = selectedQty;
+    }
+
+    // 7. Add to Cart Placeholder Action
+    function addToCart() {
+      alert("Product added to cart successfully!");
+      closeModal();
     }
 
     // Initialize Grid on Page Load
