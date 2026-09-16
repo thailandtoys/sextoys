@@ -130,30 +130,31 @@
                     </div>
                 </div>
 
-                <!-- Step 3: Crypto Payment & Live Rate Dynamic QR -->
+                <!-- Step 3: Crypto Payment via NOWPayments -->
                 <div id="step-3-content" class="hidden space-y-4">
                     <div>
-                        <label class="block text-xs text-zinc-400 mb-1">Select Cryptocurrency Wallet</label>
-                        <select id="crypto-select" onchange="renderPaymentQR()" class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-rose-500">
-                            <option value="usdt_trc20">USDT (TRC20 - Binance)</option>
-                            <option value="usdt_erc20">USDT (ERC20 / Trust Wallet)</option>
-                            <option value="btc_binance">Bitcoin (Binance)</option>
-                            <option value="btc_trust">Bitcoin (Trust Wallet)</option>
-                            <option value="bnb_bsc">BNB / BSC (Binance)</option>
+                        <label class="block text-xs text-zinc-400 mb-1">Select Payment Currency</label>
+                        <select id="crypto-select" onchange="generateNOWPayment()" class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-rose-500">
+                            <option value="usdttrc20">USDT (TRC20 - Tron)</option>
+                            <option value="btc">Bitcoin (BTC)</option>
                         </select>
                     </div>
 
                     <div class="bg-zinc-950 p-4 rounded-xl border border-zinc-800 text-center">
-                        <p class="text-sm text-zinc-400 mb-2">Total Amount to Pay:</p>
-                        <p id="final-payable-amount" class="text-xl font-bold text-rose-500 mb-4">$0.00</p>
+                        <p class="text-sm text-zinc-400 mb-1">Total Payable Amount:</p>
+                        <p id="final-payable-amount" class="text-xl font-bold text-rose-500 mb-3">$0.00</p>
                         
-                        <div class="bg-white p-3 inline-block rounded-lg mb-3">
-                            <img id="dynamic-qr-img" src="" alt="Payment QR Code" class="w-48 h-48 object-contain">
+                        <div id="qr-loading" class="text-xs text-amber-500 my-4 hidden">
+                            <i class="fa-solid fa-spinner fa-spin mr-1"></i> Generating NOWPayments Secure Invoice...
+                        </div>
+
+                        <div id="qr-container" class="bg-white p-3 inline-block rounded-lg mb-3">
+                            <img id="dynamic-qr-img" src="" alt="NOWPayments QR Code" class="w-48 h-48 object-contain">
                         </div>
                         
-                        <p class="text-xs text-zinc-400 mb-1">Send exact funds to address:</p>
+                        <p class="text-xs text-zinc-400 mb-1">Send exact crypto funds to address:</p>
                         <div class="bg-zinc-900 p-2 rounded border border-zinc-800 flex items-center justify-between">
-                            <span id="wallet-address-text" class="text-xs font-mono text-zinc-300 truncate mr-2"></span>
+                            <span id="wallet-address-text" class="text-xs font-mono text-zinc-300 truncate mr-2">Loading Address...</span>
                             <button onclick="copyAddress()" class="text-rose-500 hover:text-rose-400 text-xs font-semibold px-2 py-1 bg-zinc-800 rounded">Copy</button>
                         </div>
                     </div>
@@ -171,12 +172,14 @@
     </div>
 
     <script>
+        const NOWPAYMENTS_API_KEY = "4FDK5XG-QFN4RWG-PBQB2ST-N60FHWY";
+
         const products = [
             {
                 id: 1,
                 name: "Luxury Dual Pleasure Device",
                 price: 65.00,
-                desc: "State-of-the-art ergonomic design with multi-speed vibration patterns, whisper-quiet motors, and premium body-safe silicone.",
+                desc: "Ergonomic dual-action stimulator crafted with velvet-soft body-safe silicone and whisper-quiet motors.",
                 media: [
                     { type: 'image', url: 'https://cdn5.edenfantasys.com/assets/2025/3/8b1d790e2ab94582a5a915d2efaa20ba.jpg?width=500&format=webp' },
                     { type: 'video', url: 'https://cdn4.edenfantasys.com/assets/2024/12/3e30b92834034df3bd0faedaf610ff24.mp4' }
@@ -186,7 +189,7 @@
                 id: 2,
                 name: "Advanced Stimulator Elite",
                 price: 79.00,
-                desc: "Engineered for simultaneous dual-action pleasure with waterproof build and high-intensity customizable pulsation modes.",
+                desc: "100% waterproof luxury massager designed for intense dual stimulation with deep vibration technology.",
                 media: [
                     { type: 'image', url: 'https://cdn5.edenfantasys.com/assets/2026/6/d3fca1b4d4a8489ea6a14ae02873c3b9.jpg?width=500&format=webp' },
                     { type: 'image', url: 'https://cdn5.edenfantasys.com/assets/ProductImages/1000x1000/JTSE019_2.jpg?width=500&format=webp' },
@@ -197,7 +200,7 @@
                 id: 3,
                 name: "Pro Wand Massager",
                 price: 89.00,
-                desc: "Deep penetrating power waves designed to relieve tension and deliver intense satisfaction with flexible neck support.",
+                desc: "Rechargeable deep-tissue wand massager with flexible neck and ultra-powerful vibration modes.",
                 media: [
                     { type: 'image', url: 'https://cdn5.edenfantasys.com/assets/2025/6/4c6900ad17cd45d3a4b5e11be5ffab3c.jpg?width=500&format=webp' },
                     { type: 'video', url: 'https://cdn4.edenfantasys.com/assets/2024/8/3cf3f1832949427f8d75dcf554a963aa.mp4' }
@@ -207,41 +210,81 @@
                 id: 4,
                 name: "Compact Travel Elegance",
                 price: 49.00,
-                desc: "Discreet, rechargeable, and travel-friendly luxury design offering powerful performance and waterproof capability on the go.",
+                desc: "Discreet pocket-sized pleasure massager for on-the-go luxury and waterproof reliability.",
                 media: [
                     { type: 'image', url: 'https://cdn5.edenfantasys.com/assets/ProductImages/original/listing/ET121620.jpg?width=500&format=webp' },
                     { type: 'video', url: 'https://cdn4.edenfantasys.com/assets/2024/8/49e47ef5b31b47cb8ec57b3d3d26ea7b.mp4' },
                     { type: 'image', url: 'https://cdn5.edenfantasys.com/assets/2024/11/69458cd66b7943abb298d90151bf7c81.jpg?width=500&format=webp' }
                 ]
+            },
+            {
+                id: 5,
+                name: "Curved G-Spot Wave Stimulator",
+                price: 75.00,
+                desc: "Precision curved body massager providing targeted pleasure waves with ultra-smooth medical grade silicone.",
+                media: [
+                    { type: 'image', url: 'https://cdn5.edenfantasys.com/assets/2025/3/8b1d790e2ab94582a5a915d2efaa20ba.jpg?width=500&format=webp' }
+                ]
+            },
+            {
+                id: 6,
+                name: "Whisper Silent Rabbit Vibrator",
+                price: 95.00,
+                desc: "Dual motor precision rabbit vibrator featuring quiet technology and ergonomic curves.",
+                media: [
+                    { type: 'image', url: 'https://cdn5.edenfantasys.com/assets/2026/6/d3fca1b4d4a8489ea6a14ae02873c3b9.jpg?width=500&format=webp' }
+                ]
+            },
+            {
+                id: 7,
+                name: "Wireless App Controlled Bullet",
+                price: 55.00,
+                desc: "Smart bluetooth connected micro bullet massager controllable anywhere via mobile app.",
+                media: [
+                    { type: 'image', url: 'https://cdn5.edenfantasys.com/assets/2025/6/4c6900ad17cd45d3a4b5e11be5ffab3c.jpg?width=500&format=webp' }
+                ]
+            },
+            {
+                id: 8,
+                name: "Ergonomic Couples Massager",
+                price: 110.00,
+                desc: "Hands-free luxury couples stimulator designed for maximum shared intimacy.",
+                media: [
+                    { type: 'image', url: 'https://cdn5.edenfantasys.com/assets/ProductImages/original/listing/ET121620.jpg?width=500&format=webp' }
+                ]
+            },
+            {
+                id: 9,
+                name: "Premium Air Pulse Clitoral Massager",
+                price: 85.00,
+                desc: "Touchless air suction waves delivering gentle yet intense sensations.",
+                media: [
+                    { type: 'image', url: 'https://cdn5.edenfantasys.com/assets/2025/3/8b1d790e2ab94582a5a915d2efaa20ba.jpg?width=500&format=webp' }
+                ]
+            },
+            {
+                id: 10,
+                name: "Flexible Multi-Speed Silicone Probe",
+                price: 68.00,
+                desc: "Fully flexible waterproof shaft with multi-speed vibration control.",
+                media: [
+                    { type: 'image', url: 'https://cdn5.edenfantasys.com/assets/2026/6/d3fca1b4d4a8489ea6a14ae02873c3b9.jpg?width=500&format=webp' }
+                ]
+            },
+            {
+                id: 11,
+                name: "Ultra-Lux Metallic Massager Edition",
+                price: 120.00,
+                desc: "Weighted metallic finish premium massager with heated massage technology.",
+                media: [
+                    { type: 'image', url: 'https://cdn5.edenfantasys.com/assets/2025/6/4c6900ad17cd45d3a4b5e11be5ffab3c.jpg?width=500&format=webp' }
+                ]
             }
         ];
-
-        const wallets = {
-            usdt_trc20: "TFQvBjw2BioW9V32XLuMRy9R8V3iMFB5VY",
-            usdt_erc20: "0xc5ccE5826F48C601fD75682D19a1e3D99d16aC13",
-            btc_binance: "13yyGoV82LjzkaANnyRm9vsBYVbWQr4gWf",
-            btc_trust: "bc1qtwau20lqspct0llnvlagg752sfj7gn64055tcn",
-            bnb_bsc: "0xedda0b384c170672dfc6ca7e6196ef5c5f4bc6b"
-        };
 
         let cart = [];
         let currentModalProduct = null;
         let modalQty = 1;
-        let liveBtcPrice = 75000; // Default fallback
-
-        // Fetch Live BTC Price automatically
-        async function fetchLiveBtcPrice() {
-            try {
-                let response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd');
-                let data = await response.json();
-                if (data.bitcoin && data.bitcoin.usd) {
-                    liveBtcPrice = data.bitcoin.usd;
-                }
-            } catch (err) {
-                console.log("Using fallback rate");
-            }
-        }
-        fetchLiveBtcPrice();
 
         function renderProducts() {
             const grid = document.getElementById('product-grid');
@@ -390,28 +433,54 @@
                 }
                 document.getElementById('step-3-content').classList.remove('hidden');
                 document.getElementById('step-3-ind').className = "text-rose-500 font-bold";
-                renderPaymentQR();
+                generateNOWPayment();
             }
         }
 
-        function renderPaymentQR() {
-            const cryptoKey = document.getElementById('crypto-select').value;
-            const address = wallets[cryptoKey];
+        async function generateNOWPayment() {
+            const currency = document.getElementById('crypto-select').value;
             let subtotal = calculateSubtotal();
             const speed = document.getElementById('delivery-speed').value;
             let finalAmount = speed === 'fast' ? subtotal * 1.30 : subtotal;
 
-            document.getElementById('wallet-address-text').innerText = address;
-            
-            let qrData = address;
-            if (cryptoKey.includes('usdt')) {
-                qrData = `ethereum:${address}?value=${finalAmount.toFixed(2)}`;
-            } else if (cryptoKey.includes('btc')) {
-                let btcAmount = (finalAmount / liveBtcPrice).toFixed(6);
-                qrData = `bitcoin:${address}?amount=${btcAmount}`;
-            }
+            document.getElementById('qr-loading').classList.remove('hidden');
+            document.getElementById('wallet-address-text').innerText = "Generating...";
 
-            document.getElementById('dynamic-qr-img').src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(qrData)}`;
+            try {
+                let response = await fetch('https://api.nowpayments.io/v1/payment', {
+                    method: 'POST',
+                    headers: {
+                        'x-api-key': NOWPAYMENTS_API_KEY,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        price_amount: finalAmount,
+                        price_currency: 'usd',
+                        pay_currency: currency,
+                        order_id: 'EDEN-' + Date.now()
+                    })
+                });
+
+                let data = await response.json();
+
+                if (data && data.pay_address) {
+                    document.getElementById('wallet-address-text').innerText = data.pay_address;
+                    let qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(data.pay_address)}`;
+                    document.getElementById('dynamic-qr-img').src = qrUrl;
+                } else {
+                    fallbackQR(currency, finalAmount);
+                }
+            } catch (err) {
+                fallbackQR(currency, finalAmount);
+            } finally {
+                document.getElementById('qr-loading').classList.add('hidden');
+            }
+        }
+
+        function fallbackQR(currency, amount) {
+            let address = currency === 'btc' ? '13yyGoV82LjzkaANnyRm9vsBYVbWQr4gWf' : 'TFQvBjw2BioW9V32XLuMRy9R8V3iMFB5VY';
+            document.getElementById('wallet-address-text').innerText = address;
+            document.getElementById('dynamic-qr-img').src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(address)}`;
         }
 
         function copyAddress() {
@@ -441,7 +510,7 @@
                           `📦 *Products:*\n${itemsText}\n\n` +
                           `💰 *Total Amount:* $${finalAmount.toFixed(2)}\n` +
                           `🪙 *Payment Crypto:* ${crypto.toUpperCase()}\n` +
-                          `📫 *Wallet Used:* ${wallets[crypto]}`;
+                          `📫 *Payment Gateway:* NOWPayments Automated`;
 
             let whatsappUrl = `https://wa.me/?text=${encodeURIComponent(message)}`;
             window.open(whatsappUrl, '_blank');
