@@ -1,147 +1,307 @@
-// 1. Discount Calculator Function
-function calculateDiscountedPrice(originalPrice) {
-  let discountPercent = 0;
-  if (originalPrice >= 1 && originalPrice <= 7) {
-    discountPercent = 30;
-  } else if (originalPrice > 7 && originalPrice <= 20) {
-    discountPercent = 40;
-  } else if (originalPrice > 20) {
-    discountPercent = 50;
-  }
-  
-  const finalPrice = originalPrice - (originalPrice * (discountPercent / 100));
-  return {
-    finalPrice: finalPrice.toFixed(2),
-    discountPercent: discountPercent
-  };
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product Store</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      background-color: #0f172a;
+      color: #f8fafc;
+    }
+  </style>
+</head>
+<body class="p-6">
 
-// 2. Updated Products Array with Your Media Links
-const products = [
-  {
-    id: "prod-1",
-    name: "Edenic Motion Elegance Probe",
-    category: "WOMEN",
-    originalPrice: 79.00, // >$20 (50% Discount = $39.50)
-    mainImage: "https://cdn5.edenfantasys.com/assets/2025/3/8b1d790e2ab94582a5a915d2efaa20ba.jpg?width=500&format=webp",
-    gallery: [
-      { type: "video", url: "https://cdn4.edenfantasys.com/assets/2024/12/3e30b92834034df3bd0faedaf610ff24.mp4" },
-      { type: "image", url: "https://cdn5.edenfantasys.com/assets/2025/3/8b1d790e2ab94582a5a915d2efaa20ba.jpg?width=500&format=webp" }
-    ],
-    description: "Dual motion precision stimulator featuring ultra-smooth silicone finish, dual motor design, and ergonomic curve."
-  },
-  {
-    id: "prod-2",
-    name: "Luxury Curve Massager",
-    category: "WOMEN",
-    originalPrice: 18.00, // $7-$20 (40% Discount = $10.80)
-    mainImage: "https://cdn5.edenfantasys.com/assets/2026/6/d3fca1b4d4a8489ea6a14ae02873c3b9.jpg?width=500&format=webp",
-    gallery: [
-      { type: "image", url: "https://cdn5.edenfantasys.com/assets/2026/6/d3fca1b4d4a8489ea6a14ae02873c3b9.jpg?width=500&format=webp" },
-      { type: "image", url: "https://cdn5.edenfantasys.com/assets/ProductImages/1000x1000/JTSE019_2.jpg?width=500&format=webp" }
-    ],
-    description: "Ergonomic body massager with multiple speed settings and whisper-quiet operation."
-  },
-  {
-    id: "prod-3",
-    name: "Precision Pulse Vibrator",
-    category: "WOMEN",
-    originalPrice: 6.50, // $1-$7 (30% Discount = $4.55)
-    mainImage: "https://cdn5.edenfantasys.com/assets/2025/6/4c6900ad17cd45d3a4b5e11be5ffab3c.jpg?width=500&format=webp",
-    gallery: [
-      { type: "video", url: "https://cdn4.edenfantasys.com/assets/2024/10/f517865a90b340e89b3f68892487786f.mp4" },
-      { type: "image", url: "https://cdn5.edenfantasys.com/assets/2025/6/4c6900ad17cd45d3a4b5e11be5ffab3c.jpg?width=500&format=webp" }
-    ],
-    description: "Compact waterproof stimulator with magnetic USB rechargeability."
-  },
-  {
-    id: "prod-4",
-    name: "Velvet Touch Stimulator",
-    category: "WOMEN",
-    originalPrice: 45.00, // >$20 (50% Discount = $22.50)
-    mainImage: "https://cdn5.edenfantasys.com/assets/ProductImages/original/listing/ET121620.jpg?width=500&format=webp",
-    gallery: [
-      { type: "video", url: "https://cdn4.edenfantasys.com/assets/2024/8/3cf3f1832949427f8d75dcf554a963aa.mp4" },
-      { type: "image", url: "https://cdn5.edenfantasys.com/assets/ProductImages/original/listing/ET121620.jpg?width=500&format=webp" },
-      { type: "image", url: "https://cdn5.edenfantasys.com/assets/2026/4/8bfbecac78334ce2a193adcfa57c2cc1.jpg?width=500&format=webp" }
-    ],
-    description: "Medical grade silicone finish with ultra-quiet dual motor stimulation."
-  },
-  {
-    id: "prod-5",
-    name: "Silky Contour Wand",
-    category: "WOMEN",
-    originalPrice: 12.00, // $7-$20 (40% Discount = $7.20)
-    mainImage: "https://cdn5.edenfantasys.com/assets/2024/11/69458cd66b7943abb298d90151bf7c81.jpg?width=500&format=webp",
-    gallery: [
-      { type: "video", url: "https://cdn4.edenfantasys.com/assets/2024/8/49e47ef5b31b47cb8ec57b3d3d26ea7b.mp4" },
-      { type: "image", url: "https://cdn5.edenfantasys.com/assets/2024/11/69458cd66b7943abb298d90151bf7c81.jpg?width=500&format=webp" },
-      { type: "image", url: "https://cdn5.edenfantasys.com/assets/2024/10/4ee70baa88f64823b59841736075157a.jpg?width=500&format=webp" }
-    ],
-    description: "IPX7 fully waterproof flexible wand designed for targeted comfort."
-  },
-  {
-    id: "prod-6",
-    name: "Elegance Dual Motion",
-    category: "WOMEN",
-    originalPrice: 35.00, // >$20 (50% Discount = $17.50)
-    mainImage: "https://cdn5.edenfantasys.com/assets/ProductImages/original/02091814PA1.jpg?width=500&format=webp",
-    gallery: [
-      { type: "image", url: "https://cdn5.edenfantasys.com/assets/ProductImages/original/02091814PA1.jpg?width=500&format=webp" },
-      { type: "image", url: "https://cdn5.edenfantasys.com/assets/ProductImages/original/listing/ET21223.jpg?width=500&format=webp" }
-    ],
-    description: "Advanced dual motor system with seamless USB charging and waterproof body."
-  },
-  {
-    id: "prod-7",
-    name: "Pro Streamline Massager",
-    category: "WOMEN",
-    originalPrice: 15.00, // $7-$20 (40% Discount = $9.00)
-    mainImage: "https://cdn5.edenfantasys.com/assets/2025/3/47cc205c44a34d7ebb55d0a580ebf10e.jpg?width=500&format=webp",
-    gallery: [
-      { type: "image", url: "https://cdn5.edenfantasys.com/assets/2025/3/47cc205c44a34d7ebb55d0a580ebf10e.jpg?width=500&format=webp" },
-      { type: "image", url: "https://cdn5.edenfantasys.com/assets/2024/11/2a606293521d41f29b5fa39c826ffe37.jpg?width=500&format=webp" }
-    ],
-    description: "Sleek ergonomic curve with ultra-soft body-safe material."
-  }
-];
+  <div class="max-w-7xl mx-auto">
+    <!-- Header -->
+    <header class="mb-8 text-center border-b border-slate-700 pb-4">
+      <h1 class="text-3xl font-bold tracking-tight text-white">Exclusive Collection</h1>
+      <p class="text-slate-400 text-sm mt-1">Select any product to view full media details and discounted offers</p>
+    </header>
 
-// 3. Render Modal Gallery Function (Fixes Wrong Thumbnails)
-function openProductModal(productId) {
-  const product = products.find(p => p.id === productId);
-  if (!product) return;
+    <!-- Product Grid (Shows ALL products without limits) -->
+    <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+      <!-- Dynamic Products Will Render Here -->
+    </div>
+  </div>
 
-  const priceData = calculateDiscountedPrice(product.originalPrice);
+  <!-- Product Detail Modal Popup -->
+  <div id="product-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-4 z-50">
+    <div class="bg-slate-900 border border-slate-800 rounded-xl max-w-3xl w-full p-6 relative shadow-2xl overflow-hidden">
+      
+      <!-- Close Button -->
+      <button onclick="closeModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white text-2xl font-bold z-10">&times;</button>
 
-  // Update Title, Description & Pricing
-  document.getElementById("modal-title").innerText = product.name;
-  document.getElementById("modal-description").innerText = product.description;
-  document.getElementById("modal-price").innerText = `$${priceData.finalPrice}`;
-  document.getElementById("modal-original-price").innerText = `$${product.originalPrice.toFixed(2)}`;
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        
+        <!-- Left: Main Media & Thumbnails -->
+        <div>
+          <!-- Main Media Display Box -->
+          <div id="modal-main-media" class="w-full h-72 bg-slate-950 rounded-lg overflow-hidden flex items-center justify-center border border-slate-800">
+            <!-- Dynamic Image or Video -->
+          </div>
 
-  // Set Main Display Media
-  const mainMediaContainer = document.getElementById("modal-main-media");
-  mainMediaContainer.innerHTML = `<img src="${product.mainImage}" alt="${product.name}" class="w-full h-auto rounded-lg" />`;
+          <!-- Media Thumbnails Box -->
+          <div id="modal-thumbnails" class="flex gap-2 mt-4 overflow-x-auto pb-2">
+            <!-- Dynamic Media Thumbnails for THIS SPECIFIC PRODUCT ONLY -->
+          </div>
+        </div>
 
-  // Render ONLY this product's thumbnails
-  const thumbnailContainer = document.getElementById("modal-thumbnails");
-  thumbnailContainer.innerHTML = ""; // Clear old media
+        <!-- Right: Details & Pricing -->
+        <div class="flex flex-col justify-between">
+          <div>
+            <span id="modal-category" class="text-xs font-semibold uppercase tracking-wider text-rose-500">WOMEN</span>
+            <h2 id="modal-title" class="text-2xl font-bold mt-1 text-white">Product Title</h2>
+            
+            <!-- Price Display -->
+            <div class="flex items-baseline gap-3 my-4">
+              <span id="modal-final-price" class="text-3xl font-extrabold text-rose-500">$0.00</span>
+              <span id="modal-original-price" class="text-lg text-slate-500 line-through">$0.00</span>
+              <span id="modal-discount-badge" class="bg-rose-500/20 text-rose-400 text-xs px-2 py-1 rounded font-bold">50% OFF</span>
+            </div>
 
-  product.gallery.forEach((item) => {
-    const thumb = document.createElement("div");
-    thumb.className = "cursor-pointer border-2 border-transparent hover:border-red-500 rounded p-1";
+            <div class="border-t border-slate-800 pt-4 mt-2">
+              <p id="modal-description" class="text-slate-300 text-sm leading-relaxed">Product description goes here...</p>
+            </div>
+          </div>
 
-    if (item.type === "video") {
-      thumb.innerHTML = `<div class="relative w-12 h-12 bg-black flex items-center justify-center rounded"><span class="text-white text-xs">▶ Play</span></div>`;
-      thumb.onclick = () => {
-        mainMediaContainer.innerHTML = `<video src="${item.url}" controls autoplay class="w-full h-auto rounded-lg"></video>`;
-      };
-    } else {
-      thumb.innerHTML = `<img src="${item.url}" class="w-12 h-12 object-cover rounded" />`;
-      thumb.onclick = () => {
-        mainMediaContainer.innerHTML = `<img src="${item.url}" alt="${product.name}" class="w-full h-auto rounded-lg" />`;
+          <!-- Add to Cart Section -->
+          <div class="mt-6 pt-4 border-t border-slate-800 flex items-center gap-4">
+            <div class="flex items-center border border-slate-700 rounded-lg overflow-hidden bg-slate-800">
+              <button onclick="adjustQuantity(-1)" class="px-3 py-1 text-slate-300 hover:bg-slate-700">-</button>
+              <span id="modal-quantity" class="px-4 text-sm font-semibold text-white">1</span>
+              <button onclick="adjustQuantity(1)" class="px-3 py-1 text-slate-300 hover:bg-slate-700">+</button>
+            </div>
+            <button class="flex-1 bg-rose-600 hover:bg-rose-700 text-white font-semibold py-2.5 px-4 rounded-lg transition-colors flex items-center justify-center gap-2">
+              <span>🛒</span> Add to Cart
+            </button>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- JavaScript Logic -->
+  <script>
+    // 1. Discount Formulation Function
+    function getDiscountedPricing(originalPrice) {
+      let discount = 0;
+      if (originalPrice >= 1 && originalPrice <= 7) {
+        discount = 30; // 30% Off for $1 to $7
+      } else if (originalPrice > 7 && originalPrice <= 20) {
+        discount = 40; // 40% Off for $7 to $20
+      } else if (originalPrice > 20) {
+        discount = 50; // 50% Off for $20+
+      }
+
+      const finalPrice = originalPrice - (originalPrice * (discount / 100));
+      return {
+        finalPrice: finalPrice.toFixed(2),
+        originalPrice: originalPrice.toFixed(2),
+        discountPercent: discount
       };
     }
-    thumbnailContainer.appendChild(thumb);
-  });
-}
+
+    // 2. Strict Product Database mapped ONLY to their exact links/media
+    const products = [
+      {
+        id: "prod-1",
+        name: "Edenic Motion Elegance Probe",
+        category: "WOMEN",
+        originalPrice: 79.00,
+        mainImage: "https://cdn5.edenfantasys.com/assets/2025/3/8b1d790e2ab94582a5a915d2efaa20ba.jpg?width=500&format=webp",
+        gallery: [
+          { type: "video", url: "https://cdn4.edenfantasys.com/assets/2024/12/3e30b92834034df3bd0faedaf610ff24.mp4" },
+          { type: "image", url: "https://cdn5.edenfantasys.com/assets/2025/3/8b1d790e2ab94582a5a915d2efaa20ba.jpg?width=500&format=webp" }
+        ],
+        description: "Dual motion precision stimulator featuring ultra-smooth silicone finish, dual motor design, and ergonomic curve."
+      },
+      {
+        id: "prod-2",
+        name: "Precision Pulse Wave Massager",
+        category: "WOMEN",
+        originalPrice: 18.00,
+        mainImage: "https://cdn5.edenfantasys.com/assets/2026/6/d3fca1b4d4a8489ea6a14ae02873c3b9.jpg?width=500&format=webp",
+        gallery: [
+          { type: "image", url: "https://cdn5.edenfantasys.com/assets/2026/6/d3fca1b4d4a8489ea6a14ae02873c3b9.jpg?width=500&format=webp" },
+          { type: "image", url: "https://cdn5.edenfantasys.com/assets/ProductImages/1000x1000/JTSE019_2.jpg?width=500&format=webp" }
+        ],
+        description: "Ergonomic body massager with multiple speed settings and whisper-quiet operation."
+      },
+      {
+        id: "prod-3",
+        name: "Velvet Contour Compact Vibrator",
+        category: "WOMEN",
+        originalPrice: 6.50,
+        mainImage: "https://cdn5.edenfantasys.com/assets/2025/6/4c6900ad17cd45d3a4b5e11be5ffab3c.jpg?width=500&format=webp",
+        gallery: [
+          { type: "video", url: "https://cdn4.edenfantasys.com/assets/2024/10/f517865a90b340e89b3f68892487786f.mp4" },
+          { type: "image", url: "https://cdn5.edenfantasys.com/assets/2025/6/4c6900ad17cd45d3a4b5e11be5ffab3c.jpg?width=500&format=webp" }
+        ],
+        description: "Compact waterproof stimulator with magnetic USB rechargeability."
+      },
+      {
+        id: "prod-4",
+        name: "Silky Motion Dual Stimulator",
+        category: "WOMEN",
+        originalPrice: 45.00,
+        mainImage: "https://cdn5.edenfantasys.com/assets/ProductImages/original/listing/ET121620.jpg?width=500&format=webp",
+        gallery: [
+          { type: "video", url: "https://cdn4.edenfantasys.com/assets/2024/8/3cf3f1832949427f8d75dcf554a963aa.mp4" },
+          { type: "image", url: "https://cdn5.edenfantasys.com/assets/ProductImages/original/listing/ET121620.jpg?width=500&format=webp" },
+          { type: "image", url: "https://cdn5.edenfantasys.com/assets/2026/4/8bfbecac78334ce2a193adcfa57c2cc1.jpg?width=500&format=webp" }
+        ],
+        description: "Medical grade silicone finish with ultra-quiet dual motor stimulation."
+      },
+      {
+        id: "prod-5",
+        name: "Elegance Targeted Wand",
+        category: "WOMEN",
+        originalPrice: 12.00,
+        mainImage: "https://cdn5.edenfantasys.com/assets/2024/11/69458cd66b7943abb298d90151bf7c81.jpg?width=500&format=webp",
+        gallery: [
+          { type: "video", url: "https://cdn4.edenfantasys.com/assets/2024/8/49e47ef5b31b47cb8ec57b3d3d26ea7b.mp4" },
+          { type: "image", url: "https://cdn5.edenfantasys.com/assets/2024/11/69458cd66b7943abb298d90151bf7c81.jpg?width=500&format=webp" },
+          { type: "image", url: "https://cdn5.edenfantasys.com/assets/2024/10/4ee70baa88f64823b59841736075157a.jpg?width=500&format=webp" }
+        ],
+        description: "IPX7 fully waterproof flexible wand designed for targeted comfort."
+      },
+      {
+        id: "prod-6",
+        name: "Pro Series Dual Motor Unit",
+        category: "WOMEN",
+        originalPrice: 35.00,
+        mainImage: "https://cdn5.edenfantasys.com/assets/ProductImages/original/02091814PA1.jpg?width=500&format=webp",
+        gallery: [
+          { type: "image", url: "https://cdn5.edenfantasys.com/assets/ProductImages/original/02091814PA1.jpg?width=500&format=webp" },
+          { type: "image", url: "https://cdn5.edenfantasys.com/assets/ProductImages/original/listing/ET21223.jpg?width=500&format=webp" }
+        ],
+        description: "Advanced dual motor system with seamless USB charging and waterproof body."
+      },
+      {
+        id: "prod-7",
+        name: "Streamline Ergonomic Massager",
+        category: "WOMEN",
+        originalPrice: 15.00,
+        mainImage: "https://cdn5.edenfantasys.com/assets/2025/3/47cc205c44a34d7ebb55d0a580ebf10e.jpg?width=500&format=webp",
+        gallery: [
+          { type: "image", url: "https://cdn5.edenfantasys.com/assets/2025/3/47cc205c44a34d7ebb55d0a580ebf10e.jpg?width=500&format=webp" },
+          { type: "image", url: "https://cdn5.edenfantasys.com/assets/2024/11/2a606293521d41f29b5fa39c826ffe37.jpg?width=500&format=webp" }
+        ],
+        description: "Sleek ergonomic curve with ultra-soft body-safe material."
+      }
+    ];
+
+    let currentQty = 1;
+
+    // 3. Render All Products to Grid
+    function renderProductGrid() {
+      const grid = document.getElementById("product-grid");
+      grid.innerHTML = "";
+
+      products.forEach(p => {
+        const pricing = getDiscountedPricing(p.originalPrice);
+
+        const card = document.createElement("div");
+        card.className = "bg-slate-900 border border-slate-800 rounded-xl overflow-hidden hover:border-slate-700 transition cursor-pointer flex flex-col justify-between";
+        card.onclick = () => openModal(p.id);
+
+        card.innerHTML = `
+          <div>
+            <div class="h-56 bg-slate-950 overflow-hidden relative">
+              <img src="${p.mainImage}" alt="${p.name}" class="w-full h-full object-cover hover:scale-105 transition duration-300" />
+              <span class="absolute top-2 right-2 bg-rose-600 text-white text-xs font-bold px-2 py-1 rounded">
+                ${pricing.discountPercent}% OFF
+              </span>
+            </div>
+            <div class="p-4">
+              <span class="text-xs text-rose-500 font-semibold uppercase">${p.category}</span>
+              <h3 class="text-base font-semibold text-white mt-1 line-clamp-1">${p.name}</h3>
+              <p class="text-xs text-slate-400 mt-1 line-clamp-2">${p.description}</p>
+            </div>
+          </div>
+          <div class="p-4 pt-0 flex items-center justify-between mt-2">
+            <div>
+              <span class="text-lg font-bold text-rose-500">$${pricing.finalPrice}</span>
+              <span class="text-xs text-slate-500 line-through ml-1">$${pricing.originalPrice}</span>
+            </div>
+            <button class="bg-slate-800 hover:bg-slate-700 text-xs text-white px-3 py-1.5 rounded transition">
+              View Product
+            </button>
+          </div>
+        `;
+
+        grid.appendChild(card);
+      });
+    }
+
+    // 4. Open Modal Popup and LOAD ONLY SPECIFIC PRODUCT MEDIA
+    function openModal(productId) {
+      const product = products.find(p => p.id === productId);
+      if (!product) return;
+
+      currentQty = 1;
+      document.getElementById("modal-quantity").innerText = currentQty;
+
+      const pricing = getDiscountedPricing(product.originalPrice);
+
+      document.getElementById("modal-title").innerText = product.name;
+      document.getElementById("modal-category").innerText = product.category;
+      document.getElementById("modal-description").innerText = product.description;
+      document.getElementById("modal-final-price").innerText = `$${pricing.finalPrice}`;
+      document.getElementById("modal-original-price").innerText = `$${pricing.originalPrice}`;
+      document.getElementById("modal-discount-badge").innerText = `${pricing.discountPercent}% OFF`;
+
+      const mainMediaBox = document.getElementById("modal-main-media");
+      const thumbBox = document.getElementById("modal-thumbnails");
+
+      // Set default main display to main image
+      mainMediaBox.innerHTML = `<img src="${product.mainImage}" class="w-full h-full object-contain" />`;
+
+      // CLEAR OLD THUMBNAILS AND LOAD ONLY CURRENT PRODUCT GALLERY
+      thumbBox.innerHTML = "";
+
+      product.gallery.forEach(media => {
+        const thumb = document.createElement("div");
+        thumb.className = "w-14 h-14 bg-slate-950 border border-slate-700 rounded overflow-hidden cursor-pointer flex-shrink-0 hover:border-rose-500";
+
+        if (media.type === "video") {
+          thumb.innerHTML = `<div class="w-full h-full flex items-center justify-center bg-slate-800 text-rose-400 text-xs font-bold">▶ VIDEO</div>`;
+          thumb.onclick = () => {
+            mainMediaBox.innerHTML = `<video src="${media.url}" controls autoplay class="w-full h-full object-contain"></video>`;
+          };
+        } else {
+          thumb.innerHTML = `<img src="${media.url}" class="w-full h-full object-cover" />`;
+          thumb.onclick = () => {
+            mainMediaBox.innerHTML = `<img src="${media.url}" class="w-full h-full object-contain" />`;
+          };
+        }
+
+        thumbBox.appendChild(thumb);
+      });
+
+      document.getElementById("product-modal").classList.remove("hidden");
+    }
+
+    function closeModal() {
+      document.getElementById("product-modal").classList.add("hidden");
+      // Stop video playing on modal close
+      document.getElementById("modal-main-media").innerHTML = "";
+    }
+
+    function adjustQuantity(amount) {
+      currentQty += amount;
+      if (currentQty < 1) currentQty = 1;
+      document.getElementById("modal-quantity").innerText = currentQty;
+    }
+
+    // Initialize Grid on Page Load
+    renderProductGrid();
+  </script>
+</body>
+</html>
