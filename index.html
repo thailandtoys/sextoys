@@ -24,13 +24,12 @@
 
     <!-- Main Container -->
     <main class="max-w-7xl mx-auto px-4 py-8">
-        <!-- Products Grid -->
         <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             <!-- Dynamically populated products -->
         </div>
     </main>
 
-    <!-- Product Detail Modal (EdenFantasys Style) -->
+    <!-- Product Detail Modal -->
     <div id="product-modal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-sm hidden flex items-center justify-center p-4 overflow-y-auto">
         <div class="bg-zinc-900 border border-zinc-800 rounded-2xl max-w-4xl w-full p-6 relative max-h-[90vh] overflow-y-auto shadow-2xl">
             <button onclick="closeProductModal()" class="absolute top-4 right-4 text-zinc-400 hover:text-white text-xl bg-zinc-800 w-10 h-10 rounded-full flex items-center justify-center transition">
@@ -38,14 +37,8 @@
             </button>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div>
-                    <!-- Main Media Display (Image or Video) -->
-                    <div id="modal-media-container" class="bg-zinc-950 rounded-xl overflow-hidden mb-4 border border-zinc-800 h-80 flex items-center justify-center relative">
-                        <!-- Injected via JS -->
-                    </div>
-                    <!-- Thumbnails Gallery -->
-                    <div id="modal-thumbnails" class="flex space-x-2 overflow-x-auto pb-2">
-                        <!-- Thumbnails -->
-                    </div>
+                    <div id="modal-media-container" class="bg-zinc-950 rounded-xl overflow-hidden mb-4 border border-zinc-800 h-80 flex items-center justify-center relative"></div>
+                    <div id="modal-thumbnails" class="flex space-x-2 overflow-x-auto pb-2"></div>
                 </div>
                 <div class="flex flex-col justify-between">
                     <div>
@@ -80,7 +73,6 @@
                     <button onclick="closeCart()" class="text-zinc-400 hover:text-white"><i class="fa-solid fa-xmark text-xl"></i></button>
                 </div>
 
-                <!-- Steps Navigation Indicator -->
                 <div class="flex justify-between mb-6 text-xs text-zinc-400 border-b border-zinc-800 pb-2">
                     <span id="step-1-ind" class="text-rose-500 font-bold">1. Cart</span>
                     <span id="step-2-ind">2. Details</span>
@@ -89,9 +81,7 @@
 
                 <!-- Step 1: Cart Items -->
                 <div id="step-1-content">
-                    <div id="cart-items-list" class="space-y-4 mb-6 max-h-60 overflow-y-auto">
-                        <!-- Items -->
-                    </div>
+                    <div id="cart-items-list" class="space-y-4 mb-6 max-h-60 overflow-y-auto"></div>
                     <div class="border-t border-zinc-800 pt-4 mb-6">
                         <div class="flex justify-between text-lg font-bold">
                             <span>Subtotal:</span>
@@ -103,7 +93,7 @@
                     </button>
                 </div>
 
-                <!-- Step 2: Customer Details & Shipping Option with Country Code -->
+                <!-- Step 2: Customer Details -->
                 <div id="step-2-content" class="hidden space-y-4">
                     <div>
                         <label class="block text-xs text-zinc-400 mb-1">Full Name</label>
@@ -119,10 +109,6 @@
                                 <option value="+971">+971 (UAE)</option>
                                 <option value="+966">+966 (KSA)</option>
                                 <option value="+91">+91 (IN)</option>
-                                <option value="+49">+49 (DE)</option>
-                                <option value="+33">+33 (FR)</option>
-                                <option value="+61">+61 (AU)</option>
-                                <option value="+81">+81 (JP)</option>
                             </select>
                             <input type="text" id="cust-phone" class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-rose-500" placeholder="3001234567">
                         </div>
@@ -144,7 +130,7 @@
                     </div>
                 </div>
 
-                <!-- Step 3: Crypto Payment & Dynamic QR -->
+                <!-- Step 3: Crypto Payment & Live Rate Dynamic QR -->
                 <div id="step-3-content" class="hidden space-y-4">
                     <div>
                         <label class="block text-xs text-zinc-400 mb-1">Select Cryptocurrency Wallet</label>
@@ -185,7 +171,6 @@
     </div>
 
     <script>
-        // Products built using your exact provided media links (Images and Videos)
         const products = [
             {
                 id: 1,
@@ -231,7 +216,6 @@
             }
         ];
 
-        // Your exact wallet addresses from screenshots
         const wallets = {
             usdt_trc20: "TFQvBjw2BioW9V32XLuMRy9R8V3iMFB5VY",
             usdt_erc20: "0xc5ccE5826F48C601fD75682D19a1e3D99d16aC13",
@@ -243,8 +227,22 @@
         let cart = [];
         let currentModalProduct = null;
         let modalQty = 1;
+        let liveBtcPrice = 75000; // Default fallback
 
-        // Render Product Grid
+        // Fetch Live BTC Price automatically
+        async function fetchLiveBtcPrice() {
+            try {
+                let response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd');
+                let data = await response.json();
+                if (data.bitcoin && data.bitcoin.usd) {
+                    liveBtcPrice = data.bitcoin.usd;
+                }
+            } catch (err) {
+                console.log("Using fallback rate");
+            }
+        }
+        fetchLiveBtcPrice();
+
         function renderProducts() {
             const grid = document.getElementById('product-grid');
             grid.innerHTML = products.map(p => {
@@ -263,7 +261,6 @@
             }).join('');
         }
 
-        // Modal Handling with EdenFantasys style media viewer
         function openProductModal(id) {
             currentModalProduct = products.find(p => p.id === id);
             modalQty = 1;
@@ -275,7 +272,7 @@
             setModalMedia(currentModalProduct.media[0]);
 
             const thumbContainer = document.getElementById('modal-thumbnails');
-            thumbContainer.innerHTML = currentModalProduct.media.map((m, idx) => `
+            thumbContainer.innerHTML = currentModalProduct.media.map((m) => `
                 <div onclick='setModalMedia(${JSON.stringify(m)})' class="w-16 h-16 bg-zinc-950 rounded-lg border border-zinc-700 cursor-pointer hover:opacity-75 overflow-hidden flex items-center justify-center relative flex-shrink-0">
                     ${m.type === 'video' ? '<i class="fa-solid fa-play absolute text-white text-xs bg-black/50 p-1.5 rounded-full"></i>' : ''}
                     <img src="${m.type === 'image' ? m.url : 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=200'}" class="object-cover w-full h-full">
@@ -410,7 +407,8 @@
             if (cryptoKey.includes('usdt')) {
                 qrData = `ethereum:${address}?value=${finalAmount.toFixed(2)}`;
             } else if (cryptoKey.includes('btc')) {
-                qrData = `bitcoin:${address}?amount=${(finalAmount / 60000).toFixed(6)}`;
+                let btcAmount = (finalAmount / liveBtcPrice).toFixed(6);
+                qrData = `bitcoin:${address}?amount=${btcAmount}`;
             }
 
             document.getElementById('dynamic-qr-img').src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(qrData)}`;
@@ -449,7 +447,6 @@
             window.open(whatsappUrl, '_blank');
         }
 
-        // Initialize grid on load
         renderProducts();
     </script>
 </body>
