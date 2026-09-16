@@ -412,9 +412,9 @@ document.getElementById('category-title').innerText = cat === 'all' ? 'All Colle
 grid.innerHTML = filtered.map(p => {
 const mainMedia = p.media[0];
 let mediaHtml = mainMedia.type === 'video'
-? <video src="${mainMedia.url}" class="h-full w-full object-cover" autoplay loop muted></video>
-: <img src="${mainMedia.url}" alt="${p.name}" class="object-cover h-full w-full group-hover:scale-105 transition duration-300">;
-return <div onclick="openProductModal(${p.id})" class="bg-zinc-900 border border-zinc-800 rounded-2xl overflow-hidden cursor-pointer hover:border-zinc-700 transition group shadow-lg flex flex-col justify-between"> <div> <div class="h-56 bg-zinc-950 overflow-hidden flex items-center justify-center relative"> ${mediaHtml} <span class="absolute top-2 right-2 bg-zinc-900/80 backdrop-blur text-[10px] uppercase font-bold text-zinc-300 px-2 py-0.5 rounded-md border border-zinc-700">${p.category}</span> </div> <div class="p-4"> <h3 class="font-semibold text-zinc-100 truncate mb-1 text-sm">${p.name}</h3> <p class="text-rose-500 font-bold text-base">$${p.price.toFixed(2)}</p> </div> </div> <div class="px-4 pb-4"> <button class="w-full bg-zinc-800 hover:bg-rose-600 text-zinc-200 hover:text-white text-xs font-semibold py-2 rounded-xl transition"> View Details </button> </div> </div>;
+? ⁠<video src="${mainMedia.url}" class="h-full w-full object-cover" autoplay loop muted></video>⁠
+: ⁠<img src="${mainMedia.url}" alt="${p.name}" class="object-cover h-full w-full group-hover:scale-105 transition duration-300">⁠;
+return ⁠<div onclick="openProductModal(${p.id})" class="bg-zinc-900 border border-zinc-800 rounded-2xl overflow-hidden cursor-pointer hover:border-zinc-700 transition group shadow-lg flex flex-col justify-between"> <div> <div class="h-56 bg-zinc-950 overflow-hidden flex items-center justify-center relative"> ${mediaHtml} <span class="absolute top-2 right-2 bg-zinc-900/80 backdrop-blur text-[10px] uppercase font-bold text-zinc-300 px-2 py-0.5 rounded-md border border-zinc-700">${p.category}</span> </div> <div class="p-4"> <h3 class="font-semibold text-zinc-100 truncate mb-1 text-sm">${p.name}</h3> <p class="text-rose-500 font-bold text-base">$${p.price.toFixed(2)}</p> </div> </div> <div class="px-4 pb-4"> <button class="w-full bg-zinc-800 hover:bg-rose-600 text-zinc-200 hover:text-white text-xs font-semibold py-2 rounded-xl transition"> View Details </button> </div> </div>⁠;
 }).join('');
 }
 function filterCategory(cat) { renderProducts(cat); }
@@ -423,21 +423,21 @@ currentModalProduct = products.find(p => p.id === id);
 modalQty = 1;
 document.getElementById('modal-qty').innerText = modalQty;
 document.getElementById('modal-title').innerText = currentModalProduct.name;
-document.getElementById('modal-price').innerText = $${currentModalProduct.price.toFixed(2)};
+document.getElementById('modal-price').innerText = ⁠$${currentModalProduct.price.toFixed(2)}⁠;
 document.getElementById('modal-desc').innerText = currentModalProduct.desc;
 document.getElementById('modal-category-badge').innerText = currentModalProduct.category;
 setModalMainMedia(currentModalProduct.media[0]);
 // Render ONLY Thumbnails belonging to THIS product
 const thumbsContainer = document.getElementById('modal-thumbnails');
-thumbsContainer.innerHTML = currentModalProduct.media.map((m, idx) => <div onclick='setModalMainMedia(${JSON.stringify(m)})' class="w-16 h-16 bg-zinc-950 rounded-lg border border-zinc-800 overflow-hidden cursor-pointer flex-shrink-0 flex items-center justify-center hover:border-rose-500 transition"> ${m.type === 'video' ? '<i class="fa-solid fa-play text-rose-500 text-xs"></i>' :<img src="${m.url}" class="w-full h-full object-cover">} </div> ).join('');
+thumbsContainer.innerHTML = currentModalProduct.media.map((m, idx) => ⁠<div onclick='setModalMainMedia(${JSON.stringify(m)})' class="w-16 h-16 bg-zinc-950 rounded-lg border border-zinc-800 overflow-hidden cursor-pointer flex-shrink-0 flex items-center justify-center hover:border-rose-500 transition"> ${m.type === 'video' ? '<i class="fa-solid fa-play text-rose-500 text-xs"></i>' :⁠<img src="${m.url}" class="w-full h-full object-cover">⁠} </div> ⁠).join('');
 document.getElementById('product-modal').classList.remove('hidden');
 }
 function setModalMainMedia(media) {
 const container = document.getElementById('modal-media-container');
 if (media.type === 'video') {
-container.innerHTML = <video src="${media.url}" class="max-h-full max-w-full rounded-lg" controls autoplay loop muted></video>;
+container.innerHTML = ⁠<video src="${media.url}" class="max-h-full max-w-full rounded-lg" controls autoplay loop muted></video>⁠;
 } else {
-container.innerHTML = <img src="${media.url}" class="max-h-full max-w-full object-cover rounded-lg">;
+container.innerHTML = ⁠<img src="${media.url}" class="max-h-full max-w-full object-cover rounded-lg">⁠;
 }
 }
 function closeProductModal() { document.getElementById('product-modal').classList.add('hidden'); }
@@ -470,7 +470,7 @@ const list = document.getElementById('cart-items-list');
 if (cart.length === 0) {
 list.innerHTML = '<p class="text-zinc-500 text-center py-4 text-xs">Your cart is empty</p>';
 } else {
-list.innerHTML = cart.map((item, idx) => <div class="flex justify-between items-center bg-zinc-950 p-3 rounded-xl border border-zinc-800"> <div> <h4 class="text-xs font-semibold text-zinc-200">${item.name}</h4> <p class="text-xs text-rose-400 font-bold">$${item.price.toFixed(2)} x ${item.qty}</p> </div> <button onclick="removeFromCart(${idx})" class="text-rose-500 hover:text-rose-400 text-xs p-1"><i class="fa-solid fa-trash"></i></button> </div>).join('');
+list.innerHTML = cart.map((item, idx) => ⁠<div class="flex justify-between items-center bg-zinc-950 p-3 rounded-xl border border-zinc-800"> <div> <h4 class="text-xs font-semibold text-zinc-200">${item.name}</h4> <p class="text-xs text-rose-400 font-bold">$${item.price.toFixed(2)} x ${item.qty}</p> </div> <button onclick="removeFromCart(${idx})" class="text-rose-500 hover:text-rose-400 text-xs p-1"><i class="fa-solid fa-trash"></i></button> </div>⁠).join('');
 }
 updateTotal();
 }
@@ -484,8 +484,8 @@ function updateTotal() {
 let subtotal = calculateSubtotal();
 const speed = document.getElementById('delivery-speed').value;
 let finalAmount = speed === 'fast' ? subtotal * 1.30 : subtotal;
-document.getElementById('cart-subtotal').innerText = $${finalAmount.toFixed(2)};
-document.getElementById('final-payable-amount').innerText = $${finalAmount.toFixed(2)};
+document.getElementById('cart-subtotal').innerText = ⁠$${finalAmount.toFixed(2)}⁠;
+document.getElementById('final-payable-amount').innerText = ⁠$${finalAmount.toFixed(2)}⁠;
 }
 function goToStep(step) {
 document.getElementById('step-1-content').classList.add('hidden');
@@ -535,7 +535,7 @@ let data = await response.json();
 if (data && data.pay_address) {
 currentPaymentID = data.payment_id;
 document.getElementById('wallet-address-text').innerText = data.pay_address;
-document.getElementById('dynamic-qr-img').src = [https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=$](https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=$){encodeURIComponent(data.pay_address)};
+document.getElementById('dynamic-qr-img').src = ⁠[https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=$](https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=$){encodeURIComponent(data.pay_address)}⁠;
 startLiveStatusPolling(currency, finalAmount);
 } else {
 fallbackAddress(currency, finalAmount);
@@ -549,7 +549,7 @@ document.getElementById('qr-loading').classList.add('hidden');
 function fallbackAddress(currency, finalAmount) {
 let addr = currency === 'btc' ? '3L4aYUh17V1LWdqJE2ZDA9qLTBVnmqk1Zr' : 'TFQvBjw2BioW9V32XLuMRy9R8V3iMFB5VY';
 document.getElementById('wallet-address-text').innerText = addr;
-document.getElementById('dynamic-qr-img').src = [https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=$](https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=$){encodeURIComponent(addr)};
+document.getElementById('dynamic-qr-img').src = ⁠[https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=$](https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=$){encodeURIComponent(addr)}⁠;
 startLiveStatusPolling(currency, finalAmount);
 }
 function copyAddress() {
@@ -561,7 +561,7 @@ if (pollingInterval) clearInterval(pollingInterval);
 pollingInterval = setInterval(async () => {
 if (!currentPaymentID) return;
 try {
-let res = await fetch([https://api.nowpayments.io/v1/payment/$](https://api.nowpayments.io/v1/payment/$){currentPaymentID}, {
+let res = await fetch(⁠[https://api.nowpayments.io/v1/payment/$](https://api.nowpayments.io/v1/payment/$){currentPaymentID}⁠, {
 headers: { 'x-api-key': NOWPAYMENTS_API_KEY }
 });
 let data = await res.json();
@@ -584,9 +584,9 @@ function saveOrderToAdmin(currency, amount, status) {
 const name = document.getElementById('cust-name').value;
 const countryCode = document.getElementById('country-code').value;
 const phoneNum = document.getElementById('cust-phone').value;
-const fullPhone = ${countryCode} ${phoneNum};
+const fullPhone = ⁠${countryCode} ${phoneNum}⁠;
 const address = document.getElementById('cust-address').value;
-const itemsStr = cart.map(i => ${i.name} (x${i.qty})).join(', ');
+const itemsStr = cart.map(i => ⁠${i.name} (x${i.qty})⁠).join(', ');
 const newOrder = {
 id: Date.now(),
 date: new Date().toLocaleString(),
@@ -595,7 +595,7 @@ phone: fullPhone,
 address: address,
 items: itemsStr,
 currency: currency.toUpperCase(),
-amount: $${amount.toFixed(2)},
+amount: ⁠$${amount.toFixed(2)}⁠,
 status: status
 };
 let existingOrders = JSON.parse(localStorage.getItem('edenic_orders') || '[]');
@@ -611,9 +611,9 @@ function renderAdminOrders() {
 const tbody = document.getElementById('admin-orders-tbody');
 let orders = JSON.parse(localStorage.getItem('edenic_orders') || '[]');
 if (orders.length === 0) {
-tbody.innerHTML = <tr><td colspan="9" class="p-4 text-center text-zinc-500">No orders recorded yet.</td></tr>;
+tbody.innerHTML = ⁠<tr><td colspan="9" class="p-4 text-center text-zinc-500">No orders recorded yet.</td></tr>⁠;
 } else {
-tbody.innerHTML = orders.map((o, idx) => <tr class="hover:bg-zinc-800/50"> <td class="p-3 font-bold text-rose-500">#${orders.length - idx}</td> <td class="p-3 whitespace-nowrap">${o.date}</td> <td class="p-3 font-semibold text-zinc-200">${o.name}</td> <td class="p-3 font-mono text-emerald-400 font-bold">${o.phone}</td> <td class="p-3 max-w-xs truncate">${o.address}</td> <td class="p-3 max-w-xs truncate">${o.items}</td> <td class="p-3 font-bold">${o.currency}</td> <td class="p-3 font-bold text-rose-400">${o.amount}</td> <td class="p-3"><span class="bg-emerald-500/20 text-emerald-400 px-2 py-1 rounded text-[10px] uppercase font-bold">${o.status}</span></td> </tr>).join('');
+tbody.innerHTML = orders.map((o, idx) => ⁠<tr class="hover:bg-zinc-800/50"> <td class="p-3 font-bold text-rose-500">#${orders.length - idx}</td> <td class="p-3 whitespace-nowrap">${o.date}</td> <td class="p-3 font-semibold text-zinc-200">${o.name}</td> <td class="p-3 font-mono text-emerald-400 font-bold">${o.phone}</td> <td class="p-3 max-w-xs truncate">${o.address}</td> <td class="p-3 max-w-xs truncate">${o.items}</td> <td class="p-3 font-bold">${o.currency}</td> <td class="p-3 font-bold text-rose-400">${o.amount}</td> <td class="p-3"><span class="bg-emerald-500/20 text-emerald-400 px-2 py-1 rounded text-[10px] uppercase font-bold">${o.status}</span></td> </tr>⁠).join('');
 }
 }
 function clearAllOrders() {
