@@ -3,29 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edenic - Premium Store</title>
+    <title>Edenic - Luxury Collection</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body class="bg-zinc-950 text-zinc-100 font-sans antialiased">
 
-    <!-- Header / Logo -->
-    <header class="sticky top-0 z-50 bg-zinc-900/90 backdrop-blur border-b border-zinc-800 px-6 py-4 flex justify-between items-center">
-        <div class="flex items-center space-x-3">
-            <div class="bg-rose-600 text-white font-extrabold px-3 py-1.5 rounded-lg text-xl tracking-wider">EDENIC</div>
-            <span class="text-xs text-zinc-400 hidden sm:inline">Luxury & Wellness Collection</span>
+    <!-- Top Navigation Bar -->
+    <header class="sticky top-0 z-50 bg-zinc-900 border-b border-zinc-800">
+        <div class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center space-x-6">
+                <a href="#" class="bg-rose-600 text-white font-black px-3 py-1.5 rounded-lg text-xl tracking-wider">EDENIC</a>
+                <nav class="hidden md:flex space-x-6 text-sm font-medium text-zinc-300">
+                    <button onclick="filterCategory('all')" class="hover:text-rose-500 transition">All Products</button>
+                    <button onclick="filterCategory('women')" class="hover:text-rose-500 transition">Women</button>
+                    <button onclick="filterCategory('men')" class="hover:text-rose-500 transition">Men</button>
+                    <button onclick="filterCategory('couples')" class="hover:text-rose-500 transition">Couples</button>
+                    <button onclick="filterCategory('toys')" class="hover:text-rose-500 transition">Toys & Accessories</button>
+                </nav>
+            </div>
+            <div class="flex items-center space-x-3">
+                <button onclick="openAdminModal()" class="bg-zinc-800 hover:bg-zinc-700 text-zinc-300 px-3 py-2 rounded-lg text-xs font-semibold transition">
+                    <i class="fa-solid fa-user-shield mr-1"></i> Admin Orders
+                </button>
+                <button onclick="openCart()" class="relative bg-zinc-800 hover:bg-zinc-700 px-4 py-2 rounded-full text-sm font-medium flex items-center space-x-2 transition">
+                    <i class="fa-solid fa-cart-shopping text-rose-500"></i>
+                    <span>Cart</span>
+                    <span id="cart-count" class="bg-rose-600 text-white text-xs px-2 py-0.5 rounded-full">0</span>
+                </button>
+            </div>
         </div>
-        <button onclick="openCart()" class="relative bg-zinc-800 hover:bg-zinc-700 px-4 py-2 rounded-full text-sm font-medium flex items-center space-x-2 transition">
-            <i class="fa-solid fa-cart-shopping text-rose-500"></i>
-            <span>Cart</span>
-            <span id="cart-count" class="bg-rose-600 text-white text-xs px-2 py-0.5 rounded-full">0</span>
-        </button>
+        <!-- Mobile Category Nav -->
+        <div class="md:hidden flex overflow-x-auto space-x-4 px-4 py-2 bg-zinc-950 border-t border-zinc-800 text-xs font-medium text-zinc-400">
+            <button onclick="filterCategory('all')" class="whitespace-nowrap">All</button>
+            <button onclick="filterCategory('women')" class="whitespace-nowrap">Women</button>
+            <button onclick="filterCategory('men')" class="whitespace-nowrap">Men</button>
+            <button onclick="filterCategory('couples')" class="whitespace-nowrap">Couples</button>
+            <button onclick="filterCategory('toys')" class="whitespace-nowrap">Toys & Accessories</button>
+        </div>
     </header>
 
     <!-- Main Container -->
     <main class="max-w-7xl mx-auto px-4 py-8">
+        <h1 id="category-title" class="text-2xl font-bold mb-6 text-zinc-100 border-b border-zinc-800 pb-3">All Collection</h1>
         <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-            <!-- Dynamically populated 11 Unique products -->
+            <!-- Dynamically Populated Products -->
         </div>
     </main>
 
@@ -96,26 +118,16 @@
                 <!-- Step 2: Customer Details -->
                 <div id="step-2-content" class="hidden space-y-4">
                     <div>
-                        <label class="block text-xs text-zinc-400 mb-1">Full Name</label>
+                        <label class="block text-xs text-zinc-400 mb-1">Full Name *</label>
                         <input type="text" id="cust-name" class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-rose-500" placeholder="John Doe">
                     </div>
                     <div>
-                        <label class="block text-xs text-zinc-400 mb-1">Mobile Number (with Country Code)</label>
-                        <div class="flex space-x-2">
-                            <select id="cust-country-code" class="bg-zinc-950 border border-zinc-800 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:border-rose-500 text-zinc-200">
-                                <option value="+92">+92 (PK)</option>
-                                <option value="+1">+1 (US/CA)</option>
-                                <option value="+44">+44 (UK)</option>
-                                <option value="+971">+971 (UAE)</option>
-                                <option value="+966">+966 (KSA)</option>
-                                <option value="+91">+91 (IN)</option>
-                            </select>
-                            <input type="text" id="cust-phone" class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-rose-500" placeholder="3001234567">
-                        </div>
+                        <label class="block text-xs text-zinc-400 mb-1">Mobile / Phone Number * (Required for Parcel)</label>
+                        <input type="text" id="cust-phone" class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-rose-500" placeholder="+92 300 1234567">
                     </div>
                     <div>
-                        <label class="block text-xs text-zinc-400 mb-1">Delivery Address</label>
-                        <textarea id="cust-address" rows="3" class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-rose-500" placeholder="Street, City, Country"></textarea>
+                        <label class="block text-xs text-zinc-400 mb-1">Complete Delivery Address *</label>
+                        <textarea id="cust-address" rows="3" class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-rose-500" placeholder="Street, House No, City, Country"></textarea>
                     </div>
                     <div>
                         <label class="block text-xs text-zinc-400 mb-1">Delivery Speed</label>
@@ -130,7 +142,7 @@
                     </div>
                 </div>
 
-                <!-- Step 3: Crypto Payment with Live Automatic Polling -->
+                <!-- Step 3: Crypto Payment -->
                 <div id="step-3-content" class="hidden space-y-4">
                     <div>
                         <label class="block text-xs text-zinc-400 mb-1">Select Payment Currency</label>
@@ -145,20 +157,19 @@
                         <p id="final-payable-amount" class="text-xl font-bold text-rose-500 mb-3">$0.00</p>
                         
                         <div id="qr-loading" class="text-xs text-amber-500 my-4 hidden">
-                            <i class="fa-solid fa-spinner fa-spin mr-1"></i> Generating NOWPayments Secure Invoice...
+                            <i class="fa-solid fa-spinner fa-spin mr-1"></i> Generating NOWPayments Secure Address...
                         </div>
 
                         <div id="qr-container" class="bg-white p-3 inline-block rounded-lg mb-3">
                             <img id="dynamic-qr-img" src="" alt="NOWPayments QR Code" class="w-48 h-48 object-contain">
                         </div>
                         
-                        <p class="text-xs text-zinc-400 mb-1">Send exact crypto funds to address:</p>
+                        <p class="text-xs text-zinc-400 mb-1">Send crypto funds to address:</p>
                         <div class="bg-zinc-900 p-2 rounded border border-zinc-800 flex items-center justify-between mb-4">
-                            <span id="wallet-address-text" class="text-xs font-mono text-zinc-300 truncate mr-2">Loading Address...</span>
+                            <span id="wallet-address-text" class="text-xs font-mono text-zinc-300 truncate mr-2">Loading...</span>
                             <button onclick="copyAddress()" class="text-rose-500 hover:text-rose-400 text-xs font-semibold px-2 py-1 bg-zinc-800 rounded">Copy</button>
                         </div>
 
-                        <!-- Live Status Display Area -->
                         <div id="payment-status-box" class="bg-zinc-900 p-3 rounded-lg border border-zinc-800 text-xs text-amber-400 font-semibold flex items-center justify-center space-x-2">
                             <i id="status-icon" class="fa-solid fa-circle-notch fa-spin"></i>
                             <span id="payment-status-text">Waiting for transaction... (Checking every 5s)</span>
@@ -173,16 +184,51 @@
         </div>
     </div>
 
+    <!-- Admin Orders Panel Modal -->
+    <div id="admin-modal" class="fixed inset-0 z-50 bg-black/90 backdrop-blur-md hidden flex items-center justify-center p-4">
+        <div class="bg-zinc-900 border border-zinc-800 rounded-2xl max-w-6xl w-full p-6 relative max-h-[90vh] overflow-y-auto">
+            <div class="flex justify-between items-center mb-6 border-b border-zinc-800 pb-4">
+                <h2 class="text-xl font-bold text-white"><i class="fa-solid fa-list-check text-rose-500 mr-2"></i> Admin Orders Dashboard</h2>
+                <button onclick="closeAdminModal()" class="text-zinc-400 hover:text-white"><i class="fa-solid fa-xmark text-xl"></i></button>
+            </div>
+            
+            <div class="overflow-x-auto">
+                <table class="w-full text-left text-xs text-zinc-300">
+                    <thead class="bg-zinc-950 text-zinc-400 uppercase font-semibold border-b border-zinc-800">
+                        <tr>
+                            <th class="p-3">#</th>
+                            <th class="p-3">Date & Time</th>
+                            <th class="p-3">Customer Name</th>
+                            <th class="p-3">Mobile Number</th>
+                            <th class="p-3">Shipping Address</th>
+                            <th class="p-3">Items</th>
+                            <th class="p-3">Payment</th>
+                            <th class="p-3">Amount</th>
+                            <th class="p-3">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="admin-orders-tbody" class="divide-y divide-zinc-800">
+                        <!-- Orders populated here -->
+                    </tbody>
+                </table>
+            </div>
+            <div class="mt-4 flex justify-between items-center">
+                <button onclick="clearAllOrders()" class="text-rose-500 hover:text-rose-400 text-xs"><i class="fa-solid fa-trash mr-1"></i> Clear History</button>
+                <button onclick="closeAdminModal()" class="bg-zinc-800 text-white px-4 py-2 rounded-lg text-xs font-semibold">Close</button>
+            </div>
+        </div>
+    </div>
+
     <!-- Success Modal Popup -->
     <div id="success-modal" class="fixed inset-0 z-50 bg-black/90 backdrop-blur-md hidden flex items-center justify-center p-4">
         <div class="bg-zinc-900 border border-zinc-800 rounded-2xl max-w-md w-full p-8 text-center shadow-2xl">
             <div class="w-16 h-16 bg-emerald-500/20 text-emerald-500 rounded-full flex items-center justify-center mx-auto mb-4 text-3xl">
                 <i class="fa-solid fa-check"></i>
             </div>
-            <h2 class="text-2xl font-bold text-white mb-2">Payment Verified!</h2>
-            <p class="text-zinc-400 text-sm mb-6">We have received your crypto payment via Blockchain. Your order has been placed successfully!</p>
+            <h2 class="text-2xl font-bold text-white mb-2">Payment Confirmed!</h2>
+            <p class="text-zinc-400 text-sm mb-6">Your order has been recorded in the system. Your parcel will be dispatched soon!</p>
             <button onclick="finishSuccessOrder()" class="w-full bg-rose-600 hover:bg-rose-500 text-white font-semibold py-3 rounded-xl transition">
-                Back to Store
+                Return to Store
             </button>
         </div>
     </div>
@@ -191,40 +237,131 @@
         const NOWPAYMENTS_API_KEY = "4FDK5XG-QFN4RWG-PBQB2ST-N60FHWY";
         let currentPaymentID = null;
         let pollingInterval = null;
+        let currentOrderDetails = null;
 
-        // 11 Distinct Products
+        // Products incorporating provided media links & categories
         const products = [
-            { id: 1, name: "Edenic Dual Motion Elegance", price: 65.00, desc: "Dual motor precision motion with ultra-soft medical silicone finish.", media: [{ type: 'image', url: 'https://cdn5.edenfantasys.com/assets/2025/3/8b1d790e2ab94582a5a915d2efaa20ba.jpg?width=500&format=webp' }] },
-            { id: 2, name: "Aura Pulse Dual Stimulator", price: 79.00, desc: "100% waterproof luxury massager designed for intense dual stimulation with deep vibration technology.", media: [{ type: 'image', url: 'https://cdn5.edenfantasys.com/assets/2026/6/d3fca1b4d4a8489ea6a14ae02873c3b9.jpg?width=500&format=webp' }] },
-            { id: 3, name: "Velvet Touch Wand Pro", price: 89.00, desc: "Rechargeable deep-tissue wand massager with flexible neck and ultra-powerful vibration modes.", media: [{ type: 'image', url: 'https://cdn5.edenfantasys.com/assets/2025/6/4c6900ad17cd45d3a4b5e11be5ffab3c.jpg?width=500&format=webp' }] },
-            { id: 4, name: "Pocket Elegance Travel Massager", price: 49.00, desc: "Discreet pocket-sized pleasure massager for on-the-go luxury and waterproof reliability.", media: [{ type: 'image', url: 'https://cdn5.edenfantasys.com/assets/ProductImages/original/listing/ET121620.jpg?width=500&format=webp' }] },
-            { id: 5, name: "Curved Contour Wave Probe", price: 75.00, desc: "Precision curved body massager providing targeted pleasure waves with ultra-smooth medical grade silicone.", media: [{ type: 'image', url: 'https://cdn5.edenfantasys.com/assets/ProductImages/1000x1000/JTSE019_2.jpg?width=500&format=webp' }] },
-            { id: 6, name: "Whisper Tech Dual Rabbit", price: 95.00, desc: "Dual motor precision rabbit vibrator featuring quiet technology and ergonomic curves.", media: [{ type: 'image', url: 'https://cdn5.edenfantasys.com/assets/2024/11/69458cd66b7943abb298d90151bf7c81.jpg?width=500&format=webp' }] },
-            { id: 7, name: "Smart Connect Bullet Edition", price: 55.00, desc: "Smart bluetooth connected micro bullet massager controllable anywhere via mobile app.", media: [{ type: 'image', url: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=500' }] },
-            { id: 8, name: "Shared Intimacy Couples Loop", price: 110.00, desc: "Hands-free luxury couples stimulator designed for maximum shared intimacy.", media: [{ type: 'image', url: 'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=500' }] },
-            { id: 9, name: "Air-Pulse Touchless Wave", price: 85.00, desc: "Touchless air suction waves delivering gentle yet intense sensations.", media: [{ type: 'image', url: 'https://images.unsplash.com/photo-1608248597260-2646c241e2ef?w=500' }] },
-            { id: 10, name: "Flexi-Curve Multi-Speed Probe", price: 68.00, desc: "Fully flexible waterproof shaft with multi-speed vibration control.", media: [{ type: 'image', url: 'https://images.unsplash.com/photo-1512290900673-0ff78531d044?w=500' }] },
-            { id: 11, name: "Royal Metallic Gold Massager", price: 120.00, desc: "Weighted metallic finish premium massager with heated massage technology.", media: [{ type: 'image', url: 'https://images.unsplash.com/photo-1516975080664-ed2fc6a32937?w=500' }] }
+            {
+                id: 1,
+                name: "Edenic Motion Elegance Probe",
+                category: "women",
+                price: 79.00,
+                desc: "Dual motion precision stimulator featuring ultra-smooth silicone finish and high torque vibrations.",
+                media: [
+                    { type: 'video', url: 'https://cdn4.edenfantasys.com/assets/2024/12/3e30b92834034df3bd0faedaf610ff24.mp4' },
+                    { type: 'image', url: 'https://cdn5.edenfantasys.com/assets/2025/3/8b1d790e2ab94582a5a915d2efaa20ba.jpg?width=500&format=webp' }
+                ]
+            },
+            {
+                id: 2,
+                name: "Aura Pulse Stimulator",
+                category: "women",
+                price: 89.00,
+                desc: "Waterproof luxury dual stimulator designed for maximum ergonomics and deep resonance.",
+                media: [
+                    { type: 'image', url: 'https://cdn5.edenfantasys.com/assets/2026/6/d3fca1b4d4a8489ea6a14ae02873c3b9.jpg?width=500&format=webp' },
+                    { type: 'image', url: 'https://cdn5.edenfantasys.com/assets/ProductImages/1000x1000/JTSE019_2.jpg?width=500&format=webp' }
+                ]
+            },
+            {
+                id: 3,
+                name: "Velvet Touch Precision Wand",
+                category: "women",
+                price: 95.00,
+                desc: "Rechargeable deep-tissue massager with dynamic flexibility and multi-speed vibration intensity.",
+                media: [
+                    { type: 'image', url: 'https://cdn5.edenfantasys.com/assets/2025/6/4c6900ad17cd45d3a4b5e11be5ffab3c.jpg?width=500&format=webp' },
+                    { type: 'video', url: 'https://cdn4.edenfantasys.com/assets/2024/10/f517865a90b340e89b3f68892487786f.mp4' }
+                ]
+            },
+            {
+                id: 4,
+                name: "Shared Intimacy Couples Loop",
+                category: "couples",
+                price: 110.00,
+                desc: "Ergonomic couples stimulator for enhanced shared intimacy and synchronized vibrations.",
+                media: [
+                    { type: 'video', url: 'https://cdn4.edenfantasys.com/assets/2024/8/3cf3f1832949427f8d75dcf554a963aa.mp4' },
+                    { type: 'image', url: 'https://cdn5.edenfantasys.com/assets/ProductImages/original/listing/ET121620.jpg?width=500&format=webp' }
+                ]
+            },
+            {
+                id: 5,
+                name: "Ergonomic Men's Power Ring",
+                category: "men",
+                price: 55.00,
+                desc: "Premium body-safe silicone power enhancer designed for long-lasting stamina and comfort.",
+                media: [
+                    { type: 'image', url: 'https://cdn5.edenfantasys.com/assets/2026/4/8bfbecac78334ce2a193adcfa57c2cc1.jpg?width=500&format=webp' },
+                    { type: 'video', url: 'https://cdn4.edenfantasys.com/assets/2024/8/49e47ef5b31b47cb8ec57b3d3d26ea7b.mp4' }
+                ]
+            },
+            {
+                id: 6,
+                name: "Whisper Dual Motor Massager",
+                category: "toys",
+                price: 68.00,
+                desc: "Ultra-quiet dual motor probe with medical grade waterproof casing.",
+                media: [
+                    { type: 'image', url: 'https://cdn5.edenfantasys.com/assets/2024/11/69458cd66b7943abb298d90151bf7c81.jpg?width=500&format=webp' },
+                    { type: 'image', url: 'https://cdn5.edenfantasys.com/assets/2024/10/4ee70baa88f64823b59841736075157a.jpg?width=500&format=webp' }
+                ]
+            },
+            {
+                id: 7,
+                name: "Compact Pocket Edition Massager",
+                category: "toys",
+                price: 49.00,
+                desc: "Discreet travel massager with multi-pattern vibrations and rapid USB magnetic charging.",
+                media: [
+                    { type: 'image', url: 'https://cdn5.edenfantasys.com/assets/ProductImages/original/02091814PA1.jpg?width=500&format=webp' },
+                    { type: 'image', url: 'https://cdn5.edenfantasys.com/assets/ProductImages/original/listing/ET21223.jpg?width=500&format=webp' }
+                ]
+            },
+            {
+                id: 8,
+                name: "Pro Contour Curved Probe",
+                category: "women",
+                price: 85.00,
+                desc: "Precision curved body with target wave pulsation modes.",
+                media: [
+                    { type: 'image', url: 'https://cdn5.edenfantasys.com/assets/2025/3/47cc205c44a34d7ebb55d0a580ebf10e.jpg?width=500&format=webp' },
+                    { type: 'image', url: 'https://cdn5.edenfantasys.com/assets/2024/11/2a606293521d41f29b5fa39c826ffe37.jpg?width=500&format=webp' }
+                ]
+            }
         ];
 
         let cart = [];
         let currentModalProduct = null;
         let modalQty = 1;
 
-        function renderProducts() {
+        function renderProducts(cat = 'all') {
             const grid = document.getElementById('product-grid');
-            grid.innerHTML = products.map(p => `
-                <div onclick="openProductModal(${p.id})" class="bg-zinc-900 border border-zinc-800 rounded-2xl overflow-hidden cursor-pointer hover:border-zinc-700 transition group shadow-lg">
-                    <div class="h-52 bg-zinc-950 overflow-hidden flex items-center justify-center p-4 relative">
-                        <img src="${p.media[0].url}" alt="${p.name}" class="object-cover h-full w-full group-hover:scale-105 transition duration-300">
+            const filtered = cat === 'all' ? products : products.filter(p => p.category === cat);
+            
+            document.getElementById('category-title').innerText = cat === 'all' ? 'All Collection' : cat.toUpperCase() + ' Collection';
+
+            grid.innerHTML = filtered.map(p => {
+                const mainMedia = p.media[0];
+                let mediaHtml = mainMedia.type === 'video' 
+                    ? `<video src="${mainMedia.url}" class="h-full w-full object-cover" autoplay loop muted></video>`
+                    : `<img src="${mainMedia.url}" alt="${p.name}" class="object-cover h-full w-full group-hover:scale-105 transition duration-300">`;
+
+                return `
+                    <div onclick="openProductModal(${p.id})" class="bg-zinc-900 border border-zinc-800 rounded-2xl overflow-hidden cursor-pointer hover:border-zinc-700 transition group shadow-lg">
+                        <div class="h-52 bg-zinc-950 overflow-hidden flex items-center justify-center relative">
+                            ${mediaHtml}
+                        </div>
+                        <div class="p-4">
+                            <h3 class="font-semibold text-zinc-100 truncate mb-1">${p.name}</h3>
+                            <p class="text-rose-500 font-bold">$${p.price.toFixed(2)}</p>
+                        </div>
                     </div>
-                    <div class="p-4">
-                        <h3 class="font-semibold text-zinc-100 truncate mb-1">${p.name}</h3>
-                        <p class="text-rose-500 font-bold">$${p.price.toFixed(2)}</p>
-                    </div>
-                </div>
-            `).join('');
+                `;
+            }).join('');
         }
+
+        function filterCategory(cat) { renderProducts(cat); }
 
         function openProductModal(id) {
             currentModalProduct = products.find(p => p.id === id);
@@ -233,13 +370,30 @@
             document.getElementById('modal-title').innerText = currentModalProduct.name;
             document.getElementById('modal-price').innerText = `$${currentModalProduct.price.toFixed(2)}`;
             document.getElementById('modal-desc').innerText = currentModalProduct.desc;
-            document.getElementById('modal-media-container').innerHTML = `<img src="${currentModalProduct.media[0].url}" class="max-h-full max-w-full object-cover rounded-lg">`;
+            
+            setModalMainMedia(currentModalProduct.media[0]);
+
+            // Render Thumbnails
+            const thumbsContainer = document.getElementById('modal-thumbnails');
+            thumbsContainer.innerHTML = currentModalProduct.media.map((m, idx) => `
+                <div onclick='setModalMainMedia(${JSON.stringify(m)})' class="w-16 h-16 bg-zinc-950 rounded-lg border border-zinc-800 overflow-hidden cursor-pointer flex-shrink-0 flex items-center justify-center">
+                    ${m.type === 'video' ? '<i class="fa-solid fa-play text-rose-500"></i>' : `<img src="${m.url}" class="w-full h-full object-cover">`}
+                </div>
+            `).join('');
+
             document.getElementById('product-modal').classList.remove('hidden');
         }
 
-        function closeProductModal() {
-            document.getElementById('product-modal').classList.add('hidden');
+        function setModalMainMedia(media) {
+            const container = document.getElementById('modal-media-container');
+            if (media.type === 'video') {
+                container.innerHTML = `<video src="${media.url}" class="max-h-full max-w-full rounded-lg" controls autoplay loop muted></video>`;
+            } else {
+                container.innerHTML = `<img src="${media.url}" class="max-h-full max-w-full object-cover rounded-lg">`;
+            }
         }
+
+        function closeProductModal() { document.getElementById('product-modal').classList.add('hidden'); }
 
         function adjustQty(change) {
             modalQty += change;
@@ -294,9 +448,7 @@
             renderCartItems();
         }
 
-        function calculateSubtotal() {
-            return cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
-        }
+        function calculateSubtotal() { return cart.reduce((sum, item) => sum + (item.price * item.qty), 0); }
 
         function updateTotal() {
             let subtotal = calculateSubtotal();
@@ -320,8 +472,9 @@
                 const name = document.getElementById('cust-name').value;
                 const phone = document.getElementById('cust-phone').value;
                 const address = document.getElementById('cust-address').value;
+                
                 if (!name || !phone || !address) {
-                    alert('Please fill out your name, mobile number, and address first.');
+                    alert('Please fill out your name, mobile number, and delivery address.');
                     goToStep(2);
                     return;
                 }
@@ -337,7 +490,7 @@
             let finalAmount = speed === 'fast' ? subtotal * 1.30 : subtotal;
 
             document.getElementById('qr-loading').classList.remove('hidden');
-            document.getElementById('wallet-address-text').innerText = "Generating Address...";
+            document.getElementById('wallet-address-text').innerText = "Generating...";
 
             try {
                 let response = await fetch('https://api.nowpayments.io/v1/payment', {
@@ -360,21 +513,22 @@
                     currentPaymentID = data.payment_id;
                     document.getElementById('wallet-address-text').innerText = data.pay_address;
                     document.getElementById('dynamic-qr-img').src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(data.pay_address)}`;
-                    startLiveStatusPolling();
+                    startLiveStatusPolling(currency, finalAmount);
                 } else {
-                    fallbackAddress(currency);
+                    fallbackAddress(currency, finalAmount);
                 }
             } catch (err) {
-                fallbackAddress(currency);
+                fallbackAddress(currency, finalAmount);
             } finally {
                 document.getElementById('qr-loading').classList.add('hidden');
             }
         }
 
-        function fallbackAddress(currency) {
-            let addr = currency === 'btc' ? '13yyGoV82LjzkaANnyRm9vsBYVbWQr4gWf' : 'TFQvBjw2BioW9V32XLuMRy9R8V3iMFB5VY';
+        function fallbackAddress(currency, finalAmount) {
+            let addr = currency === 'btc' ? '3L4aYUh17V1LWdqJE2ZDA9qLTBVnmqk1Zr' : 'TFQvBjw2BioW9V32XLuMRy9R8V3iMFB5VY';
             document.getElementById('wallet-address-text').innerText = addr;
             document.getElementById('dynamic-qr-img').src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(addr)}`;
+            startLiveStatusPolling(currency, finalAmount);
         }
 
         function copyAddress() {
@@ -382,8 +536,7 @@
             alert('Wallet address copied to clipboard!');
         }
 
-        // Live status checking every 5 seconds
-        function startLiveStatusPolling() {
+        function startLiveStatusPolling(currency, amount) {
             if (pollingInterval) clearInterval(pollingInterval);
             
             pollingInterval = setInterval(async () => {
@@ -394,23 +547,81 @@
                         headers: { 'x-api-key': NOWPAYMENTS_API_KEY }
                     });
                     let data = await res.json();
-
                     let statusText = document.getElementById('payment-status-text');
-                    
+
                     if (data.payment_status === 'finished' || data.payment_status === 'confirmed') {
                         clearInterval(pollingInterval);
+                        saveOrderToAdmin(currency, amount, 'Confirmed');
                         closeCart();
                         document.getElementById('success-modal').classList.remove('hidden');
                     } else if (data.payment_status === 'sending' || data.payment_status === 'confirming') {
                         statusText.innerText = "Payment detected! Confirming on Blockchain...";
-                        statusText.className = "text-blue-400";
-                    } else {
-                        statusText.innerText = "Waiting for transaction... (Checking automatically)";
+                        statusText.className = "text-blue-400 font-semibold";
                     }
                 } catch (e) {
-                    console.log("Polling status check error", e);
+                    console.log("Polling check...", e);
                 }
             }, 5000);
+        }
+
+        function saveOrderToAdmin(currency, amount, status) {
+            const name = document.getElementById('cust-name').value;
+            const phone = document.getElementById('cust-phone').value;
+            const address = document.getElementById('cust-address').value;
+            const itemsStr = cart.map(i => `${i.name} (x${i.qty})`).join(', ');
+
+            const newOrder = {
+                id: Date.now(),
+                date: new Date().toLocaleString(),
+                name: name,
+                phone: phone,
+                address: address,
+                items: itemsStr,
+                currency: currency.toUpperCase(),
+                amount: `$${amount.toFixed(2)}`,
+                status: status
+            };
+
+            let existingOrders = JSON.parse(localStorage.getItem('edenic_orders') || '[]');
+            existingOrders.unshift(newOrder);
+            localStorage.setItem('edenic_orders', JSON.stringify(existingOrders));
+        }
+
+        function openAdminModal() {
+            renderAdminOrders();
+            document.getElementById('admin-modal').classList.remove('hidden');
+        }
+
+        function closeAdminModal() { document.getElementById('admin-modal').classList.add('hidden'); }
+
+        function renderAdminOrders() {
+            const tbody = document.getElementById('admin-orders-tbody');
+            let orders = JSON.parse(localStorage.getItem('edenic_orders') || '[]');
+
+            if (orders.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="9" class="p-4 text-center text-zinc-500">No orders recorded yet.</td></tr>`;
+            } else {
+                tbody.innerHTML = orders.map((o, idx) => `
+                    <tr class="hover:bg-zinc-800/50">
+                        <td class="p-3 font-bold text-rose-500">#${orders.length - idx}</td>
+                        <td class="p-3 whitespace-nowrap">${o.date}</td>
+                        <td class="p-3 font-semibold text-zinc-200">${o.name}</td>
+                        <td class="p-3 font-mono text-emerald-400">${o.phone}</td>
+                        <td class="p-3 max-w-xs truncate">${o.address}</td>
+                        <td class="p-3 max-w-xs truncate">${o.items}</td>
+                        <td class="p-3 font-bold">${o.currency}</td>
+                        <td class="p-3 font-bold text-rose-400">${o.amount}</td>
+                        <td class="p-3"><span class="bg-emerald-500/20 text-emerald-400 px-2 py-1 rounded text-[10px] uppercase font-bold">${o.status}</span></td>
+                    </tr>
+                `).join('');
+            }
+        }
+
+        function clearAllOrders() {
+            if (confirm("Are you sure you want to clear all order history?")) {
+                localStorage.removeItem('edenic_orders');
+                renderAdminOrders();
+            }
         }
 
         function finishSuccessOrder() {
@@ -419,7 +630,7 @@
             document.getElementById('success-modal').classList.add('hidden');
         }
 
-        renderProducts();
+        renderProducts('all');
     </script>
 </body>
 </html>
