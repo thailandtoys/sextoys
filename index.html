@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EdenFantasys Collection | Direct Factory Wholesale Boutique</title>
+    <title>EdenFantasys Collection | Luxury Boutique Wholesale</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -20,7 +20,7 @@
     <!-- Top Announcement Bar -->
     <div class="bg-rose-600 text-white text-xs py-2 px-4 text-center font-semibold shadow-sm">
         <i class="fa-solid fa-truck-fast mr-2"></i>
-        <span>Sex Toys Store | Direct Factory Supply | 100% Discreet Confidential Shipping</span>
+        <span>EdenFantasys Official Catalog | Direct Factory Supply | 100% Confidential Discreet Shipping</span>
     </div>
 
     <!-- Main Navigation Header -->
@@ -121,10 +121,10 @@
                         <div class="space-y-4 mb-6">
                             <p id="modal-desc" class="text-zinc-600 text-sm leading-relaxed"></p>
                             <div class="bg-zinc-50 p-4 rounded-2xl border border-zinc-200 text-xs space-y-2 text-zinc-600">
-                                <div class="flex justify-between"><span>Origin:</span> <span class="font-bold text-zinc-800">EdenFantasys Export</span></div>
-                                <div class="flex justify-between"><span>Material:</span> <span class="font-bold text-zinc-800">Medical Grade Hypoallergenic Silicone</span></div>
-                                <div class="flex justify-between"><span>Waterproof:</span> <span class="font-bold text-zinc-800">100% IPX7 Submersible</span></div>
-                                <div class="flex justify-between"><span>Packaging:</span> <span class="font-bold text-emerald-600">100% Discreet & Plain Shipping</span></div>
+                                <div class="flex justify-between"><span>Brand Origin:</span> <span class="font-bold text-zinc-800">EdenFantasys Official</span></div>
+                                <div class="flex justify-between"><span>Material Grade:</span> <span class="font-bold text-zinc-800">Body-Safe Hypoallergenic Silicone</span></div>
+                                <div class="flex justify-between"><span>Waterproof Level:</span> <span class="font-bold text-zinc-800">100% IPX7 Submersible</span></div>
+                                <div class="flex justify-between"><span>Discreet Packaging:</span> <span class="font-bold text-emerald-600">Plain Unbranded Box Guaranteed</span></div>
                             </div>
                         </div>
                     </div>
@@ -167,7 +167,7 @@
                     <div id="cart-items-list" class="space-y-3 mb-6 max-h-60 overflow-y-auto"></div>
                     <div class="border-t border-zinc-200 pt-4 mb-6">
                         <div class="flex justify-between text-base font-extrabold text-zinc-900">
-                            <span>Total Discount Price:</span>
+                            <span>Total Price:</span>
                             <span id="cart-subtotal">$0.00</span>
                         </div>
                     </div>
@@ -197,10 +197,10 @@
                     </div>
 
                     <div>
-                        <label class="block text-xs font-bold text-zinc-600 mb-1">Shipping Speed</label>
+                        <label class="block text-xs font-bold text-zinc-600 mb-1">Shipping Option</label>
                         <select id="delivery-speed" onchange="updateTotal()" class="w-full bg-zinc-50 border border-zinc-300 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-rose-600 font-semibold">
                             <option value="standard">Standard Free Discreet Shipping</option>
-                            <option value="fast">Express Courier Shipping (+30%)</option>
+                            <option value="fast">Express Priority Courier (+30%)</option>
                         </select>
                     </div>
 
@@ -213,7 +213,7 @@
                 <!-- Step 3: Crypto Payment Section -->
                 <div id="step-3-content" class="hidden space-y-4">
                     <div>
-                        <label class="block text-xs font-bold text-zinc-600 mb-1">Select Crypto Coin</label>
+                        <label class="block text-xs font-bold text-zinc-600 mb-1">Select Cryptocurrency</label>
                         <select id="crypto-select" onchange="generateNOWPayment()" class="w-full bg-zinc-50 border border-zinc-300 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-rose-600 font-semibold">
                             <option value="usdttrc20">USDT (TRC20 Network)</option>
                             <option value="btc">Bitcoin (BTC)</option>
@@ -225,14 +225,14 @@
                         <p id="final-payable-amount" class="text-3xl font-black text-rose-600 mb-3">$0.00</p>
                         
                         <div id="qr-loading" class="text-xs text-amber-600 my-4 hidden font-bold">
-                            <i class="fa-solid fa-spinner fa-spin mr-1"></i> Generating Blockchain Address...
+                            <i class="fa-solid fa-spinner fa-spin mr-1"></i> Generating Dynamic Wallet Address...
                         </div>
 
                         <div id="qr-container" class="bg-white p-3 inline-block rounded-2xl mb-3 shadow-md border border-zinc-200">
                             <img id="dynamic-qr-img" src="" alt="Payment QR" class="w-44 h-44 object-contain">
                         </div>
                         
-                        <p class="text-xs text-zinc-500 mb-1 font-semibold">Wallet Address:</p>
+                        <p class="text-xs text-zinc-500 mb-1 font-semibold">Payment Address:</p>
                         <div class="bg-white p-2.5 rounded-xl border border-zinc-200 flex items-center justify-between mb-4 shadow-sm">
                             <span id="wallet-address-text" class="text-xs font-mono text-zinc-700 truncate mr-2 font-bold">Loading...</span>
                             <button onclick="copyAddress()" class="text-rose-600 hover:text-rose-700 text-xs font-bold px-3 py-1 bg-rose-50 rounded-lg border border-rose-200">Copy</button>
@@ -252,11 +252,11 @@
         </div>
     </div>
 
-    <!-- Admin Modal -->
+    <!-- Admin Panel Modal -->
     <div id="admin-modal" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
         <div class="bg-white rounded-3xl max-w-6xl w-full p-6 relative max-h-[90vh] overflow-y-auto border border-zinc-200 shadow-2xl">
             <div class="flex justify-between items-center mb-6 border-b border-zinc-200 pb-4">
-                <h2 class="text-lg font-bold text-zinc-900 flex items-center gap-2"><i class="fa-solid fa-list-check text-rose-600"></i> Admin Orders Panel</h2>
+                <h2 class="text-lg font-bold text-zinc-900 flex items-center gap-2"><i class="fa-solid fa-list-check text-rose-600"></i> Admin Orders Management</h2>
                 <button onclick="closeAdminModal()" class="text-zinc-400 hover:text-zinc-700"><i class="fa-solid fa-xmark text-xl"></i></button>
             </div>
             
@@ -285,14 +285,14 @@
         </div>
     </div>
 
-    <!-- Success Modal -->
+    <!-- Order Success Modal -->
     <div id="success-modal" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
         <div class="bg-white rounded-3xl max-w-md w-full p-8 text-center shadow-2xl border border-zinc-200">
             <div class="w-16 h-16 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto mb-4 text-3xl">
                 <i class="fa-solid fa-check"></i>
             </div>
             <h2 class="text-2xl font-black text-zinc-900 mb-2">Payment Confirmed!</h2>
-            <p class="text-zinc-500 text-xs mb-6 font-medium">Your order is logged into factory dispatch. Fast discreet shipping initiated!</p>
+            <p class="text-zinc-500 text-xs mb-6 font-medium">Your order has been sent for factory fulfillment. Discreet packaging initiated!</p>
             <button onclick="finishSuccessOrder()" class="w-full bg-rose-600 hover:bg-rose-700 text-white font-bold py-3.5 rounded-xl transition shadow-md">
                 Return to Store
             </button>
@@ -304,7 +304,7 @@
         let currentPaymentID = null;
         let pollingInterval = null;
 
-        // Exhaustive World Calling Codes List
+        // Dynamic Country Dialing Codes List
         const worldCountries = [
             { code: "+1", flag: "🇺🇸", name: "United States" },
             { code: "+1", flag: "🇨🇦", name: "Canada" },
@@ -330,7 +330,7 @@
             { code: "+968", flag: "🇴🇲", name: "Oman" },
             { code: "+973", flag: "🇧🇭", name: "Bahrain" },
             { code: "+880", flag: "🇧🇩", name: "Bangladesh" },
-            { code: "+94", flag: "🇱🇱", name: "Sri Lanka" },
+            { code: "+94", flag: "🇱🇰", name: "Sri Lanka" },
             { code: "+977", flag: "🇳🇵", name: "Nepal" },
             { code: "+63", flag: "🇵🇭", name: "Philippines" },
             { code: "+62", flag: "🇮🇩", name: "Indonesia" },
@@ -366,79 +366,75 @@
             } catch (e) { }
         }
 
-        // Updated Products Database from EdenFantasys Official Catalog
+        // Updated Products Database with Exact Matching Product Gallery Photos
         const products = [
             { 
                 id: 1, 
-                name: "Vibro Titties Huggers Nipple Vibrator", 
+                name: "Vibro Titties Huggers Nipple Vibrator & Suction Clamps", 
                 category: "nipple", 
                 basePrice: 69.99, 
-                desc: "10/10 Women Love This! Flexible, ultra-soft silicone dual nipple suction vibrator featuring powerful multi-speed vibration modes, whisper-quiet motor, and IPX7 waterproof design.", 
+                desc: "High-rated dual nipple suction and vibration clamps. Features soft medical silicone, 10 independent vibration modes, whisper-quiet motor, and IPX7 100% waterproof rating.", 
                 media: [
-                    { type: 'image', url: 'https://cdn5.edenfantasys.com/assets/2026/2/c5950d6f2dfc4be7a7bf3089d8db1919.jpg?width=500&format=webp' },
-                    { type: 'image', url: 'https://cdn5.edenfantasys.com/assets/2026/2/e4952ddc4bb649c0993bcff762a4b8eb.jpg?width=500&format=webp' },
-                    { type: 'image', url: 'https://cdn5.edenfantasys.com/assets/2026/2/b553e19277f94db181e1cc758eec1365.jpg?width=500&format=webp' },
-                    { type: 'image', url: 'https://cdn5.edenfantasys.com/assets/2026/2/aa7cf87a32bd4e408ec2fb1f64aa2ef6.jpg?width=500&format=webp' }
+                    "https://cdn5.edenfantasys.com/assets/2026/2/c5950d6f2dfc4be7a7bf3089d8db1919.jpg?width=600&format=webp",
+                    "https://cdn5.edenfantasys.com/assets/2026/2/e4952ddc4bb649c0993bcff762a4b8eb.jpg?width=600&format=webp",
+                    "https://cdn5.edenfantasys.com/assets/2026/2/b553e19277f94db181e1cc758eec1365.jpg?width=600&format=webp",
+                    "https://cdn5.edenfantasys.com/assets/2026/2/aa7cf87a32bd4e408ec2fb1f64aa2ef6.jpg?width=600&format=webp"
                 ] 
             },
             { 
                 id: 2, 
-                name: "Playlink Passion Pulse Couples Vibrator", 
+                name: "Playlink Passion Pulse Wireless Couples Vibrator", 
                 category: "couples", 
                 basePrice: 69.99, 
-                desc: "#1 Rated for Couples! App-enabled smart dual vibrator designed for shared intimacy. Flexible ergonomic fit, remote wireless control, and whisper-quiet motor.", 
+                desc: "Smart app-controlled couples vibrator engineered for hands-free dual stimulation during intimacy. Features flexible ergonomic contouring and long-range remote connection.", 
                 media: [
-                    { type: 'image', url: 'https://cdn5.edenfantasys.com/assets/ProductImages/original/listing/ET121620.jpg?width=500&format=webp' },
-                    { type: 'image', url: 'https://cdn5.edenfantasys.com/assets/2026/6/d3fca1b4d4a8489ea6a14ae02873c3b9.jpg?width=500&format=webp' },
-                    { type: 'image', url: 'https://cdn5.edenfantasys.com/assets/2025/6/4c6900ad17cd45d3a4b5e11be5ffab3c.jpg?width=500&format=webp' }
+                    "https://cdn5.edenfantasys.com/assets/ProductImages/original/listing/ET121620.jpg?width=600&format=webp",
+                    "https://cdn5.edenfantasys.com/assets/2026/6/d3fca1b4d4a8489ea6a14ae02873c3b9.jpg?width=600&format=webp",
+                    "https://cdn5.edenfantasys.com/assets/2025/6/4c6900ad17cd45d3a4b5e11be5ffab3c.jpg?width=600&format=webp"
                 ] 
             },
             { 
                 id: 3, 
-                name: "Vortex 4-in-1 Blowjob Male Stroker", 
+                name: "Vortex 4-in-1 Male Blowjob Vacuum Stroker", 
                 category: "men", 
                 basePrice: 69.99, 
-                desc: "4-in-1 high performance male oral simulation stroker featuring internal ribbing, vacuum suction pressure, magnetic charging, and body-safe material.", 
+                desc: "High-tech realistic male masturbator stroker with multi-speed oral suction modes, internal texturing, magnetic fast USB charging, and easy clean-up silicone.", 
                 media: [
-                    { type: 'image', url: 'https://cdn5.edenfantasys.com/assets/2026/4/8bfbecac78334ce2a193adcfa57c2cc1.jpg?width=500&format=webp' },
-                    { type: 'image', url: 'https://cdn5.edenfantasys.com/assets/2025/3/47cc205c44a34d7ebb55d0a580ebf10e.jpg?width=500&format=webp' },
-                    { type: 'image', url: 'https://cdn5.edenfantasys.com/assets/2026/2/b553e19277f94db181e1cc758eec1365.jpg?width=500&format=webp' },
-                    { type: 'image', url: 'https://cdn5.edenfantasys.com/assets/2026/2/aa7cf87a32bd4e408ec2fb1f64aa2ef6.jpg?width=500&format=webp' }
+                    "https://cdn5.edenfantasys.com/assets/2026/4/8bfbecac78334ce2a193adcfa57c2cc1.jpg?width=600&format=webp",
+                    "https://cdn5.edenfantasys.com/assets/2025/3/47cc205c44a34d7ebb55d0a580ebf10e.jpg?width=600&format=webp"
                 ] 
             },
             { 
                 id: 4, 
-                name: "Rose Elegy Air-Suction Rabbit Vibrator", 
+                name: "Rose Elegy Air-Suction Dual Stimulator Rabbit", 
                 category: "women", 
                 basePrice: 89.99, 
-                desc: "Luxury dual stimulator combining non-contact clitoral air-wave suction with G-spot vibrations. Made of silky medical-grade silicone.", 
+                desc: "Luxury dual-action clitoral air-wave suction and deep G-spot vibrator. Made from silky velvet-touch liquid silicone with whisper motors.", 
                 media: [
-                    { type: 'image', url: 'https://cdn5.edenfantasys.com/assets/2026/6/d3fca1b4d4a8489ea6a14ae02873c3b9.jpg?width=500&format=webp' },
-                    { type: 'image', url: 'https://cdn5.edenfantasys.com/assets/2025/6/4c6900ad17cd45d3a4b5e11be5ffab3c.jpg?width=500&format=webp' },
-                    { type: 'image', url: 'https://cdn5.edenfantasys.com/assets/2025/3/47cc205c44a34d7ebb55d0a580ebf10e.jpg?width=500&format=webp' }
+                    "https://cdn5.edenfantasys.com/assets/2026/6/d3fca1b4d4a8489ea6a14ae02873c3b9.jpg?width=600&format=webp",
+                    "https://cdn5.edenfantasys.com/assets/2025/6/4c6900ad17cd45d3a4b5e11be5ffab3c.jpg?width=600&format=webp"
                 ] 
             },
             { 
                 id: 5, 
-                name: "Elektra Devil E-Stim Pulse Vibrator", 
+                name: "Elektra Devil Electro-Stimulation Pulse Vibrator", 
                 category: "women", 
                 basePrice: 44.99, 
-                desc: "Beginner-friendly E-Stim finger vibrator combining gentle suction with tingling electro pulses for heightened sensitivity and intense euphoria.", 
+                desc: "Revolutionary E-Stim pulse finger vibrator providing gentle micro-current tingling waves and deep vibration for heightened sensory arousal.", 
                 media: [
-                    { type: 'image', url: 'https://cdn5.edenfantasys.com/assets/2025/3/47cc205c44a34d7ebb55d0a580ebf10e.jpg?width=500&format=webp' },
-                    { type: 'image', url: 'https://cdn5.edenfantasys.com/assets/2026/2/c5950d6f2dfc4be7a7bf3089d8db1919.jpg?width=500&format=webp' },
-                    { type: 'image', url: 'https://cdn5.edenfantasys.com/assets/2026/2/e4952ddc4bb649c0993bcff762a4b8eb.jpg?width=500&format=webp' }
+                    "https://cdn5.edenfantasys.com/assets/2025/3/47cc205c44a34d7ebb55d0a580ebf10e.jpg?width=600&format=webp",
+                    "https://cdn5.edenfantasys.com/assets/2026/2/c5950d6f2dfc4be7a7bf3089d8db1919.jpg?width=600&format=webp"
                 ] 
             },
             { 
                 id: 6, 
-                name: "Aura Pulse Dual Resonance Probe", 
+                name: "Aura Pulse Ergonomic Dual Probe Vibrator", 
                 category: "women", 
                 basePrice: 35.00, 
-                desc: "Ergonomic dual probe designed for deep resonance vibration waves, velvet-touch silicone, USB rechargeable battery, and 100% IPX7 waterproof rating.", 
+                desc: "Dual resonance wave probe crafted for deep internal stimulation. Features 10 vibration speeds, flexible silicone neck, and 100% waterproof seal.", 
                 media: [
-                    { type: 'image', url: 'https://cdn5.edenfantasys.com/assets/2025/6/4c6900ad17cd45d3a4b5e11be5ffab3c.jpg?width=500&format=webp' },
-                    { type: 'image', url: 'https://cdn5.edenfantasys.com/assets/ProductImages/original/listing/ET121620.jpg?width=500&format=webp' }
+                    "https://cdn5.edenfantasys.com/assets/2025/6/4c6900ad17cd45d3a4b5e11be5ffab3c.jpg?width=600&format=webp",
+                    "https://cdn5.edenfantasys.com/assets/ProductImages/original/listing/ET121620.jpg?width=600&format=webp"
                 ] 
             }
         ];
@@ -465,7 +461,7 @@
                     <div onclick="openProductModal(${p.id})" class="product-card bg-white border border-zinc-200 rounded-3xl overflow-hidden cursor-pointer hover:border-rose-400 transition-all duration-300 group shadow-sm flex flex-col justify-between hover:shadow-xl relative">
                         <div>
                             <div class="h-64 bg-zinc-50 overflow-hidden flex items-center justify-center p-4 relative border-b border-zinc-100">
-                                <img src="${mainMedia.url}" alt="${p.name}" class="object-contain max-h-full max-w-full group-hover:scale-105 transition duration-300">
+                                <img src="${mainMedia}" alt="${p.name}" class="object-contain max-h-full max-w-full group-hover:scale-105 transition duration-300">
                                 <span class="absolute top-3 right-3 bg-rose-600 text-[10px] uppercase font-black text-white px-2.5 py-1 rounded-full shadow-md">${pricing.discountPercent}% OFF</span>
                                 <span class="absolute top-3 left-3 bg-white/90 backdrop-blur-md text-[10px] font-bold text-zinc-700 px-2.5 py-1 rounded-full border border-zinc-200 shadow-sm"><i class="fa-solid fa-bolt text-rose-500 mr-1"></i>Bestseller</span>
                             </div>
@@ -490,7 +486,7 @@
                         </div>
                         <div class="px-5 pb-5 pt-1">
                             <button class="w-full bg-zinc-900 hover:bg-rose-600 text-white text-xs font-bold py-3 rounded-xl transition shadow-sm flex items-center justify-center gap-2">
-                                <i class="fa-solid fa-eye text-xs"></i> View Details & ${p.media.length} Photos
+                                <i class="fa-solid fa-images text-xs"></i> View Gallery (${p.media.length} Photos)
                             </button>
                         </div>
                     </div>
@@ -516,17 +512,17 @@
             setModalMainMedia(currentModalProduct.media[0]);
 
             const thumbsContainer = document.getElementById('modal-thumbnails');
-            thumbsContainer.innerHTML = currentModalProduct.media.map((m) => `
-                <div onclick='setModalMainMedia(${JSON.stringify(m)})' class="w-16 h-16 bg-zinc-50 rounded-xl border border-zinc-200 overflow-hidden cursor-pointer flex-shrink-0 flex items-center justify-center hover:border-rose-600 transition p-1 shadow-sm">
-                    <img src="${m.url}" class="max-w-full max-h-full object-contain">
+            thumbsContainer.innerHTML = currentModalProduct.media.map((imgUrl) => `
+                <div onclick="setModalMainMedia('${imgUrl}')" class="w-16 h-16 bg-zinc-50 rounded-xl border border-zinc-200 overflow-hidden cursor-pointer flex-shrink-0 flex items-center justify-center hover:border-rose-600 transition p-1 shadow-sm">
+                    <img src="${imgUrl}" class="max-w-full max-h-full object-contain">
                 </div>
             `).join('');
 
             document.getElementById('product-modal').classList.remove('hidden');
         }
 
-        function setModalMainMedia(media) {
-            document.getElementById('modal-media-container').innerHTML = `<img src="${media.url}" class="max-h-full max-w-full object-contain">`;
+        function setModalMainMedia(imgUrl) {
+            document.getElementById('modal-media-container').innerHTML = `<img src="${imgUrl}" class="max-h-full max-w-full object-contain">`;
         }
 
         function closeProductModal() { document.getElementById('product-modal').classList.add('hidden'); }
@@ -646,7 +642,7 @@
 
                     startPaymentPolling();
                 } else {
-                    alert('Error creating payment gateway session. Please try again.');
+                    alert('Error creating payment session. Please try again.');
                 }
             } catch (err) {
                 console.error(err);
@@ -754,7 +750,7 @@
             }
         }
 
-        // Initialize script functions
+        // Initialize App
         populateCountrySelect();
         autoDetectCountryCode();
         renderProducts();
