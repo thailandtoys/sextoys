@@ -156,7 +156,7 @@
         <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"></div>
     </main>
 
-    <!-- Product Detail Viewer Modal (Only English) -->
+    <!-- Product Detail Viewer Modal -->
     <div id="product-modal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm hidden flex items-center justify-center p-4 overflow-y-auto">
         <div class="bg-white rounded-3xl max-w-4xl w-full p-6 relative max-h-[90vh] overflow-y-auto shadow-2xl border border-slate-200">
             <button onclick="closeProductModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-800 bg-slate-100 w-9 h-9 rounded-full flex items-center justify-center transition z-10">
@@ -223,7 +223,7 @@
         </div>
     </div>
 
-    <!-- Checkout Cart Drawer (Only English) -->
+    <!-- Checkout Cart Drawer -->
     <div id="cart-drawer" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm hidden flex justify-end">
         <div class="bg-white border-l border-slate-200 w-full max-w-md h-full flex flex-col justify-between p-6 overflow-y-auto">
             <div>
@@ -408,7 +408,6 @@
         let currentLang = 'en';
         let currentCategory = 'all';
 
-        // 240+ WORLD COUNTRIES DATABASE
         const worldCountries = [
             { code: "+1", flag: "🇺🇸", name: "United States" },
             { code: "+1", flag: "🇨🇦", name: "Canada" },
@@ -428,38 +427,24 @@
             { code: "+93", flag: "🇦🇫", name: "Afghanistan" },
             { code: "+355", flag: "🇦🇱", name: "Albania" },
             { code: "+213", flag: "🇩🇿", name: "Algeria" },
-            { code: "+376", flag: "🇦🇩", name: "Andorra" },
-            { code: "+244", flag: "🇦🇴", name: "Angola" },
             { code: "+54", flag: "🇦🇷", name: "Argentina" },
-            { code: "+374", flag: "🇦🇲", name: "Armenia" },
             { code: "+43", flag: "🇦🇹", name: "Austria" },
-            { code: "+994", flag: "🇦🇿", name: "Azerbaijan" },
             { code: "+973", flag: "🇧🇭", name: "Bahrain" },
-            { code: "+375", flag: "🇧🇾", name: "Belarus" },
             { code: "+32", flag: "🇧🇪", name: "Belgium" },
             { code: "+55", flag: "🇧🇷", name: "Brazil" },
-            { code: "+359", flag: "🇧🇬", name: "Bulgaria" },
             { code: "+56", flag: "🇨🇱", name: "Chile" },
             { code: "+57", flag: "🇨🇴", name: "Colombia" },
-            { code: "+385", flag: "🇭🇷", name: "Croatia" },
-            { code: "+357", flag: "🇨🇾", name: "Cyprus" },
-            { code: "+420", flag: "🇨🇿", name: "Czech Republic" },
             { code: "+45", flag: "🇩🇰", name: "Denmark" },
             { code: "+20", flag: "🇪🇬", name: "Egypt" },
-            { code: "+372", flag: "🇪🇪", name: "Estonia" },
             { code: "+358", flag: "🇫🇮", name: "Finland" },
-            { code: "+995", flag: "🇬🇪", name: "Georgia" },
             { code: "+30", flag: "🇬🇷", name: "Greece" },
             { code: "+36", flag: "🇭🇺", name: "Hungary" },
-            { code: "+354", flag: "🇮🇸", name: "Iceland" },
             { code: "+62", flag: "🇮🇩", name: "Indonesia" },
             { code: "+964", flag: "🇮🇶", name: "Iraq" },
             { code: "+353", flag: "🇮🇪", name: "Ireland" },
-            { code: "+972", flag: "🇮🇱", name: "Israel" },
             { code: "+39", flag: "🇮🇹", name: "Italy" },
             { code: "+81", flag: "🇯🇵", name: "Japan" },
             { code: "+962", flag: "🇯🇴", name: "Jordan" },
-            { code: "+7", flag: "🇰🇿", name: "Kazakhstan" },
             { code: "+254", flag: "🇰🇪", name: "Kenya" },
             { code: "+82", flag: "🇰🇷", name: "South Korea" },
             { code: "+961", flag: "🇱🇧", name: "Lebanon" },
@@ -474,7 +459,6 @@
             { code: "+63", flag: "🇵🇭", name: "Philippines" },
             { code: "+48", flag: "🇵🇱", name: "Poland" },
             { code: "+351", flag: "🇵🇹", name: "Portugal" },
-            { code: "+40", flag: "🇷🇴", name: "Romania" },
             { code: "+7", flag: "🇷🇺", name: "Russia" },
             { code: "+65", flag: "🇸🇬", name: "Singapore" },
             { code: "+27", flag: "🇿🇦", name: "South Africa" },
@@ -514,9 +498,6 @@
             else if (userTZ.includes("Shanghai") || userTZ.includes("Urumqi") || userLang.includes("zh")) { targetCode = "+86"; targetCountry = "China"; }
             else if (userTZ.includes("Dubai")) { targetCode = "+971"; targetCountry = "United Arab Emirates"; }
             else if (userTZ.includes("London")) { targetCode = "+44"; targetCountry = "United Kingdom"; }
-            else if (userTZ.includes("Riyadh")) { targetCode = "+966"; targetCountry = "Saudi Arabia"; }
-            else if (userTZ.includes("Kolkata")) { targetCode = "+91"; targetCountry = "India"; }
-            else if (userTZ.includes("Bangkok")) { targetCode = "+66"; targetCountry = "Thailand"; }
 
             const selectCode = document.getElementById('country-code');
             const selectCountry = document.getElementById('cust-country');
@@ -524,150 +505,94 @@
             if (selectCountry) selectCountry.value = targetCountry;
         }
 
-        // PRODUCTS DATABASE
         const products = [
             { 
                 id: 101, 
                 name: { en: "Pro Thruster V1 Sex Machine", zh: "Pro Thruster V1 自动推力性爱机器" }, 
                 category: "machines", 
                 basePrice: 160.00, 
-                desc: {
-                    en: "High power multi-speed automated thrusting machine with quiet heavy-duty motor, adjustable angles, and ergonomic mounting stand.",
-                    zh: "高功率多速全自动推力机器，配备静音重型电机、可调节角度和人体工程学安装支架。"
-                },
-                gallery: [
-                    { type: 'image', url: 'https://cdn5.edenfantasys.com/assets/ProductImages/1000x1000/JTSE019_2.jpg?width=500&format=webp' }
-                ]
+                desc: { en: "High power multi-speed automated thrusting machine with quiet heavy-duty motor, adjustable angles, and ergonomic mounting stand.", zh: "高功率多速全自动推力机器，配备静音重型电机、可调节角度和人体工程学安装支架。" },
+                gallery: [{ type: 'image', url: 'https://cdn5.edenfantasys.com/assets/ProductImages/1000x1000/JTSE019_2.jpg?width=500&format=webp' }]
             },
             { 
                 id: 102, 
                 name: { en: "Compact Desktop Thrust Master", zh: "便携紧凑型桌面推力大师" }, 
                 category: "machines", 
                 basePrice: 85.00, 
-                desc: {
-                    en: "Compact suction-cup base auto machine. Fits on smooth surfaces with 360-degree precision articulation.",
-                    zh: "紧凑型吸盘底座全自动机器。适用于光滑表面，支持360度精准转向。"
-                },
-                gallery: [
-                    { type: 'image', url: 'https://cdn5.edenfantasys.com/assets/2026/6/d3fca1b4d4a8489ea6a14ae02873c3b9.jpg?width=500&format=webp' }
-                ]
+                desc: { en: "Compact suction-cup base auto machine. Fits on smooth surfaces with 360-degree precision articulation.", zh: "紧凑型吸盘底座全自动机器。适用于光滑表面，支持360度精准转向。" },
+                gallery: [{ type: 'image', url: 'https://cdn5.edenfantasys.com/assets/2026/6/d3fca1b4d4a8489ea6a14ae02873c3b9.jpg?width=500&format=webp' }]
             },
             { 
                 id: 103, 
                 name: { en: "Heavy Metal Frame Sex Machine", zh: "重型金属框架高频机器" }, 
                 category: "machines", 
                 basePrice: 220.00, 
-                desc: {
-                    en: "Ultra-stable metal frame automated thruster with dual speed dials and quick-lock universal connector attachment.",
-                    zh: "超稳定金属框架全自动推力器，配备双速调速盘和快速锁定通用连接头。"
-                },
-                gallery: [
-                    { type: 'image', url: 'https://cdn5.edenfantasys.com/assets/ProductImages/original/listing/ET121620.jpg?width=500&format=webp' }
-                ]
+                desc: { en: "Ultra-stable metal frame automated thruster with dual speed dials and quick-lock universal connector attachment.", zh: "超稳定金属框架全自动推力器，配备双速调速盘和快速锁定通用连接头。" },
+                gallery: [{ type: 'image', url: 'https://cdn5.edenfantasys.com/assets/ProductImages/original/listing/ET121620.jpg?width=500&format=webp' }]
             },
             { 
                 id: 104, 
                 name: { en: "Dual Probe Power Thruster", zh: "双探头强力动能机器" }, 
                 category: "machines", 
                 basePrice: 145.00, 
-                desc: {
-                    en: "Dual action reciprocating movement machine with remote speed controller and low-noise operation.",
-                    zh: "双向往复运动机器，配备远程速度控制器和低噪音运行。"
-                },
-                gallery: [
-                    { type: 'image', url: 'https://cdn5.edenfantasys.com/assets/2026/4/8bfbecac78334ce2a193adcfa57c2cc1.jpg?width=500&format=webp' }
-                ]
+                desc: { en: "Dual action reciprocating movement machine with remote speed controller and low-noise operation.", zh: "双向往复运动机器，配备远程速度控制器和低噪音运行。" },
+                gallery: [{ type: 'image', url: 'https://cdn5.edenfantasys.com/assets/2026/4/8bfbecac78334ce2a193adcfa57c2cc1.jpg?width=500&format=webp' }]
             },
             { 
                 id: 105, 
                 name: { en: "Universal Rod Extension Adaptor", zh: "通用连接延长适配杆" }, 
                 category: "machines", 
                 basePrice: 6.50, 
-                desc: {
-                    en: "Stainless steel universal extension rod adaptor for custom machine attachment configurations.",
-                    zh: "不锈钢通用延长杆适配器，用于自定义机器配件配置。"
-                },
-                gallery: [
-                    { type: 'image', url: 'https://cdn5.edenfantasys.com/assets/2024/10/4ee70baa88f64823b59841736075157a.jpg?width=500&format=webp' }
-                ]
+                desc: { en: "Stainless steel universal extension rod adaptor for custom machine attachment configurations.", zh: "不锈钢通用延长杆适配器，用于自定义机器配件配置。" },
+                gallery: [{ type: 'image', url: 'https://cdn5.edenfantasys.com/assets/2024/10/4ee70baa88f64823b59841736075157a.jpg?width=500&format=webp' }]
             },
             { 
                 id: 106, 
                 name: { en: "Silent Stealth Motion Thruster", zh: "静音潜行变频推力器" }, 
                 category: "machines", 
                 basePrice: 195.00, 
-                desc: {
-                    en: "Whisper-quiet brushless motor technology with deep rhythmic frequency settings and wireless remote control.",
-                    zh: "超静音无刷电机技术，具有深层节奏频率设置和无线遥控功能。"
-                },
-                gallery: [
-                    { type: 'image', url: 'https://cdn5.edenfantasys.com/assets/2024/11/69458cd66b7943abb298d90151bf7c81.jpg?width=500&format=webp' }
-                ]
+                desc: { en: "Whisper-quiet brushless motor technology with deep rhythmic frequency settings and wireless remote control.", zh: "超静音无刷电机技术，具有深层节奏频率设置和无线遥控功能。" },
+                gallery: [{ type: 'image', url: 'https://cdn5.edenfantasys.com/assets/2024/11/69458cd66b7943abb298d90151bf7c81.jpg?width=500&format=webp' }]
             },
             { 
                 id: 1, 
                 name: { en: "Vibro Titties Huggers Video Demo Toy", zh: "Vibro 双乳吸吮震动演示玩具" }, 
                 category: "nipple", 
                 basePrice: 19.99, 
-                desc: {
-                    en: "Flexible, ultra-soft silicone dual nipple suction vibrator featuring powerful multi-speed vibration modes.",
-                    zh: "柔软超软硅胶双乳头吸吮震动器，具有强劲多速震动模式。"
-                },
-                gallery: [
-                    { type: 'image', url: 'https://cdn5.edenfantasys.com/assets/2025/3/8b1d790e2ab94582a5a915d2efaa20ba.jpg?width=500&format=webp' }
-                ]
+                desc: { en: "Flexible, ultra-soft silicone dual nipple suction vibrator featuring powerful multi-speed vibration modes.", zh: "柔软超软硅胶双乳头吸吮震动器，具有强劲多速震动模式。" },
+                gallery: [{ type: 'image', url: 'https://cdn5.edenfantasys.com/assets/2025/3/8b1d790e2ab94582a5a915d2efaa20ba.jpg?width=500&format=webp' }]
             },
             { 
                 id: 2, 
                 name: { en: "Vibro Titties Huggers Pink Edition", zh: "Vibro 双乳粉色精致款" }, 
                 category: "nipple", 
                 basePrice: 18.50, 
-                desc: {
-                    en: "High sensitivity precision nipple stimulator designed with flexible soft silicone pads.",
-                    zh: "高灵敏度精准乳头刺激器，采用柔韧软硅胶垫设计。"
-                },
-                gallery: [
-                    { type: 'image', url: 'https://cdn5.edenfantasys.com/assets/2025/3/8b1d790e2ab94582a5a915d2efaa20ba.jpg?width=500&format=webp' }
-                ]
+                desc: { en: "High sensitivity precision nipple stimulator designed with flexible soft silicone pads.", zh: "高灵敏度精准乳头刺激器，采用柔韧软硅胶垫设计。" },
+                gallery: [{ type: 'image', url: 'https://cdn5.edenfantasys.com/assets/2025/3/8b1d790e2ab94582a5a915d2efaa20ba.jpg?width=500&format=webp' }]
             },
             { 
                 id: 3, 
                 name: { en: "Edenic Motion Elegance Dual Probe", zh: "Edenic 典雅双探头按摩棒" }, 
                 category: "women", 
                 basePrice: 12.00, 
-                desc: {
-                    en: "Dual motion precision stimulator featuring ultra-smooth silicone finish and dual motor design.",
-                    zh: "双动精准刺激器，具有超光滑硅胶触感和双电机设计。"
-                },
-                gallery: [
-                    { type: 'image', url: 'https://cdn5.edenfantasys.com/assets/2025/6/4c6900ad17cd45d3a4b5e11be5ffab3c.jpg?width=500&format=webp' }
-                ]
+                desc: { en: "Dual motion precision stimulator featuring ultra-smooth silicone finish and dual motor design.", zh: "双动精准刺激器，具有超光滑硅胶触感和双电机设计。" },
+                gallery: [{ type: 'image', url: 'https://cdn5.edenfantasys.com/assets/2025/6/4c6900ad17cd45d3a4b5e11be5ffab3c.jpg?width=500&format=webp' }]
             },
             { 
                 id: 8, 
                 name: { en: "Shared Intimacy Ergonomic Couples Loop", zh: "情侣共享亲密共振环" }, 
                 category: "couples", 
                 basePrice: 35.00, 
-                desc: {
-                    en: "Ergonomic couples stimulator for enhanced shared intimacy and synchronized dual vibrations.",
-                    zh: "符合人体工程学的情侣刺激器，可增强共享亲密感和同步双重震动。"
-                },
-                gallery: [
-                    { type: 'image', url: 'https://cdn5.edenfantasys.com/assets/ProductImages/original/listing/ET121620.jpg?width=500&format=webp' }
-                ]
+                desc: { en: "Ergonomic couples stimulator for enhanced shared intimacy and synchronized dual vibrations.", zh: "符合人体工程学的情侣刺激器，可增强共享亲密感和同步双重震动。" },
+                gallery: [{ type: 'image', url: 'https://cdn5.edenfantasys.com/assets/ProductImages/original/listing/ET121620.jpg?width=500&format=webp' }]
             },
             { 
                 id: 11, 
                 name: { en: "Rose Elegy Air-Suction Rose Vibrator", zh: "玫瑰吸吮空气波震动器" }, 
                 category: "women", 
                 basePrice: 28.00, 
-                desc: {
-                    en: "Air suction technology for non-contact stimulation and smooth touch.",
-                    zh: "气流吸吮技术，实现无接触刺激和顺滑触感。"
-                },
-                gallery: [
-                    { type: 'image', url: 'https://cdn5.edenfantasys.com/assets/2024/11/69458cd66b7943abb298d90151bf7c81.jpg?width=500&format=webp' }
-                ]
+                desc: { en: "Air suction technology for non-contact stimulation and smooth touch.", zh: "气流吸吮技术，实现无接触刺激和顺滑触感。" },
+                gallery: [{ type: 'image', url: 'https://cdn5.edenfantasys.com/assets/2024/11/69458cd66b7943abb298d90151bf7c81.jpg?width=500&format=webp' }]
             }
         ];
 
@@ -715,7 +640,7 @@
 
             document.getElementById('category-title').innerText = currentCategory === 'all' ? 'Direct Factory Collection' : currentCategory.toUpperCase() + ' Collection';
 
-            if (listToRender.length === 0) {
+            if (!listToRender || listToRender.length === 0) {
                 grid.innerHTML = `<div class="col-span-full py-12 text-center text-slate-400 font-bold text-xs"><i class="fa-solid fa-magnifying-glass text-2xl mb-2 block"></i>No matching products found.</div>`;
                 return;
             }
@@ -723,13 +648,12 @@
             grid.innerHTML = listToRender.map(p => {
                 const pricing = calculateProductPrice(p.basePrice);
                 const firstMedia = p.gallery && p.gallery.length > 0 ? p.gallery[0] : { type: 'image', url: '' };
-                const mediaElement = `<img src="${firstMedia.url}" alt="${p.name[currentLang] || p.name.en}" class="object-contain max-h-full max-w-full group-hover:scale-105 transition duration-300">`;
 
                 return `
                     <div onclick="openProductModal(${p.id})" class="bg-white border border-slate-200/90 rounded-3xl overflow-hidden cursor-pointer product-card flex flex-col justify-between shadow-sm hover:border-slate-300">
                         <div>
                             <div class="h-60 bg-slate-50 overflow-hidden flex items-center justify-center p-4 relative">
-                                ${mediaElement}
+                                <img src="${firstMedia.url}" alt="${p.name[currentLang] || p.name.en}" class="object-contain max-h-full max-w-full group-hover:scale-105 transition duration-300">
                                 <span class="absolute top-3 right-3 bg-gradient-to-r from-rose-600 to-pink-600 text-[10px] uppercase font-black text-white px-2.5 py-1 rounded-full shadow-md">${pricing.discountPercent}% OFF</span>
                             </div>
                             <div class="p-5">
@@ -908,8 +832,8 @@
         function calculateSubtotalWithBulk() {
             let rawSubtotal = calculateRawSubtotal();
             let totalPieces = calculateTotalPieces();
-            if (totalPieces > 5) {
-                return rawSubtotal * 0.70; // 30% discount
+            if (totalPieces >= 5) {
+                return rawSubtotal * 0.70;
             }
             return rawSubtotal;
         }
@@ -927,7 +851,7 @@
             const bulkNotice = document.getElementById('bulk-discount-notice');
             const bulkRow = document.getElementById('bulk-discount-row');
             
-            if (totalPieces > 5) {
+            if (totalPieces >= 5) {
                 const discountAmt = rawSubtotal * 0.30;
                 bulkNotice.classList.remove('hidden');
                 bulkRow.classList.remove('hidden');
@@ -1088,4 +1012,40 @@
         function closeAdminModal() { document.getElementById('admin-modal').classList.add('hidden'); }
 
         function renderAdminOrders() {
-    
+            const tbody = document.getElementById('admin-orders-tbody');
+            const orders = JSON.parse(localStorage.getItem('admin_orders') || '[]');
+            if (orders.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="9" class="p-4 text-center text-slate-400 font-bold">No orders logged yet.</td></tr>';
+            } else {
+                tbody.innerHTML = orders.map(o => `
+                    <tr class="hover:bg-slate-50">
+                        <td class="p-3 font-bold">${o.id}</td>
+                        <td class="p-3 whitespace-nowrap">${o.date}</td>
+                        <td class="p-3 font-semibold">${o.customer}</td>
+                        <td class="p-3 font-mono text-[11px]">${o.phone}</td>
+                        <td class="p-3 max-w-xs truncate">${o.address}</td>
+                        <td class="p-3 max-w-xs truncate">${o.items}</td>
+                        <td class="p-3 font-semibold">${o.method}</td>
+                        <td class="p-3 font-black text-rose-600">${o.amount}</td>
+                        <td class="p-3"><span class="bg-emerald-100 text-emerald-800 font-bold px-2 py-0.5 rounded text-[10px]">${o.status}</span></td>
+                    </tr>
+                `).join('');
+            }
+        }
+
+        function clearAllOrders() {
+            if (confirm('Are you sure you want to clear all logged order history?')) {
+                localStorage.removeItem('admin_orders');
+                renderAdminOrders();
+            }
+        }
+
+        // Initialize script on page load
+        window.addEventListener('DOMContentLoaded', () => {
+            populateCountrySelect();
+            autoDetectCountryCode();
+            renderProducts();
+        });
+    </script>
+</body>
+</html>
