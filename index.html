@@ -3,94 +3,159 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sex Toys | Direct Factory Wholesale Boutique</title>
+    <title>Eden Style Direct Factory Wholesale Boutique</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        body { background-color: #ffffff; color: #18181b; }
+        body { background-color: #f8fafc; color: #0f172a; }
         ::-webkit-scrollbar { height: 6px; width: 6px; }
-        ::-webkit-scrollbar-track { background: #f4f4f5; }
-        ::-webkit-scrollbar-thumb { background: #d4d4d8; border-radius: 4px; }
+        ::-webkit-scrollbar-track { background: #f1f5f9; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
         ::-webkit-scrollbar-thumb:hover { background: #e11d48; }
-        .product-card:hover { transform: translateY(-4px); }
+        .product-card { transition: all 0.25s ease-in-out; }
+        .product-card:hover { transform: translateY(-4px); box-shadow: 0 12px 24px -10px rgba(225, 29, 72, 0.15); }
     </style>
 </head>
-<body class="font-sans antialiased bg-white text-zinc-900">
+<body class="font-sans antialiased bg-slate-50 text-slate-900">
 
-    <!-- Top Announcement Bar -->
-    <div class="bg-rose-600 text-white text-xs py-2 px-4 text-center font-semibold shadow-sm flex justify-between items-center max-w-7xl mx-auto">
-        <div class="flex-1 text-center">
-            <i class="fa-solid fa-truck-fast mr-2"></i>
-            <span id="announcement-text">Sex Toys Store | Direct Factory Supply | 100% Discreet Confidential Shipping</span>
+    <!-- Eden Fantasys Style Top Announcement Bar -->
+    <div class="bg-gradient-to-r from-rose-700 via-rose-600 to-pink-600 text-white text-xs py-2 px-4 shadow-sm">
+        <div class="max-w-7xl mx-auto flex flex-wrap justify-between items-center gap-2">
+            <div class="flex items-center space-x-6 text-[11px] font-medium mx-auto sm:mx-0">
+                <span class="flex items-center gap-1.5"><i class="fa-solid fa-bolt text-amber-300"></i> <strong id="top-ann-1">24 Hour Dispatch</strong></span>
+                <span class="hidden md:inline flex items-center gap-1.5"><i class="fa-solid fa-shield-cat text-emerald-300"></i> <strong id="top-ann-2">100% Confidential Secret Shipping</strong></span>
+                <span class="hidden lg:inline flex items-center gap-1.5"><i class="fa-solid fa-award text-sky-300"></i> <strong id="top-ann-3">Top Quality Direct Wholesale</strong></span>
+            </div>
+            
+            <div class="flex items-center space-x-3 mx-auto sm:mx-0">
+                <button onclick="toggleLanguage()" class="bg-white/20 hover:bg-white/30 text-white text-[11px] font-bold px-2.5 py-1 rounded-lg transition backdrop-blur-sm flex items-center gap-1 border border-white/20">
+                    <i class="fa-solid fa-globe"></i> <span id="lang-btn-text">中文 (Chinese)</span>
+                </button>
+            </div>
         </div>
-        <!-- Language Switcher -->
-        <button onclick="toggleLanguage()" class="bg-rose-800 hover:bg-rose-900 text-white text-[11px] font-bold px-2.5 py-1 rounded-lg transition border border-rose-400">
-            <i class="fa-solid fa-globe mr-1"></i> <span id="lang-btn-text">中文 (Chinese)</span>
-        </button>
     </div>
 
-    <!-- Main Navigation Header -->
-    <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-zinc-200 shadow-sm">
-        <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+    <!-- Main Eden Navigation Header -->
+    <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 py-3.5 flex flex-col md:flex-row items-center justify-between gap-4">
             
-            <a href="#" class="flex items-center space-x-3 group">
-                <div class="w-10 h-10 rounded-xl bg-rose-600 flex items-center justify-center text-white font-black text-xl shadow-md group-hover:bg-rose-700 transition">
-                    ST
-                </div>
-                <div class="flex flex-col">
-                    <span class="text-2xl font-black tracking-tight text-zinc-900">Sex Toys</span>
-                    <span class="text-[10px] text-zinc-500 tracking-widest uppercase font-semibold">Luxury Collection Wholesale</span>
-                </div>
-            </a>
+            <!-- Logo -->
+            <div class="flex items-center justify-between w-full md:w-auto">
+                <a href="#" class="flex items-center space-x-3 group">
+                    <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-rose-600 to-pink-500 flex items-center justify-center text-white font-black text-2xl shadow-lg shadow-rose-500/20 group-hover:scale-105 transition">
+                        EF
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="text-2xl font-black tracking-tight text-slate-900 group-hover:text-rose-600 transition">Eden Boutique</span>
+                        <span class="text-[9px] text-slate-400 tracking-widest uppercase font-bold">Direct Factory Supply</span>
+                    </div>
+                </a>
 
-            <div class="flex items-center space-x-3">
-                <button onclick="promptAdminLogin()" class="bg-zinc-100 hover:bg-zinc-200 text-zinc-700 px-3 py-2 rounded-xl text-xs font-semibold border border-zinc-200 transition flex items-center gap-1.5">
-                    <i class="fa-solid fa-lock text-rose-600"></i>
+                <div class="flex md:hidden items-center space-x-2">
+                    <button onclick="openCart()" class="relative bg-rose-600 text-white p-2.5 rounded-xl text-xs font-bold">
+                        <i class="fa-solid fa-bag-shopping text-base"></i>
+                        <span id="cart-count-mobile" class="absolute -top-1.5 -right-1.5 bg-slate-900 text-white text-[10px] font-black px-1.5 py-0.5 rounded-full border-2 border-white">0</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Eden Search System -->
+            <div class="w-full md:max-w-md relative">
+                <div class="relative flex items-center">
+                    <input type="text" id="site-search" onkeyup="handleSearch()" placeholder="Search sex machines, vibrators, nipple toys..." class="w-full bg-slate-100 border border-slate-200 rounded-2xl pl-10 pr-10 py-2.5 text-xs focus:outline-none focus:bg-white focus:border-rose-500 transition font-medium">
+                    <i class="fa-solid fa-magnifying-glass absolute left-3.5 text-slate-400 text-xs"></i>
+                    <button onclick="clearSearch()" id="search-clear-btn" class="hidden absolute right-3 text-slate-400 hover:text-slate-600 text-xs">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Header Actions -->
+            <div class="hidden md:flex items-center space-x-3">
+                <button onclick="promptAdminLogin()" class="bg-slate-100 hover:bg-slate-200 text-slate-700 px-3.5 py-2.5 rounded-xl text-xs font-bold border border-slate-200 transition flex items-center gap-1.5">
+                    <i class="fa-solid fa-user-shield text-rose-600"></i>
                     <span>Admin</span>
                 </button>
                 
-                <button onclick="openCart()" class="relative bg-rose-600 hover:bg-rose-700 text-white px-5 py-2.5 rounded-xl text-sm font-bold flex items-center space-x-2 transition shadow-md">
-                    <i class="fa-solid fa-bag-shopping"></i>
+                <button onclick="openCart()" class="relative bg-rose-600 hover:bg-rose-700 text-white px-5 py-2.5 rounded-xl text-xs font-black flex items-center space-x-2 transition shadow-md shadow-rose-600/20">
+                    <i class="fa-solid fa-bag-shopping text-sm"></i>
                     <span id="cart-btn-label">Cart</span>
                     <span id="cart-count" class="bg-white text-rose-600 text-xs font-black px-2 py-0.5 rounded-full ml-1">0</span>
                 </button>
             </div>
         </div>
 
-        <!-- Categories Bar -->
-        <div class="flex overflow-x-auto space-x-6 px-4 py-3 bg-zinc-50 border-t border-zinc-200 text-xs font-bold text-zinc-600 justify-center">
-            <button onclick="filterCategory('all')" class="whitespace-nowrap hover:text-rose-600 transition" id="cat-all">All Products</button>
-            <button onclick="filterCategory('machines')" class="whitespace-nowrap hover:text-rose-600 transition text-rose-600 font-extrabold" id="cat-machines">Sex Machines</button>
-            <button onclick="filterCategory('nipple')" class="whitespace-nowrap hover:text-rose-600 transition" id="cat-nipple">Nipple & Clit Toys</button>
-            <button onclick="filterCategory('women')" class="whitespace-nowrap hover:text-rose-600 transition" id="cat-women">Women Collection</button>
-            <button onclick="filterCategory('couples')" class="whitespace-nowrap hover:text-rose-600 transition" id="cat-couples">Couples Vibrators</button>
-            <button onclick="filterCategory('men')" class="whitespace-nowrap hover:text-rose-600 transition" id="cat-men">Men Collection</button>
+        <!-- Categories Navigation -->
+        <div class="bg-slate-100/80 border-t border-slate-200">
+            <div class="max-w-7xl mx-auto px-4 flex overflow-x-auto space-x-8 py-2.5 text-xs font-bold text-slate-600 no-scrollbar">
+                <button onclick="filterCategory('all')" class="whitespace-nowrap hover:text-rose-600 transition nav-cat-btn active text-rose-600" id="cat-all"><i class="fa-solid fa-border-all mr-1.5"></i>All Products</button>
+                <button onclick="filterCategory('machines')" class="whitespace-nowrap hover:text-rose-600 transition nav-cat-btn" id="cat-machines"><i class="fa-solid fa-gear mr-1.5 text-rose-600"></i>Sex Machines</button>
+                <button onclick="filterCategory('nipple')" class="whitespace-nowrap hover:text-rose-600 transition nav-cat-btn" id="cat-nipple"><i class="fa-solid fa-heart mr-1.5 text-pink-500"></i>Nipple & Clit Toys</button>
+                <button onclick="filterCategory('women')" class="whitespace-nowrap hover:text-rose-600 transition nav-cat-btn" id="cat-women"><i class="fa-solid fa-venus mr-1.5 text-purple-500"></i>Women Collection</button>
+                <button onclick="filterCategory('couples')" class="whitespace-nowrap hover:text-rose-600 transition nav-cat-btn" id="cat-couples"><i class="fa-solid fa-user-group mr-1.5 text-amber-500"></i>Couples Vibrators</button>
+                <button onclick="filterCategory('men')" class="whitespace-nowrap hover:text-rose-600 transition nav-cat-btn" id="cat-men"><i class="fa-solid fa-mars mr-1.5 text-blue-500"></i>Men Collection</button>
+            </div>
         </div>
     </header>
 
-    <!-- Main Content Area -->
-    <main class="max-w-7xl mx-auto px-4 py-10">
-        <div class="flex justify-between items-end mb-8 border-b border-zinc-200 pb-4">
-            <div>
-                <h1 id="category-title" class="text-3xl font-extrabold text-zinc-900 tracking-tight">Sex Toys Collection</h1>
-                <p id="sub-header-desc" class="text-sm text-zinc-500 mt-1">Direct Factory Wholesale Prices | 100% Secret Confidential Packaging</p>
+    <!-- Hero / Features Strip -->
+    <section class="max-w-7xl mx-auto px-4 mt-6">
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div class="bg-white p-4 rounded-2xl border border-slate-200/80 shadow-sm flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-xl bg-rose-50 text-rose-600 flex items-center justify-center text-lg font-bold">
+                    <i class="fa-solid fa-box-open"></i>
+                </div>
+                <div>
+                    <h4 class="text-xs font-black text-slate-900" id="feat-1-t">Discreet Packaging</h4>
+                    <p class="text-[11px] text-slate-400" id="feat-1-d">Zero product name or logo labels</p>
+                </div>
             </div>
-            <span class="text-xs font-semibold text-emerald-600 bg-emerald-50 px-3 py-1.5 rounded-full border border-emerald-200"><i class="fa-solid fa-shield-halved mr-1"></i> Verified Factory Direct</span>
+
+            <div class="bg-white p-4 rounded-2xl border border-slate-200/80 shadow-sm flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-lg font-bold">
+                    <i class="fa-solid fa-plane-departure"></i>
+                </div>
+                <div>
+                    <h4 class="text-xs font-black text-slate-900" id="feat-2-t">24-Hour Dispatch</h4>
+                    <p class="text-[11px] text-slate-400" id="feat-2-d">Direct factory global shipping</p>
+                </div>
+            </div>
+
+            <div class="bg-white p-4 rounded-2xl border border-slate-200/80 shadow-sm flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center text-lg font-bold">
+                    <i class="fa-solid fa-coins"></i>
+                </div>
+                <div>
+                    <h4 class="text-xs font-black text-slate-900" id="feat-3-t">Crypto Checkout</h4>
+                    <p class="text-[11px] text-slate-400" id="feat-3-d">USDT (TRC20) & Bitcoin support</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content Area -->
+    <main class="max-w-7xl mx-auto px-4 py-8">
+        <div class="flex justify-between items-end mb-6 border-b border-slate-200 pb-4">
+            <div>
+                <h1 id="category-title" class="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">Sex Toys Collection</h1>
+                <p id="sub-header-desc" class="text-xs text-slate-500 mt-1">Direct Factory Wholesale Prices | 100% Secret Confidential Packaging</p>
+            </div>
+            <span class="hidden sm:inline-flex text-xs font-bold text-emerald-700 bg-emerald-50 px-3 py-1.5 rounded-full border border-emerald-200 items-center gap-1.5"><i class="fa-solid fa-circle-check text-emerald-500"></i> Verified Factory Store</span>
         </div>
 
-        <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8"></div>
+        <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"></div>
     </main>
 
     <!-- Product Detail Viewer Modal -->
-    <div id="product-modal" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm hidden flex items-center justify-center p-4 overflow-y-auto">
-        <div class="bg-white rounded-3xl max-w-4xl w-full p-6 relative max-h-[90vh] overflow-y-auto shadow-2xl border border-zinc-200">
-            <button onclick="closeProductModal()" class="absolute top-4 right-4 text-zinc-400 hover:text-zinc-800 bg-zinc-100 w-9 h-9 rounded-full flex items-center justify-center transition z-10">
-                <i class="fa-solid fa-xmark text-lg"></i>
+    <div id="product-modal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm hidden flex items-center justify-center p-4 overflow-y-auto">
+        <div class="bg-white rounded-3xl max-w-4xl w-full p-6 relative max-h-[90vh] overflow-y-auto shadow-2xl border border-slate-200">
+            <button onclick="closeProductModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-800 bg-slate-100 w-9 h-9 rounded-full flex items-center justify-center transition z-10">
+                <i class="fa-solid fa-xmark text-base"></i>
             </button>
             
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div>
-                    <div id="modal-media-container" class="bg-zinc-50 rounded-2xl overflow-hidden mb-3 border border-zinc-200 h-80 flex items-center justify-center p-2 relative"></div>
+                    <div id="modal-media-container" class="bg-slate-50 rounded-2xl overflow-hidden mb-3 border border-slate-200 h-80 flex items-center justify-center p-4 relative"></div>
                     <div id="modal-gallery-thumbs" class="flex gap-2 overflow-x-auto py-1"></div>
                 </div>
 
@@ -98,48 +163,48 @@
                     <div>
                         <div class="flex items-center space-x-2 mb-2">
                             <span id="modal-category-badge" class="text-[10px] font-black uppercase tracking-widest text-rose-600 bg-rose-50 px-3 py-1 rounded-full border border-rose-200"></span>
-                            <span class="text-xs text-emerald-600 font-semibold bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-100"><i class="fa-solid fa-check mr-1"></i>In Stock</span>
+                            <span class="text-xs text-emerald-600 font-bold bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-100"><i class="fa-solid fa-check mr-1"></i>In Stock</span>
                         </div>
-                        <h2 id="modal-title" class="text-2xl font-black text-zinc-900"></h2>
+                        <h2 id="modal-title" class="text-2xl font-black text-slate-900 leading-snug"></h2>
                         
-                        <div class="flex items-center space-x-1 text-amber-400 my-2 text-xs">
+                        <div class="flex items-center space-x-1 text-amber-400 my-2.5 text-xs">
                             <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                            <span class="text-zinc-500 font-semibold ml-1">(4.9 / 5.0)</span>
+                            <span class="text-slate-500 font-bold ml-1.5">(4.9 / 5.0 Rating)</span>
                         </div>
 
-                        <div class="flex items-center space-x-3 mb-4">
+                        <div class="flex items-center space-x-3 mb-5">
                             <span id="modal-price" class="text-3xl text-rose-600 font-black"></span>
-                            <span id="modal-original-price" class="text-base text-zinc-400 line-through font-semibold"></span>
-                            <span id="modal-discount-tag" class="text-xs bg-rose-100 text-rose-700 font-bold px-2.5 py-1 rounded-md"></span>
+                            <span id="modal-original-price" class="text-base text-slate-400 line-through font-semibold"></span>
+                            <span id="modal-discount-tag" class="text-xs bg-rose-100 text-rose-700 font-black px-2.5 py-1 rounded-md"></span>
                         </div>
 
                         <div class="space-y-4 mb-6">
-                            <p id="modal-desc" class="text-zinc-600 text-sm leading-relaxed"></p>
+                            <p id="modal-desc" class="text-slate-600 text-xs leading-relaxed"></p>
                             
-                            <div class="bg-rose-50/70 p-3.5 rounded-2xl border border-rose-200 text-xs text-rose-900 space-y-1">
+                            <div class="bg-rose-50/80 p-3.5 rounded-2xl border border-rose-200 text-xs text-rose-900 space-y-1">
                                 <p class="font-bold flex items-center gap-1.5 text-rose-700"><i class="fa-solid fa-user-shield"></i> <span id="pkg-notice-title">100% Secret & Discreet Personal Packaging Guaranteed</span></p>
-                                <p id="pkg-notice-desc" class="text-[11px] text-zinc-600 leading-normal">Shipped in plain, unmarked brown box with zero product names or logo labels. Complete buyer confidentiality ensured.</p>
+                                <p id="pkg-notice-desc" class="text-[11px] text-slate-600 leading-normal">Shipped in plain, unmarked brown box with zero product names or logo labels. Complete buyer confidentiality ensured.</p>
                             </div>
 
-                            <div class="bg-zinc-50 p-4 rounded-2xl border border-zinc-200 text-xs space-y-2 text-zinc-600">
-                                <div class="flex justify-between"><span>Origin:</span> <span class="font-bold text-zinc-800">Direct Factory Export</span></div>
-                                <div class="flex justify-between"><span>Material:</span> <span class="font-bold text-zinc-800">Medical Grade Silicone & Stainless Steel</span></div>
-                                <div class="flex justify-between"><span>Waterproof:</span> <span class="font-bold text-zinc-800">100% IPX7 Submersible</span></div>
+                            <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200 text-xs space-y-2 text-slate-600">
+                                <div class="flex justify-between"><span>Origin:</span> <span class="font-bold text-slate-800">Direct Factory Export</span></div>
+                                <div class="flex justify-between"><span>Material:</span> <span class="font-bold text-slate-800">Medical Grade Silicone & Stainless Steel</span></div>
+                                <div class="flex justify-between"><span>Waterproof:</span> <span class="font-bold text-slate-800">100% IPX7 Submersible</span></div>
                                 <div class="flex justify-between"><span>Packaging:</span> <span class="font-bold text-emerald-600">100% Secret Plain Box</span></div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="pt-4 border-t border-zinc-200">
+                    <div class="pt-4 border-t border-slate-200">
                         <div class="flex items-center space-x-4 mb-4">
-                            <label class="text-xs font-bold text-zinc-500">Quantity:</label>
-                            <div class="flex items-center border border-zinc-300 rounded-xl overflow-hidden bg-zinc-50">
-                                <button onclick="adjustQty(-1)" class="px-3.5 py-1.5 bg-zinc-200 hover:bg-zinc-300 text-zinc-800 font-bold">-</button>
-                                <span id="modal-qty" class="px-4 py-1.5 text-center w-10 text-sm font-bold">1</span>
-                                <button onclick="adjustQty(1)" class="px-3.5 py-1.5 bg-zinc-200 hover:bg-zinc-300 text-zinc-800 font-bold">+</button>
+                            <label class="text-xs font-bold text-slate-500">Quantity:</label>
+                            <div class="flex items-center border border-slate-300 rounded-xl overflow-hidden bg-slate-50">
+                                <button onclick="adjustQty(-1)" class="px-3.5 py-1.5 bg-slate-200 hover:bg-slate-300 text-slate-800 font-bold">-</button>
+                                <span id="modal-qty" class="px-4 py-1.5 text-center w-10 text-xs font-bold">1</span>
+                                <button onclick="adjustQty(1)" class="px-3.5 py-1.5 bg-slate-200 hover:bg-slate-300 text-slate-800 font-bold">+</button>
                             </div>
                         </div>
-                        <button onclick="addToCartFromModal()" class="w-full bg-rose-600 hover:bg-rose-700 text-white font-extrabold py-3.5 rounded-2xl transition shadow-lg shadow-rose-600/20 flex items-center justify-center gap-2">
+                        <button onclick="addToCartFromModal()" class="w-full bg-rose-600 hover:bg-rose-700 text-white font-black py-3.5 rounded-2xl transition shadow-lg shadow-rose-600/20 flex items-center justify-center gap-2 text-sm">
                             <i class="fa-solid fa-cart-plus"></i> <span id="add-to-cart-btn-text">Add to Shopping Cart</span>
                         </button>
                     </div>
@@ -149,16 +214,16 @@
     </div>
 
     <!-- Checkout Cart Drawer -->
-    <div id="cart-drawer" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm hidden flex justify-end">
-        <div class="bg-white border-l border-zinc-200 w-full max-w-md h-full flex flex-col justify-between p-6 overflow-y-auto">
+    <div id="cart-drawer" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm hidden flex justify-end">
+        <div class="bg-white border-l border-slate-200 w-full max-w-md h-full flex flex-col justify-between p-6 overflow-y-auto">
             <div>
-                <div class="flex justify-between items-center mb-6 border-b border-zinc-200 pb-4">
-                    <h2 class="text-lg font-bold flex items-center gap-2 text-zinc-900"><i class="fa-solid fa-bag-shopping text-rose-600"></i> Shopping Cart</h2>
-                    <button onclick="closeCart()" class="text-zinc-400 hover:text-zinc-700"><i class="fa-solid fa-xmark text-xl"></i></button>
+                <div class="flex justify-between items-center mb-6 border-b border-slate-200 pb-4">
+                    <h2 class="text-base font-black flex items-center gap-2 text-slate-900"><i class="fa-solid fa-bag-shopping text-rose-600"></i> Shopping Cart</h2>
+                    <button onclick="closeCart()" class="text-slate-400 hover:text-slate-700"><i class="fa-solid fa-xmark text-lg"></i></button>
                 </div>
 
-                <div class="flex justify-between mb-6 text-xs text-zinc-400 border-b border-zinc-200 pb-2 font-semibold">
-                    <span id="step-1-ind" class="text-rose-600 font-bold">1. Cart</span>
+                <div class="flex justify-between mb-6 text-xs text-slate-400 border-b border-slate-200 pb-2 font-bold">
+                    <span id="step-1-ind" class="text-rose-600">1. Cart</span>
                     <span id="step-2-ind">2. Shipping Address</span>
                     <span id="step-3-ind">3. Crypto Payment</span>
                 </div>
@@ -166,13 +231,13 @@
                 <!-- Step 1: Cart Items -->
                 <div id="step-1-content">
                     <div id="cart-items-list" class="space-y-3 mb-6 max-h-60 overflow-y-auto"></div>
-                    <div class="border-t border-zinc-200 pt-4 mb-6">
-                        <div class="flex justify-between text-base font-extrabold text-zinc-900">
+                    <div class="border-t border-slate-200 pt-4 mb-6">
+                        <div class="flex justify-between text-base font-black text-slate-900">
                             <span>Total Discount Price:</span>
                             <span id="cart-subtotal">$0.00</span>
                         </div>
                     </div>
-                    <button onclick="goToStep(2)" class="w-full bg-rose-600 hover:bg-rose-700 text-white font-bold py-3.5 rounded-xl transition shadow-md">
+                    <button onclick="goToStep(2)" class="w-full bg-rose-600 hover:bg-rose-700 text-white font-bold py-3.5 rounded-xl transition shadow-md text-xs">
                         Proceed to Delivery Info
                     </button>
                 </div>
@@ -180,62 +245,62 @@
                 <!-- Step 2: Shipping Info & Dynamic Country Selector -->
                 <div id="step-2-content" class="hidden space-y-4">
                     <div>
-                        <label class="block text-xs font-bold text-zinc-600 mb-1">Full Name *</label>
-                        <input type="text" id="cust-name" class="w-full bg-zinc-50 border border-zinc-300 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-rose-600" placeholder="Enter full name">
+                        <label class="block text-xs font-bold text-slate-600 mb-1">Full Name *</label>
+                        <input type="text" id="cust-name" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-2.5 text-xs focus:outline-none focus:border-rose-600" placeholder="Enter full name">
                     </div>
                     
                     <div>
-                        <label class="block text-xs font-bold text-zinc-600 mb-1">Mobile / Phone Number *</label>
+                        <label class="block text-xs font-bold text-slate-600 mb-1">Mobile / Phone Number *</label>
                         <div class="flex space-x-2">
-                            <select id="country-code" class="w-2/5 bg-zinc-50 border border-zinc-300 rounded-xl px-2 py-2.5 text-xs text-zinc-800 focus:outline-none focus:border-rose-600 truncate font-semibold"></select>
-                            <input type="text" id="cust-phone" class="w-3/5 bg-zinc-50 border border-zinc-300 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-rose-600" placeholder="Phone number">
+                            <select id="country-code" class="w-2/5 bg-slate-50 border border-slate-300 rounded-xl px-2 py-2.5 text-xs text-slate-800 focus:outline-none focus:border-rose-600 truncate font-semibold"></select>
+                            <input type="text" id="cust-phone" class="w-3/5 bg-slate-50 border border-slate-300 rounded-xl px-4 py-2.5 text-xs focus:outline-none focus:border-rose-600" placeholder="Phone number">
                         </div>
                     </div>
 
                     <div>
-                        <label class="block text-xs font-bold text-zinc-600 mb-1">Complete Delivery Address *</label>
-                        <textarea id="cust-address" rows="3" class="w-full bg-zinc-50 border border-zinc-300 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-rose-600" placeholder="Street, City, Postal Code, Country"></textarea>
+                        <label class="block text-xs font-bold text-slate-600 mb-1">Complete Delivery Address *</label>
+                        <textarea id="cust-address" rows="3" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-2.5 text-xs focus:outline-none focus:border-rose-600" placeholder="Street, City, Postal Code, Country"></textarea>
                     </div>
 
                     <div>
-                        <label class="block text-xs font-bold text-zinc-600 mb-1">Shipping Speed</label>
-                        <select id="delivery-speed" onchange="updateTotal()" class="w-full bg-zinc-50 border border-zinc-300 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-rose-600 font-semibold">
+                        <label class="block text-xs font-bold text-slate-600 mb-1">Shipping Speed</label>
+                        <select id="delivery-speed" onchange="updateTotal()" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-2.5 text-xs focus:outline-none focus:border-rose-600 font-semibold">
                             <option value="standard">Standard Free Secret Shipping</option>
                             <option value="fast">Express Courier Secret Shipping (+30%)</option>
                         </select>
                     </div>
 
                     <div class="flex space-x-2 pt-2">
-                        <button onclick="goToStep(1)" class="w-1/3 bg-zinc-200 hover:bg-zinc-300 text-zinc-800 font-bold py-3 rounded-xl transition">Back</button>
-                        <button onclick="goToStep(3)" class="w-2/3 bg-rose-600 hover:bg-rose-700 text-white font-bold py-3 rounded-xl transition shadow-md">Proceed to Payment</button>
+                        <button onclick="goToStep(1)" class="w-1/3 bg-slate-200 hover:bg-slate-300 text-slate-800 font-bold py-3 rounded-xl transition text-xs">Back</button>
+                        <button onclick="goToStep(3)" class="w-2/3 bg-rose-600 hover:bg-rose-700 text-white font-bold py-3 rounded-xl transition shadow-md text-xs">Proceed to Payment</button>
                     </div>
                 </div>
 
                 <!-- Step 3: Crypto Payment Section -->
                 <div id="step-3-content" class="hidden space-y-4">
                     <div>
-                        <label class="block text-xs font-bold text-zinc-600 mb-1">Select Crypto Coin</label>
-                        <select id="crypto-select" onchange="generateNOWPayment()" class="w-full bg-zinc-50 border border-zinc-300 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-rose-600 font-semibold">
+                        <label class="block text-xs font-bold text-slate-600 mb-1">Select Crypto Coin</label>
+                        <select id="crypto-select" onchange="generateNOWPayment()" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-2.5 text-xs focus:outline-none focus:border-rose-600 font-semibold">
                             <option value="usdttrc20">USDT (TRC20 Network)</option>
                             <option value="btc">Bitcoin (BTC)</option>
                         </select>
                     </div>
 
-                    <div class="bg-zinc-50 p-4 rounded-2xl border border-zinc-200 text-center">
-                        <p class="text-xs text-zinc-500 mb-1">Total Payable Amount:</p>
+                    <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200 text-center">
+                        <p class="text-xs text-slate-500 mb-1">Total Payable Amount:</p>
                         <p id="final-payable-amount" class="text-3xl font-black text-rose-600 mb-3">$0.00</p>
                         
                         <div id="qr-loading" class="text-xs text-amber-600 my-4 hidden font-bold">
                             <i class="fa-solid fa-spinner fa-spin mr-1"></i> Generating Blockchain Address...
                         </div>
 
-                        <div id="qr-container" class="bg-white p-3 inline-block rounded-2xl mb-3 shadow-md border border-zinc-200">
+                        <div id="qr-container" class="bg-white p-3 inline-block rounded-2xl mb-3 shadow-md border border-slate-200">
                             <img id="dynamic-qr-img" src="" alt="Payment QR" class="w-44 h-44 object-contain">
                         </div>
                         
-                        <p class="text-xs text-zinc-500 mb-1 font-semibold">Wallet Address:</p>
-                        <div class="bg-white p-2.5 rounded-xl border border-zinc-200 flex items-center justify-between mb-4 shadow-sm">
-                            <span id="wallet-address-text" class="text-xs font-mono text-zinc-700 truncate mr-2 font-bold">Loading...</span>
+                        <p class="text-xs text-slate-500 mb-1 font-semibold">Wallet Address:</p>
+                        <div class="bg-white p-2.5 rounded-xl border border-slate-200 flex items-center justify-between mb-4 shadow-sm">
+                            <span id="wallet-address-text" class="text-xs font-mono text-slate-700 truncate mr-2 font-bold">Loading...</span>
                             <button onclick="copyAddress()" class="text-rose-600 hover:text-rose-700 text-xs font-bold px-3 py-1 bg-rose-50 rounded-lg border border-rose-200">Copy</button>
                         </div>
 
@@ -246,7 +311,7 @@
                     </div>
 
                     <div class="pt-2">
-                        <button onclick="goToStep(2)" class="w-full bg-zinc-200 hover:bg-zinc-300 text-zinc-800 font-bold py-3 rounded-xl transition">Back</button>
+                        <button onclick="goToStep(2)" class="w-full bg-slate-200 hover:bg-slate-300 text-slate-800 font-bold py-3 rounded-xl transition text-xs">Back</button>
                     </div>
                 </div>
             </div>
@@ -254,16 +319,16 @@
     </div>
 
     <!-- Admin Modal -->
-    <div id="admin-modal" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
-        <div class="bg-white rounded-3xl max-w-6xl w-full p-6 relative max-h-[90vh] overflow-y-auto border border-zinc-200 shadow-2xl">
-            <div class="flex justify-between items-center mb-6 border-b border-zinc-200 pb-4">
-                <h2 class="text-lg font-bold text-zinc-900 flex items-center gap-2"><i class="fa-solid fa-list-check text-rose-600"></i> Admin Orders Panel</h2>
-                <button onclick="closeAdminModal()" class="text-zinc-400 hover:text-zinc-700"><i class="fa-solid fa-xmark text-xl"></i></button>
+    <div id="admin-modal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-6xl w-full p-6 relative max-h-[90vh] overflow-y-auto border border-slate-200 shadow-2xl">
+            <div class="flex justify-between items-center mb-6 border-b border-slate-200 pb-4">
+                <h2 class="text-lg font-bold text-slate-900 flex items-center gap-2"><i class="fa-solid fa-list-check text-rose-600"></i> Admin Orders Panel</h2>
+                <button onclick="closeAdminModal()" class="text-slate-400 hover:text-slate-700"><i class="fa-solid fa-xmark text-xl"></i></button>
             </div>
             
             <div class="overflow-x-auto">
-                <table class="w-full text-left text-xs text-zinc-700">
-                    <thead class="bg-zinc-100 text-zinc-600 uppercase font-bold border-b border-zinc-200">
+                <table class="w-full text-left text-xs text-slate-700">
+                    <thead class="bg-slate-100 text-slate-600 uppercase font-bold border-b border-slate-200">
                         <tr>
                             <th class="p-3">#</th>
                             <th class="p-3">Date</th>
@@ -276,25 +341,25 @@
                             <th class="p-3">Status</th>
                         </tr>
                     </thead>
-                    <tbody id="admin-orders-tbody" class="divide-y divide-zinc-200"></tbody>
+                    <tbody id="admin-orders-tbody" class="divide-y divide-slate-200"></tbody>
                 </table>
             </div>
             <div class="mt-6 flex justify-between items-center">
                 <button onclick="clearAllOrders()" class="text-rose-600 hover:text-rose-700 text-xs font-bold"><i class="fa-solid fa-trash mr-1"></i> Clear Orders History</button>
-                <button onclick="closeAdminModal()" class="bg-zinc-900 text-white px-4 py-2 rounded-xl text-xs font-bold">Close Panel</button>
+                <button onclick="closeAdminModal()" class="bg-slate-900 text-white px-4 py-2 rounded-xl text-xs font-bold">Close Panel</button>
             </div>
         </div>
     </div>
 
     <!-- Success Modal -->
-    <div id="success-modal" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
-        <div class="bg-white rounded-3xl max-w-md w-full p-8 text-center shadow-2xl border border-zinc-200">
+    <div id="success-modal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-md w-full p-8 text-center shadow-2xl border border-slate-200">
             <div class="w-16 h-16 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto mb-4 text-3xl">
                 <i class="fa-solid fa-check"></i>
             </div>
-            <h2 class="text-2xl font-black text-zinc-900 mb-2">Payment Confirmed!</h2>
-            <p class="text-zinc-500 text-xs mb-6 font-medium">Your order is logged into factory dispatch. Fast 100% secret shipping initiated!</p>
-            <button onclick="finishSuccessOrder()" class="w-full bg-rose-600 hover:bg-rose-700 text-white font-bold py-3.5 rounded-xl transition shadow-md">
+            <h2 class="text-2xl font-black text-slate-900 mb-2">Payment Confirmed!</h2>
+            <p class="text-slate-500 text-xs mb-6 font-medium">Your order is logged into factory dispatch. Fast 100% secret shipping initiated!</p>
+            <button onclick="finishSuccessOrder()" class="w-full bg-rose-600 hover:bg-rose-700 text-white font-bold py-3.5 rounded-xl transition shadow-md text-xs">
                 Return to Store
             </button>
         </div>
@@ -305,8 +370,9 @@
         let currentPaymentID = null;
         let pollingInterval = null;
         let currentLang = 'en';
+        let currentCategory = 'all';
 
-        // FULL 240+ WORLD COUNTRIES DATABASE
+        // 240+ WORLD COUNTRIES DATABASE
         const worldCountries = [
             { code: "+1", flag: "🇺🇸", name: "United States" },
             { code: "+1", flag: "🇨🇦", name: "Canada" },
@@ -408,7 +474,7 @@
             if (select) select.value = targetCode;
         }
 
-        // STRICT ACCURATE PRODUCT DATABASE (NO MIXED IMAGES)
+        // PRODUCTS DATABASE (MAPPED FROM EDEN FANTASYS SECTIONS)
         const products = [
             { 
                 id: 101, 
@@ -568,10 +634,11 @@
         function toggleLanguage() {
             currentLang = currentLang === 'en' ? 'zh' : 'en';
             document.getElementById('lang-btn-text').innerText = currentLang === 'en' ? '中文 (Chinese)' : 'English (英文)';
-            document.getElementById('announcement-text').innerText = currentLang === 'en' 
-                ? 'Sex Toys Store | Direct Factory Supply | 100% Discreet Confidential Shipping'
-                : '成人用品专卖店 | 工厂直供 | 100% 保密与无标识发货';
             
+            document.getElementById('top-ann-1').innerText = currentLang === 'en' ? '24 Hour Dispatch' : '24小时快速发货';
+            document.getElementById('top-ann-2').innerText = currentLang === 'en' ? '100% Confidential Secret Shipping' : '100% 隐私保密包装发货';
+            document.getElementById('top-ann-3').innerText = currentLang === 'en' ? 'Top Quality Direct Wholesale' : '高品质工厂直供批发';
+
             document.getElementById('sub-header-desc').innerText = currentLang === 'en' 
                 ? 'Direct Factory Wholesale Prices | 100% Secret Confidential Packaging'
                 : '工厂直销批发价 | 100% 绝对保密包装';
@@ -580,44 +647,56 @@
                 ? '100% Secret & Discreet Personal Packaging Guaranteed'
                 : '100% 绝对保密与无标识个人包装保证';
 
-            document.getElementById('pkg-notice-desc').innerText = currentLang === 'en'
-                ? 'Shipped in plain, unmarked brown box with zero product names or logo labels. Complete buyer confidentiality ensured.'
-                : '采用普通无标记纸箱发货，无任何产品名称或成人标识。完全保证买家隐私。';
-
             document.getElementById('add-to-cart-btn-text').innerText = currentLang === 'en' ? 'Add to Shopping Cart' : '加入购物车';
             document.getElementById('cart-btn-label').innerText = currentLang === 'en' ? 'Cart' : '购物车';
 
             renderProducts();
         }
 
-        function renderProducts(cat = 'all') {
+        function renderProducts(filterList = null) {
             const grid = document.getElementById('product-grid');
-            const filtered = cat === 'all' ? products : products.filter(p => p.category === cat);
-            document.getElementById('category-title').innerText = cat === 'all' ? 'Sex Toys Collection' : cat.toUpperCase() + ' Collection';
+            let listToRender = filterList;
 
-            grid.innerHTML = filtered.map(p => {
+            if (!listToRender) {
+                listToRender = currentCategory === 'all' ? products : products.filter(p => p.category === currentCategory);
+            }
+
+            document.getElementById('category-title').innerText = currentCategory === 'all' ? 'Sex Toys Collection' : currentCategory.toUpperCase() + ' Collection';
+
+            if (listToRender.length === 0) {
+                grid.innerHTML = `<div class="col-span-full py-12 text-center text-slate-400 font-bold text-xs"><i class="fa-solid fa-magnifying-glass text-2xl mb-2 block"></i>No matching products found.</div>`;
+                return;
+            }
+
+            grid.innerHTML = listToRender.map(p => {
                 const pricing = calculateProductPrice(p.basePrice);
                 const firstMedia = p.gallery && p.gallery.length > 0 ? p.gallery[0] : { type: 'image', url: '' };
-                
                 const mediaElement = `<img src="${firstMedia.url}" alt="${p.name[currentLang] || p.name.en}" class="object-contain max-h-full max-w-full group-hover:scale-105 transition duration-300">`;
 
                 return `
-                    <div onclick="openProductModal(${p.id})" class="bg-white border border-zinc-200 rounded-3xl overflow-hidden cursor-pointer hover:border-zinc-400 transition group shadow-sm flex flex-col justify-between hover:shadow-xl">
+                    <div onclick="openProductModal(${p.id})" class="bg-white border border-slate-200/90 rounded-3xl overflow-hidden cursor-pointer product-card flex flex-col justify-between shadow-sm hover:border-slate-300">
                         <div>
-                            <div class="h-64 bg-zinc-50 overflow-hidden flex items-center justify-center p-4 relative">
+                            <div class="h-60 bg-slate-50 overflow-hidden flex items-center justify-center p-4 relative">
                                 ${mediaElement}
-                                <span class="absolute top-3 right-3 bg-rose-600 text-[10px] uppercase font-black text-white px-2.5 py-1 rounded-full shadow-md">${pricing.discountPercent}% OFF</span>
+                                <span class="absolute top-3 right-3 bg-gradient-to-r from-rose-600 to-pink-600 text-[10px] uppercase font-black text-white px-2.5 py-1 rounded-full shadow-md">${pricing.discountPercent}% OFF</span>
                             </div>
                             <div class="p-5">
-                                <h3 class="font-bold text-zinc-900 truncate mb-2 text-base">${p.name[currentLang] || p.name.en}</h3>
+                                <span class="text-[10px] font-extrabold uppercase text-rose-600 bg-rose-50 px-2.5 py-0.5 rounded-full border border-rose-100">${p.category}</span>
+                                <h3 class="font-black text-slate-900 truncate mt-2 mb-1.5 text-sm leading-snug">${p.name[currentLang] || p.name.en}</h3>
+                                
+                                <div class="flex items-center space-x-1 text-amber-400 mb-3 text-[10px]">
+                                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                                    <span class="text-slate-400 font-bold ml-1">(4.9)</span>
+                                </div>
+
                                 <div class="flex items-center space-x-2">
                                     <span class="text-rose-600 font-black text-xl">$${pricing.discounted.toFixed(2)}</span>
-                                    <span class="text-zinc-400 line-through text-xs font-semibold">$${pricing.original.toFixed(2)}</span>
+                                    <span class="text-slate-400 line-through text-xs font-bold">$${pricing.original.toFixed(2)}</span>
                                 </div>
                             </div>
                         </div>
                         <div class="px-5 pb-5">
-                            <button class="w-full bg-zinc-100 hover:bg-rose-600 text-zinc-700 hover:text-white text-xs font-bold py-2.5 rounded-xl transition">
+                            <button class="w-full bg-slate-100 hover:bg-rose-600 text-slate-700 hover:text-white text-xs font-bold py-2.5 rounded-xl transition shadow-sm">
                                 ${currentLang === 'en' ? 'View Details' : '查看详情'}
                             </button>
                         </div>
@@ -626,7 +705,38 @@
             }).join('');
         }
 
-        function filterCategory(cat) { renderProducts(cat); }
+        function filterCategory(cat) { 
+            currentCategory = cat;
+            document.querySelectorAll('.nav-cat-btn').forEach(btn => btn.classList.remove('text-rose-600', 'active'));
+            const activeBtn = document.getElementById(`cat-${cat}`);
+            if (activeBtn) activeBtn.classList.add('text-rose-600', 'active');
+            renderProducts(); 
+        }
+
+        function handleSearch() {
+            const query = document.getElementById('site-search').value.toLowerCase().trim();
+            const clearBtn = document.getElementById('search-clear-btn');
+
+            if (query.length > 0) {
+                clearBtn.classList.remove('hidden');
+                const matched = products.filter(p => {
+                    const nameEn = p.name.en ? p.name.en.toLowerCase() : '';
+                    const nameZh = p.name.zh ? p.name.zh.toLowerCase() : '';
+                    const descEn = p.desc.en ? p.desc.en.toLowerCase() : '';
+                    return nameEn.includes(query) || nameZh.includes(query) || descEn.includes(query);
+                });
+                renderProducts(matched);
+            } else {
+                clearBtn.classList.add('hidden');
+                renderProducts();
+            }
+        }
+
+        function clearSearch() {
+            document.getElementById('site-search').value = '';
+            document.getElementById('search-clear-btn').classList.add('hidden');
+            renderProducts();
+        }
 
         function openProductModal(id) {
             currentModalProduct = products.find(p => p.id === id);
@@ -658,7 +768,7 @@
                 return;
             }
             thumbsContainer.innerHTML = gallery.map((m, idx) => `
-                <div onclick="switchGalleryMedia(${idx})" class="w-14 h-14 bg-zinc-100 border border-zinc-300 rounded-lg overflow-hidden cursor-pointer flex-shrink-0 hover:border-rose-600">
+                <div onclick="switchGalleryMedia(${idx})" class="w-14 h-14 bg-slate-100 border border-slate-300 rounded-lg overflow-hidden cursor-pointer flex-shrink-0 hover:border-rose-600">
                     <img src="${m.url}" class="w-full h-full object-cover">
                 </div>
             `).join('');
@@ -689,29 +799,33 @@
             openCart();
         }
 
-        function updateCartCount() { document.getElementById('cart-count').innerText = cart.reduce((sum, item) => sum + item.qty, 0); }
+        function updateCartCount() { 
+            const count = cart.reduce((sum, item) => sum + item.qty, 0);
+            document.getElementById('cart-count').innerText = count;
+            document.getElementById('cart-count-mobile').innerText = count;
+        }
+
         function openCart() { renderCartItems(); document.getElementById('cart-drawer').classList.remove('hidden'); }
         function closeCart() { if (pollingInterval) clearInterval(pollingInterval); document.getElementById('cart-drawer').classList.add('hidden'); }
 
-        // RENDER CART WITH DELETE BUTTON & QUANTITY CONTROLS
         function renderCartItems() {
             const list = document.getElementById('cart-items-list');
             if (cart.length === 0) {
-                list.innerHTML = '<p class="text-zinc-400 text-center py-6 text-xs font-semibold">Your cart is empty.</p>';
+                list.innerHTML = '<p class="text-slate-400 text-center py-6 text-xs font-bold">Your cart is empty.</p>';
             } else {
                 list.innerHTML = cart.map((item, idx) => `
-                    <div class="flex justify-between items-center bg-zinc-50 p-3 rounded-xl border border-zinc-200 shadow-sm">
+                    <div class="flex justify-between items-center bg-slate-50 p-3 rounded-xl border border-slate-200 shadow-sm">
                         <div class="flex-1 pr-2">
-                            <h4 class="text-xs font-bold text-zinc-800 truncate">${item.name}</h4>
+                            <h4 class="text-xs font-bold text-slate-800 truncate">${item.name}</h4>
                             <p class="text-xs text-rose-600 font-black mt-0.5">$${item.finalPrice.toFixed(2)} x ${item.qty} = $${(item.finalPrice * item.qty).toFixed(2)}</p>
                         </div>
-                        <div class="flex items-center space-x-3">
-                            <div class="flex items-center border border-zinc-300 rounded-lg overflow-hidden bg-white">
-                                <button onclick="updateCartItemQty(${idx}, -1)" class="px-2 py-0.5 bg-zinc-100 hover:bg-zinc-200 text-zinc-800 text-xs font-bold">-</button>
-                                <span class="px-2.5 py-0.5 text-xs font-bold text-zinc-800">${item.qty}</span>
-                                <button onclick="updateCartItemQty(${idx}, 1)" class="px-2 py-0.5 bg-zinc-100 hover:bg-zinc-200 text-zinc-800 text-xs font-bold">+</button>
+                        <div class="flex items-center space-x-2">
+                            <div class="flex items-center border border-slate-300 rounded-lg overflow-hidden bg-white">
+                                <button onclick="updateCartItemQty(${idx}, -1)" class="px-2 py-0.5 bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-bold">-</button>
+                                <span class="px-2 py-0.5 text-xs font-bold text-slate-800">${item.qty}</span>
+                                <button onclick="updateCartItemQty(${idx}, 1)" class="px-2 py-0.5 bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-bold">+</button>
                             </div>
-                            <button onclick="removeFromCart(${idx})" class="text-rose-600 hover:text-rose-800 text-sm p-1.5 bg-rose-50 rounded-lg hover:bg-rose-100 transition" title="Delete Product">
+                            <button onclick="removeFromCart(${idx})" class="text-rose-600 hover:text-rose-800 text-xs p-1.5 bg-rose-50 rounded-lg hover:bg-rose-100 transition" title="Delete Product">
                                 <i class="fa-solid fa-trash"></i>
                             </button>
                         </div>
@@ -724,9 +838,7 @@
         function updateCartItemQty(index, change) {
             if (cart[index]) {
                 cart[index].qty += change;
-                if (cart[index].qty <= 0) {
-                    cart.splice(index, 1);
-                }
+                if (cart[index].qty <= 0) { cart.splice(index, 1); }
                 updateCartCount();
                 renderCartItems();
             }
@@ -895,10 +1007,10 @@
             const tbody = document.getElementById('admin-orders-tbody');
             const orders = JSON.parse(localStorage.getItem('admin_orders') || '[]');
             if (orders.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="9" class="p-4 text-center text-zinc-400">No orders logged yet.</td></tr>';
+                tbody.innerHTML = '<tr><td colspan="9" class="p-4 text-center text-slate-400 font-bold">No orders logged yet.</td></tr>';
             } else {
                 tbody.innerHTML = orders.map(o => `
-                    <tr class="hover:bg-zinc-50">
+                    <tr class="hover:bg-slate-50">
                         <td class="p-3 font-bold">${o.id}</td>
                         <td class="p-3 whitespace-nowrap">${o.date}</td>
                         <td class="p-3 font-semibold">${o.customer}</td>
