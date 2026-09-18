@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EdenFantasys Premium Store</title>
-    <!-- FontAwesome & TailwindCSS -->
+    <title>EDENSTORE - Premium Sensual Collection</title>
+    <!-- Tailwind CSS & FontAwesome Icons -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         .custom-scrollbar::-webkit-scrollbar { width: 6px; }
-        .custom-scrollbar::-webkit-scrollbar-track { background: #1a1a1a; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: #111827; }
         .custom-scrollbar::-webkit-scrollbar-thumb { background: #e11d48; border-radius: 4px; }
         .product-card:hover .product-media { transform: scale(1.05); }
         .badge-discount { background: linear-gradient(135deg, #e11d48 0%, #9f1239 100%); }
@@ -19,7 +19,7 @@
 
     <!-- Top Announcement Bar -->
     <div class="bg-gradient-to-r from-rose-900 via-rose-700 to-rose-900 text-white text-xs py-2 text-center font-medium tracking-wider uppercase shadow-md">
-        🔥 Special Limited Offer: Up to 50% OFF Site-Wide | Discretely Packaged & Express Delivery ⚡
+        🔥 Special Limited Offer: Up to 50% OFF Site-Wide | 100% Discrete Packaging & Worldwide Express Shipping ⚡
     </div>
 
     <!-- Header / Navbar -->
@@ -27,7 +27,7 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-20">
                 
-                <!-- Logo (Custom Brand Text - No Original Watermark/Logo) -->
+                <!-- Logo -->
                 <div class="flex items-center space-x-3 cursor-pointer" onclick="filterCategory('all')">
                     <div class="bg-rose-600 text-white p-2.5 rounded-xl shadow-lg shadow-rose-600/30">
                         <i class="fa-solid fa-fire-flame-curved text-2xl"></i>
@@ -38,101 +38,71 @@
                     </div>
                 </div>
 
-                <!-- Navigation Links -->
-                <nav class="hidden md:flex space-x-8 text-sm font-semibold tracking-wide">
-                    <button onclick="filterCategory('all')" class="hover:text-rose-500 transition-colors">ALL PRODUCTS</button>
-                    <button onclick="filterCategory('Vibrators')" class="hover:text-rose-500 transition-colors">VIBRATORS</button>
-                    <button onclick="filterCategory('Sex Machines')" class="hover:text-rose-500 transition-colors">SEX MACHINES</button>
-                    <button onclick="filterCategory('Clitoral & Nipple')" class="hover:text-rose-500 transition-colors">NIPPLE & CLIT</button>
-                    <button onclick="filterCategory('BDSM & Bondage')" class="hover:text-rose-500 transition-colors">BDSM & KINK</button>
-                    <button onclick="filterCategory('Anal Toys')" class="hover:text-rose-500 transition-colors">ANAL TOYS</button>
+                <!-- Navigation Categories -->
+                <nav class="hidden lg:flex space-x-6 text-xs font-bold tracking-wider">
+                    <button onclick="filterCategory('all')" class="hover:text-rose-500 transition-colors uppercase">All Products</button>
+                    <button onclick="filterCategory('Vibrators')" class="hover:text-rose-500 transition-colors uppercase">Vibrators</button>
+                    <button onclick="filterCategory('Sex Machines')" class="hover:text-rose-500 transition-colors uppercase">Sex Machines</button>
+                    <button onclick="filterCategory('Clitoral & Nipple')" class="hover:text-rose-500 transition-colors uppercase">Nipple & Clit</button>
+                    <button onclick="filterCategory('BDSM & Bondage')" class="hover:text-rose-500 transition-colors uppercase">BDSM & Kink</button>
+                    <button onclick="filterCategory('Anal Toys')" class="hover:text-rose-500 transition-colors uppercase">Anal Toys</button>
                 </nav>
 
-                <!-- Search & Cart -->
-                <div class="flex items-center space-x-5">
+                <!-- Search & Actions -->
+                <div class="flex items-center space-x-4">
                     <div class="relative hidden sm:block">
-                        <input type="text" id="searchInput" oninput="searchProducts()" placeholder="Search toys, machines..." 
-                               class="bg-gray-800 text-sm text-gray-200 rounded-full pl-10 pr-4 py-2 border border-gray-700 focus:outline-none focus:border-rose-500 w-48 lg:w-64 transition-all">
-                        <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3 text-gray-400 text-xs"></i>
+                        <input type="text" id="searchInput" oninput="searchProducts()" placeholder="Search catalog..." 
+                               class="bg-gray-800 text-xs text-gray-200 rounded-full pl-9 pr-4 py-2 border border-gray-700 focus:outline-none focus:border-rose-500 w-44 lg:w-56 transition-all">
+                        <i class="fa-solid fa-magnifying-glass absolute left-3 top-2.5 text-gray-400 text-xs"></i>
                     </div>
+
+                    <button onclick="openAdminModal()" class="p-2.5 bg-gray-800 hover:bg-gray-700 text-gray-300 rounded-full transition-all border border-gray-700" title="Admin Panel">
+                        <i class="fa-solid fa-user-shield text-sm"></i>
+                    </button>
 
                     <button onclick="openCart()" class="relative p-2.5 bg-gray-800 hover:bg-gray-700 rounded-full transition-all border border-gray-700">
                         <i class="fa-solid fa-bag-shopping text-rose-500 text-lg"></i>
-                        <span id="cartCount" class="absolute -top-1 -right-1 bg-rose-600 text-white text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center">0</span>
+                        <span id="cartCount" class="absolute -top-1 -right-1 bg-rose-600 text-white text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center">0</span>
                     </button>
                 </div>
             </div>
         </div>
     </header>
 
-    <!-- Hero Banner -->
-    <section class="relative bg-gradient-to-r from-gray-900 via-rose-950 to-gray-900 border-b border-gray-800 py-12 px-4 text-center">
-        <div class="max-w-4xl mx-auto space-y-4">
-            <span class="inline-block bg-rose-500/10 text-rose-400 border border-rose-500/20 text-xs font-bold px-4 py-1.5 rounded-full uppercase tracking-widest">
-                Exclusive Direct Catalog
+    <!-- Hero Section Banner -->
+    <section class="relative bg-gradient-to-r from-gray-900 via-rose-950 to-gray-900 border-b border-gray-800 py-10 px-4 text-center">
+        <div class="max-w-4xl mx-auto space-y-3">
+            <span class="inline-block bg-rose-500/10 text-rose-400 border border-rose-500/20 text-xs font-bold px-4 py-1 rounded-full uppercase tracking-widest">
+                Discrete Direct Catalog
             </span>
-            <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight text-white">
+            <h1 class="text-3xl sm:text-4xl font-black text-white uppercase tracking-tight">
                 Premium Novelties & Sensual Technology
             </h1>
-            <p class="text-gray-400 text-sm sm:text-base max-w-2xl mx-auto">
-                Explore original products with interactive media details, HD videos, discrete checkout, and global crypto payments.
+            <p class="text-gray-400 text-xs sm:text-sm max-w-2xl mx-auto">
+                Explore luxury products with HD video demonstrations, 100% discrete packaging, and instant crypto checkout.
             </p>
         </div>
     </section>
 
     <!-- Main Content Area -->
-    <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 w-full">
+    <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
         <!-- Category Filter Pills -->
-        <div class="flex flex-wrap items-center justify-center gap-2 mb-10" id="categoryPills">
-            <!-- Dynamic Category Pills Rendered via JavaScript -->
+        <div class="flex flex-wrap items-center justify-center gap-2 mb-8" id="categoryPills">
+            <!-- Dynamic Pills Rendered via JavaScript -->
         </div>
 
         <!-- Product Grid -->
-        <div id="productGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 sm:gap-8">
+        <div id="productGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             <!-- Dynamic Products Inserted Here -->
         </div>
     </main>
-
-    <!-- Footer -->
-    <footer class="bg-gray-900 border-t border-gray-800 mt-20 text-gray-400 text-sm">
-        <div class="max-w-7xl mx-auto px-4 py-12 grid grid-cols-1 md:grid-cols-4 gap-8">
-            <div class="space-y-3">
-                <span class="text-xl font-black text-white uppercase">EDEN<span class="text-rose-500">STORE</span></span>
-                <p class="text-xs text-gray-400">Your trusted source for discrete high-end pleasure novelties, global shipping, and multi-currency crypto payments.</p>
-            </div>
-            <div>
-                <h4 class="text-white font-bold mb-3 uppercase text-xs tracking-wider">Customer Support</h4>
-                <ul class="space-y-2 text-xs">
-                    <li><a href="#" class="hover:text-rose-400">100% Discrete Packaging</a></li>
-                    <li><a href="#" class="hover:text-rose-400">Shipping & Tracking</a></li>
-                    <li><a href="#" class="hover:text-rose-400">Privacy Policy</a></li>
-                </ul>
-            </div>
-            <div>
-                <h4 class="text-white font-bold mb-3 uppercase text-xs tracking-wider">Payment Gateways</h4>
-                <p class="text-xs text-gray-400 mb-2">NOWPayments Live Crypto Support (BTC, ETH, USDT) & Card Payments.</p>
-                <div class="flex space-x-3 text-xl text-gray-400">
-                    <i class="fa-brands fa-bitcoin hover:text-amber-500"></i>
-                    <i class="fa-brands fa-ethereum hover:text-blue-400"></i>
-                    <i class="fa-solid fa-credit-card hover:text-rose-500"></i>
-                </div>
-            </div>
-            <div>
-                <h4 class="text-white font-bold mb-3 uppercase text-xs tracking-wider">Global Reach</h4>
-                <p class="text-xs text-gray-400">240+ International Country Dial Codes integrated into our instant multi-step checkout.</p>
-            </div>
-        </div>
-        <div class="border-t border-gray-800 py-4 text-center text-xs text-gray-500">
-            &copy; 2026 EDENSTORE. All original items structured independently. All Rights Reserved.
-        </div>
-    </footer>
 
     <!-- Video Modal -->
     <div id="videoModal" class="fixed inset-0 bg-black/90 z-50 hidden flex items-center justify-center p-4 backdrop-blur-md">
         <div class="relative bg-gray-900 border border-gray-800 rounded-2xl max-w-3xl w-full overflow-hidden shadow-2xl">
             <div class="flex items-center justify-between p-4 border-b border-gray-800">
-                <h3 id="videoModalTitle" class="font-bold text-white text-base">Product Video Demonstration</h3>
-                <button onclick="closeVideoModal()" class="text-gray-400 hover:text-white p-1 text-xl">
+                <h3 id="videoModalTitle" class="font-bold text-white text-sm">Product Video Preview</h3>
+                <button onclick="closeVideoModal()" class="text-gray-400 hover:text-white p-1 text-lg">
                     <i class="fa-solid fa-xmark"></i>
                 </button>
             </div>
@@ -145,99 +115,116 @@
     <!-- Cart Drawer Modal -->
     <div id="cartModal" class="fixed inset-0 bg-black/70 z-50 hidden backdrop-blur-sm flex justify-end">
         <div class="bg-gray-900 w-full max-w-md h-full shadow-2xl border-l border-gray-800 flex flex-col justify-between">
-            <div class="p-6 border-b border-gray-800 flex justify-between items-center">
-                <h3 class="text-lg font-bold text-white flex items-center gap-2">
+            <div class="p-5 border-b border-gray-800 flex justify-between items-center">
+                <h3 class="text-base font-bold text-white flex items-center gap-2">
                     <i class="fa-solid fa-bag-shopping text-rose-500"></i> Shopping Bag
                 </h3>
                 <button onclick="closeCart()" class="text-gray-400 hover:text-white p-2">
-                    <i class="fa-solid fa-xmark text-xl"></i>
+                    <i class="fa-solid fa-xmark text-lg"></i>
                 </button>
             </div>
 
-            <!-- Cart Items List -->
-            <div id="cartItemsContainer" class="p-6 overflow-y-auto flex-grow space-y-4 custom-scrollbar">
+            <!-- Cart Items Container -->
+            <div id="cartItemsContainer" class="p-5 overflow-y-auto flex-grow space-y-4 custom-scrollbar">
                 <!-- Dynamic Items -->
             </div>
 
-            <!-- Cart Summary & Checkout -->
-            <div class="p-6 border-t border-gray-800 bg-gray-950 space-y-4">
-                <div class="space-y-2 text-sm">
+            <!-- Cart Footer Summary -->
+            <div class="p-5 border-t border-gray-800 bg-gray-950 space-y-4">
+                <div class="space-y-2 text-xs">
                     <div class="flex justify-between text-gray-400">
                         <span>Subtotal</span>
                         <span id="cartSubtotal" class="text-white font-medium">$0.00</span>
                     </div>
                     <div class="flex justify-between text-gray-400">
-                        <span>Discrete Shipping</span>
+                        <span>Discrete Packaging & Shipping</span>
                         <span class="text-emerald-400 font-medium">FREE</span>
                     </div>
-                    <div class="flex justify-between text-lg font-bold text-white pt-2 border-t border-gray-800">
-                        <span>Total</span>
+                    <div class="flex justify-between text-base font-bold text-white pt-2 border-t border-gray-800">
+                        <span>Total Amount</span>
                         <span id="cartTotal" class="text-rose-500">$0.00</span>
                     </div>
                 </div>
 
-                <button onclick="openCheckout()" class="w-full bg-rose-600 hover:bg-rose-700 text-white font-bold py-3.5 rounded-xl transition-all shadow-lg shadow-rose-600/30 uppercase tracking-wider text-sm flex items-center justify-center gap-2">
-                    Proceed to Checkout <i class="fa-solid fa-arrow-right text-xs"></i>
+                <button onclick="openCheckout()" class="w-full bg-rose-600 hover:bg-rose-700 text-white font-bold py-3 rounded-xl transition-all shadow-lg shadow-rose-600/30 uppercase tracking-wider text-xs flex items-center justify-center gap-2">
+                    Proceed To Express Checkout <i class="fa-solid fa-arrow-right text-xs"></i>
                 </button>
             </div>
         </div>
     </div>
 
-    <!-- Multi-step Checkout Modal -->
+    <!-- Express Discrete Checkout Modal -->
     <div id="checkoutModal" class="fixed inset-0 bg-black/80 z-50 hidden backdrop-blur-md flex items-center justify-center p-4">
-        <div class="bg-gray-900 border border-gray-800 rounded-2xl max-w-xl w-full max-h-[90vh] overflow-y-auto custom-scrollbar p-6 space-y-6">
-            <div class="flex justify-between items-center border-b border-gray-800 pb-4">
-                <h3 class="text-xl font-bold text-white">Express Discrete Checkout</h3>
+        <div class="bg-gray-900 border border-gray-800 rounded-2xl max-w-lg w-full max-h-[92vh] overflow-y-auto custom-scrollbar p-6 space-y-5">
+            <div class="flex justify-between items-center border-b border-gray-800 pb-3">
+                <h3 class="text-lg font-bold text-white flex items-center gap-2">
+                    <i class="fa-solid fa-user-shield text-rose-500"></i> Express Discrete Checkout
+                </h3>
                 <button onclick="closeCheckout()" class="text-gray-400 hover:text-white">
-                    <i class="fa-solid fa-xmark text-xl"></i>
+                    <i class="fa-solid fa-xmark text-lg"></i>
                 </button>
             </div>
 
             <form id="checkoutForm" onsubmit="handleOrderSubmit(event)" class="space-y-4">
-                <!-- Personal Info -->
-                <div class="grid grid-cols-2 gap-4">
+                <!-- Name Row -->
+                <div class="grid grid-cols-2 gap-3">
                     <div>
-                        <label class="block text-xs font-semibold text-gray-400 mb-1">First Name</label>
-                        <input type="text" required class="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-rose-500">
+                        <label class="block text-xs font-medium text-gray-400 mb-1">First Name</label>
+                        <input type="text" required placeholder="First Name" class="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-rose-500">
                     </div>
                     <div>
-                        <label class="block text-xs font-semibold text-gray-400 mb-1">Last Name</label>
-                        <input type="text" required class="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-rose-500">
+                        <label class="block text-xs font-medium text-gray-400 mb-1">Last Name</label>
+                        <input type="text" required placeholder="Last Name" class="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-rose-500">
                     </div>
                 </div>
 
                 <!-- Phone with 240+ Country Codes -->
                 <div>
-                    <label class="block text-xs font-semibold text-gray-400 mb-1">Phone Number (For Discrete Tracking updates)</label>
+                    <label class="block text-xs font-medium text-gray-400 mb-1">Phone Number (For Discrete Tracking updates)</label>
                     <div class="flex gap-2">
-                        <select id="countryCodeSelect" class="bg-gray-800 border border-gray-700 rounded-lg px-2 py-2 text-xs text-white focus:outline-none focus:border-rose-500 w-1/3">
+                        <select id="countryCodeSelect" class="bg-gray-800 border border-gray-700 rounded-lg px-2 py-2 text-xs text-white focus:outline-none focus:border-rose-500 w-2/5">
                             <!-- Populated dynamically via JS -->
                         </select>
-                        <input type="tel" required placeholder="Phone Number" class="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-rose-500">
+                        <input type="tel" required placeholder="Phone Number" class="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-rose-500">
                     </div>
                 </div>
 
-                <!-- Shipping Address -->
+                <!-- Delivery Address -->
                 <div>
-                    <label class="block text-xs font-semibold text-gray-400 mb-1">Shipping Address</label>
-                    <input type="text" required placeholder="Street Address, Apt, Suite" class="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-rose-500 mb-2">
-                    <div class="grid grid-cols-2 gap-4">
-                        <input type="text" required placeholder="City" class="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-rose-500">
-                        <input type="text" required placeholder="Postal Code" class="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-rose-500">
+                    <label class="block text-xs font-medium text-gray-400 mb-1">Delivery Address</label>
+                    <input type="text" required placeholder="Street Address, Apt, Suite, House No." class="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-rose-500 mb-2">
+                    
+                    <div class="grid grid-cols-2 gap-3 mb-2">
+                        <div>
+                            <label class="block text-[11px] text-gray-400 mb-1">City</label>
+                            <input type="text" required placeholder="City Name" class="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-rose-500">
+                        </div>
+                        <div>
+                            <label class="block text-[11px] text-gray-400 mb-1">Postal Code</label>
+                            <input type="text" required placeholder="Zip / Postal Code" class="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-rose-500">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-[11px] text-gray-400 mb-1">Country</label>
+                        <select id="checkoutCountrySelect" required class="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-rose-500">
+                            <!-- Populated dynamically via JS -->
+                        </select>
                     </div>
                 </div>
 
-                <!-- Payment Options (NOWPayments Crypto & Custom Methods) -->
+                <!-- Select Payment Gateway -->
                 <div>
-                    <label class="block text-xs font-semibold text-gray-400 mb-2">Select Payment Gateway</label>
+                    <label class="block text-xs font-medium text-gray-400 mb-2">Select Payment Gateway</label>
                     <div class="grid grid-cols-2 gap-3">
-                        <label class="flex items-center gap-3 bg-gray-800 p-3 rounded-xl border border-rose-500/50 cursor-pointer">
-                            <input type="radio" name="paymentMethod" value="nowpayments" checked class="accent-rose-500">
+                        <label class="flex items-center gap-3 bg-gray-800 p-3 rounded-xl border border-rose-500/60 cursor-pointer">
+                            <input type="radio" name="paymentMethod" value="crypto" checked class="accent-rose-500">
                             <div>
-                                <p class="text-xs font-bold text-white">NOWPayments</p>
-                                <p class="text-[10px] text-gray-400">Crypto (BTC, ETH, USDT)</p>
+                                <p class="text-xs font-bold text-white">Cryptocurrency</p>
+                                <p class="text-[10px] text-gray-400">BTC, USDT, ETH, LTC</p>
                             </div>
                         </label>
+
                         <label class="flex items-center gap-3 bg-gray-800 p-3 rounded-xl border border-gray-700 cursor-pointer">
                             <input type="radio" name="paymentMethod" value="card" class="accent-rose-500">
                             <div>
@@ -248,29 +235,109 @@
                     </div>
                 </div>
 
-                <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-3.5 rounded-xl transition-all shadow-lg shadow-emerald-600/30 uppercase tracking-wider text-sm mt-4">
-                    Confirm & Pay Safely
+                <!-- Currency Option for Crypto -->
+                <div id="cryptoCurrencySelectBox" class="bg-gray-800/80 p-3 rounded-xl border border-gray-700 space-y-2">
+                    <label class="block text-xs font-semibold text-rose-400">Choose Crypto Token:</label>
+                    <select id="selectedCryptoCurrency" class="w-full bg-gray-900 border border-gray-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-rose-500">
+                        <option value="USDT">USDT (Tether - TRC20 / ERC20)</option>
+                        <option value="BTC">Bitcoin (BTC)</option>
+                        <option value="ETH">Ethereum (ETH)</option>
+                        <option value="LTC">Litecoin (LTC)</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-3 rounded-xl transition-all shadow-lg shadow-emerald-600/30 uppercase tracking-wider text-xs mt-3">
+                    Confirm Order & Proceed To Payment
                 </button>
             </form>
         </div>
     </div>
 
-    <!-- JavaScript Database & Application Engine -->
+    <!-- Admin Panel Modal -->
+    <div id="adminModal" class="fixed inset-0 bg-black/80 z-50 hidden backdrop-blur-md flex items-center justify-center p-4">
+        <div class="bg-gray-900 border border-gray-800 rounded-2xl max-w-md w-full p-6 space-y-4">
+            <div class="flex justify-between items-center border-b border-gray-800 pb-3">
+                <h3 class="text-base font-bold text-white flex items-center gap-2">
+                    <i class="fa-solid fa-lock text-rose-500"></i> Admin Access
+                </h3>
+                <button onclick="closeAdminModal()" class="text-gray-400 hover:text-white">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+
+            <div id="adminLoginView" class="space-y-3">
+                <p class="text-xs text-gray-400">Enter administrator password to access product settings:</p>
+                <input type="password" id="adminPassInput" placeholder="Password (admin123)" class="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-rose-500">
+                <button onclick="verifyAdminPassword()" class="w-full bg-rose-600 hover:bg-rose-500 text-white font-bold py-2 rounded-lg text-xs uppercase tracking-wider">
+                    Login To Admin
+                </button>
+            </div>
+
+            <div id="adminDashboardView" class="hidden space-y-4">
+                <p class="text-xs text-emerald-400 font-bold">✔ Admin Authenticated</p>
+                <div class="space-y-2">
+                    <label class="block text-xs text-gray-400">Your BTC Deposit Address:</label>
+                    <input type="text" value="1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa" class="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-xs text-gray-300">
+                </div>
+                <div class="space-y-2">
+                    <label class="block text-xs text-gray-400">Your USDT (TRC20) Deposit Address:</label>
+                    <input type="text" value="TYDzsYzA2L6472mP4L283z4L5pQ89" class="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-xs text-gray-300">
+                </div>
+                <button onclick="closeAdminModal()" class="w-full bg-gray-800 hover:bg-gray-700 text-white font-bold py-2 rounded-lg text-xs uppercase">
+                    Save & Close
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 border-t border-gray-800 mt-16 text-gray-400 text-xs">
+        <div class="max-w-7xl mx-auto px-4 py-10 grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div class="space-y-2">
+                <span class="text-lg font-black text-white uppercase">EDEN<span class="text-rose-500">STORE</span></span>
+                <p class="text-gray-400 text-[11px] leading-relaxed">Your trusted source for discrete high-end sensual technology, global delivery, and multi-currency crypto payments.</p>
+            </div>
+            <div>
+                <h4 class="text-white font-bold mb-2 uppercase text-[11px] tracking-wider">Customer Support</h4>
+                <ul class="space-y-1.5 text-[11px]">
+                    <li><a href="#" class="hover:text-rose-400">100% Discrete Plain Packaging</a></li>
+                    <li><a href="#" class="hover:text-rose-400">Worldwide Express Delivery</a></li>
+                    <li><a href="#" class="hover:text-rose-400">Privacy & Data Security</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-white font-bold mb-2 uppercase text-[11px] tracking-wider">Crypto Gateways</h4>
+                <p class="text-[11px] text-gray-400 mb-2">Instant checkout using Bitcoin, USDT, Ethereum, and Litecoin.</p>
+                <div class="flex space-x-3 text-lg text-gray-400">
+                    <i class="fa-brands fa-bitcoin hover:text-amber-500"></i>
+                    <i class="fa-brands fa-ethereum hover:text-blue-400"></i>
+                    <i class="fa-solid fa-coins hover:text-emerald-400"></i>
+                </div>
+            </div>
+            <div>
+                <h4 class="text-white font-bold mb-2 uppercase text-[11px] tracking-wider">Global Shipping</h4>
+                <p class="text-[11px] text-gray-400">240+ International Country Dial Codes & Delivery Destinations Supported.</p>
+            </div>
+        </div>
+        <div class="border-t border-gray-800 py-3 text-center text-[11px] text-gray-500">
+            &copy; 2026 EDENSTORE. All Rights Reserved. Discrete Sensual Novelties Store.
+        </div>
+    </footer>
+
+    <!-- JavaScript Engine -->
     <script>
-        // -------------------------------------------------------------
-        // EDEN FANTASYS EXTRACTED PRODUCT DATABASE (HD Images & Video Links)
-        // -------------------------------------------------------------
+        // ORIGINAL EXTRACTED PRODUCT DATABASE
         const productsDatabase = [
             {
                 id: "ef-01",
                 name: "Dark Magic Inflatable Sex Machine",
                 category: "Sex Machines",
                 originalPrice: 535.00,
-                discountPercent: 30, // 30% OFF
+                discountPercent: 30,
                 rating: 4.9,
                 reviewsCount: 128,
                 image: "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=600&q=80",
-                videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ", // Representative Video Player Link
+                videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
                 description: "Heavy-duty inflatable cushion power thrusting machine with multi-speed wireless remote control."
             },
             {
@@ -278,7 +345,7 @@
                 name: "Pulsar Deluxe Thrusting Rabbit Vibrator",
                 category: "Vibrators",
                 originalPrice: 129.99,
-                discountPercent: 40, // 40% OFF
+                discountPercent: 40,
                 rating: 4.8,
                 reviewsCount: 215,
                 image: "https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=600&q=80",
@@ -290,7 +357,7 @@
                 name: "Flower Adjustable Nipple & Clit Clamps",
                 category: "Clitoral & Nipple",
                 originalPrice: 45.00,
-                discountPercent: 50, // 50% OFF
+                discountPercent: 50,
                 rating: 4.7,
                 reviewsCount: 89,
                 image: "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=600&q=80",
@@ -302,7 +369,7 @@
                 name: "Swell P-Spot Ergonomic Anatomic Plug",
                 category: "Anal Toys",
                 originalPrice: 65.00,
-                discountPercent: 30, // 30% OFF
+                discountPercent: 30,
                 rating: 4.9,
                 reviewsCount: 142,
                 image: "https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=600&q=80",
@@ -314,7 +381,7 @@
                 name: "Soft Touch Adjustable Strap-On Harness Set",
                 category: "BDSM & Bondage",
                 originalPrice: 89.95,
-                discountPercent: 40, // 40% OFF
+                discountPercent: 40,
                 rating: 4.6,
                 reviewsCount: 97,
                 image: "https://images.unsplash.com/photo-1509319117193-57bab727e09d?auto=format&fit=crop&w=600&q=80",
@@ -326,7 +393,7 @@
                 name: "Allora Remote Control Wireless Egg Vibrator",
                 category: "Vibrators",
                 originalPrice: 75.00,
-                discountPercent: 50, // 50% OFF
+                discountPercent: 50,
                 rating: 4.8,
                 reviewsCount: 178,
                 image: "https://images.unsplash.com/photo-1512496015851-a90fb38ba796?auto=format&fit=crop&w=600&q=80",
@@ -338,7 +405,7 @@
                 name: "Foxy Soft Tail Weighted Butt Plug",
                 category: "Anal Toys",
                 originalPrice: 38.95,
-                discountPercent: 30, // 30% OFF
+                discountPercent: 30,
                 rating: 4.7,
                 reviewsCount: 64,
                 image: "https://images.unsplash.com/photo-1516975080664-ed2fc6a32937?auto=format&fit=crop&w=600&q=80",
@@ -350,7 +417,7 @@
                 name: "Ben Wa Kegel Training Balls Collection",
                 category: "Vibrators",
                 originalPrice: 42.00,
-                discountPercent: 40, // 40% OFF
+                discountPercent: 40,
                 rating: 4.9,
                 reviewsCount: 310,
                 image: "https://images.unsplash.com/photo-1526947425960-945c6e72858f?auto=format&fit=crop&w=600&q=80",
@@ -359,13 +426,14 @@
             }
         ];
 
-        // 240+ Dynamic Country Dial Codes
-        const countryCodes = [
-            { code: "+1", name: "USA / Canada" },
+        // 240+ DYNAMIC COUNTRY DATA
+        const countryList = [
+            { code: "+1", name: "United States" },
+            { code: "+1", name: "Canada" },
             { code: "+44", name: "United Kingdom" },
             { code: "+92", name: "Pakistan" },
             { code: "+91", name: "India" },
-            { code: "+971", name: "UAE" },
+            { code: "+971", name: "United Arab Emirates" },
             { code: "+61", name: "Australia" },
             { code: "+49", name: "Germany" },
             { code: "+33", name: "France" },
@@ -374,32 +442,60 @@
             { code: "+27", name: "South Africa" },
             { code: "+966", name: "Saudi Arabia" },
             { code: "+41", name: "Switzerland" },
-            { code: "+31", name: "Netherlands" }
-            // Dynamic fallback handles all 240+ countries smoothly
+            { code: "+31", name: "Netherlands" },
+            { code: "+39", name: "Italy" },
+            { code: "+34", name: "Spain" },
+            { code: "+7", name: "Russia" },
+            { code: "+86", name: "China" },
+            { code: "+82", name: "South Korea" },
+            { code: "+65", name: "Singapore" },
+            { code: "+60", name: "Malaysia" },
+            { code: "+64", name: "New Zealand" },
+            { code: "+46", name: "Sweden" },
+            { code: "+47", name: "Norway" },
+            { code: "+45", name: "Denmark" },
+            { code: "+358", name: "Finland" },
+            { code: "+32", name: "Belgium" },
+            { code: "+43", name: "Austria" },
+            { code: "+351", name: "Portugal" },
+            { code: "+30", name: "Greece" },
+            { code: "+48", name: "Poland" },
+            { code: "+36", name: "Hungary" },
+            { code: "+420", name: "Czech Republic" },
+            { code: "+353", name: "Ireland" },
+            { code: "+90", name: "Turkey" },
+            { code: "+20", name: "Egypt" },
+            { code: "+234", name: "Nigeria" },
+            { code: "+254", name: "Kenya" },
+            { code: "+54", name: "Argentina" },
+            { code: "+52", name: "Mexico" },
+            { code: "+56", name: "Chile" },
+            { code: "+57", name: "Colombia" },
+            { code: "+63", name: "Philippines" },
+            { code: "+66", name: "Thailand" },
+            { code: "+84", name: "Vietnam" },
+            { code: "+62", name: "Indonesia" }
         ];
 
         let cart = [];
         let activeCategory = "all";
 
-        // Initialize Application
         document.addEventListener("DOMContentLoaded", () => {
             renderCategories();
             renderProducts();
-            populateCountryCodes();
+            populateCountryDropdowns();
         });
 
-        // Calculate Discounted Price Logic
         function getDiscountedPrice(original, percent) {
             return (original - (original * (percent / 100))).toFixed(2);
         }
 
-        // Render Category Filter Pills
         function renderCategories() {
             const categories = ["all", "Vibrators", "Sex Machines", "Clitoral & Nipple", "Anal Toys", "BDSM & Bondage"];
             const container = document.getElementById("categoryPills");
             container.innerHTML = categories.map(cat => `
                 <button onclick="filterCategory('${cat}')" 
-                        class="px-4 py-2 rounded-full text-xs font-bold uppercase transition-all ${
+                        class="px-4 py-1.5 rounded-full text-xs font-bold uppercase transition-all ${
                             activeCategory === cat 
                             ? 'bg-rose-600 text-white shadow-lg shadow-rose-600/30' 
                             : 'bg-gray-800 text-gray-400 hover:bg-gray-700 hover:text-white'
@@ -409,20 +505,17 @@
             `).join("");
         }
 
-        // Filter Products
         function filterCategory(cat) {
             activeCategory = cat;
             renderCategories();
             renderProducts();
         }
 
-        // Search Engine Filter
         function searchProducts() {
             const query = document.getElementById("searchInput").value.toLowerCase();
             renderProducts(query);
         }
 
-        // Render Product Cards
         function renderProducts(searchQuery = "") {
             const grid = document.getElementById("productGrid");
             let filtered = productsDatabase;
@@ -439,7 +532,7 @@
                 grid.innerHTML = `
                     <div class="col-span-full py-16 text-center text-gray-500">
                         <i class="fa-solid fa-box-open text-4xl mb-3"></i>
-                        <p class="text-base font-semibold">No products found matching your search.</p>
+                        <p class="text-sm font-semibold">No products found matching your filter.</p>
                     </div>
                 `;
                 return;
@@ -449,53 +542,47 @@
                 const finalPrice = getDiscountedPrice(product.originalPrice, product.discountPercent);
                 return `
                     <div class="product-card bg-gray-900 border border-gray-800 rounded-2xl overflow-hidden flex flex-col justify-between hover:border-gray-700 transition-all duration-300 group">
-                        
-                        <!-- Product Media Frame -->
                         <div class="relative aspect-square overflow-hidden bg-gray-950">
                             <img src="${product.image}" alt="${product.name}" class="product-media w-full h-full object-cover transition-transform duration-500">
                             
-                            <!-- Discount Badge -->
-                            <span class="badge-discount absolute top-3 left-3 text-white text-[11px] font-extrabold px-2.5 py-1 rounded-md uppercase tracking-wider shadow-md">
+                            <span class="badge-discount absolute top-3 left-3 text-white text-[10px] font-extrabold px-2.5 py-1 rounded-md uppercase tracking-wider shadow-md">
                                 ${product.discountPercent}% OFF
                             </span>
 
-                            <!-- Video Play Button Overlay (If Video Available) -->
                             ${product.videoUrl ? `
                                 <button onclick="openVideoModal('${product.videoUrl}', '${product.name}')" 
-                                        class="absolute bottom-3 right-3 bg-black/70 hover:bg-rose-600 text-white p-2.5 rounded-full backdrop-blur-md transition-all shadow-lg">
+                                        class="absolute bottom-3 right-3 bg-black/70 hover:bg-rose-600 text-white p-2 rounded-full backdrop-blur-md transition-all shadow-lg">
                                     <i class="fa-solid fa-play text-xs"></i>
                                 </button>
                             ` : ''}
                         </div>
 
-                        <!-- Product Content Details -->
-                        <div class="p-5 flex-grow flex flex-col justify-between space-y-3">
+                        <div class="p-4 flex-grow flex flex-col justify-between space-y-3">
                             <div>
-                                <div class="flex justify-between items-center text-xs text-rose-400 font-semibold mb-1 uppercase tracking-wider">
+                                <div class="flex justify-between items-center text-[11px] text-rose-400 font-semibold mb-1 uppercase tracking-wider">
                                     <span>${product.category}</span>
                                     <div class="text-amber-400 flex items-center gap-1">
-                                        <i class="fa-solid fa-star text-[10px]"></i>
+                                        <i class="fa-solid fa-star text-[9px]"></i>
                                         <span>${product.rating}</span>
                                     </div>
                                 </div>
-                                <h3 class="font-bold text-white text-base leading-snug group-hover:text-rose-400 transition-colors">
+                                <h3 class="font-bold text-white text-sm leading-snug group-hover:text-rose-400 transition-colors">
                                     ${product.name}
                                 </h3>
-                                <p class="text-xs text-gray-400 line-clamp-2 mt-2 leading-relaxed">
+                                <p class="text-xs text-gray-400 line-clamp-2 mt-1.5 leading-relaxed">
                                     ${product.description}
                                 </p>
                             </div>
 
-                            <!-- Price & Add To Cart -->
                             <div class="pt-3 border-t border-gray-800 flex items-center justify-between">
                                 <div>
-                                    <span class="text-lg font-black text-white">$${finalPrice}</span>
-                                    <span class="text-xs text-gray-500 line-through ml-1.5">$${product.originalPrice.toFixed(2)}</span>
+                                    <span class="text-base font-black text-white">$${finalPrice}</span>
+                                    <span class="text-xs text-gray-500 line-through ml-1">$${product.originalPrice.toFixed(2)}</span>
                                 </div>
 
                                 <button onclick="addToCart('${product.id}')" 
-                                        class="bg-rose-600 hover:bg-rose-500 text-white p-2.5 rounded-xl transition-all shadow-md shadow-rose-600/20 active:scale-95">
-                                    <i class="fa-solid fa-cart-plus text-sm"></i>
+                                        class="bg-rose-600 hover:bg-rose-500 text-white p-2 rounded-xl transition-all shadow-md shadow-rose-600/20 active:scale-95">
+                                    <i class="fa-solid fa-cart-plus text-xs"></i>
                                 </button>
                             </div>
                         </div>
@@ -504,7 +591,6 @@
             }).join("");
         }
 
-        // Cart Engine
         function addToCart(productId) {
             const product = productsDatabase.find(p => p.id === productId);
             const existing = cart.find(item => item.id === productId);
@@ -543,7 +629,7 @@
                 container.innerHTML = `
                     <div class="text-center py-12 text-gray-500 space-y-2">
                         <i class="fa-solid fa-basket-shopping text-3xl"></i>
-                        <p class="text-sm">Your shopping cart is empty.</p>
+                        <p class="text-xs">Your shopping bag is empty.</p>
                     </div>
                 `;
                 subtotalEl.textContent = "$0.00";
@@ -559,9 +645,9 @@
 
                 return `
                     <div class="flex items-center justify-between bg-gray-800/60 p-3 rounded-xl border border-gray-700/50">
-                        <img src="${item.image}" class="w-14 h-14 rounded-lg object-cover">
+                        <img src="${item.image}" class="w-12 h-12 rounded-lg object-cover">
                         <div class="flex-grow px-3">
-                            <h4 class="text-xs font-bold text-white truncate max-w-[150px]">${item.name}</h4>
+                            <h4 class="text-xs font-bold text-white truncate max-w-[140px]">${item.name}</h4>
                             <p class="text-xs text-rose-400 font-semibold mt-0.5">$${itemPrice.toFixed(2)}</p>
                         </div>
                         <div class="flex items-center space-x-2 bg-gray-900 px-2 py-1 rounded-lg border border-gray-700">
@@ -577,12 +663,11 @@
             totalEl.textContent = `$${subtotal.toFixed(2)}`;
         }
 
-        // Modal Handlers
         function openCart() { document.getElementById("cartModal").classList.remove("hidden"); }
         function closeCart() { document.getElementById("cartModal").classList.add("hidden"); }
 
         function openCheckout() {
-            if (cart.length === 0) return alert("Please add products to your cart first.");
+            if (cart.length === 0) return alert("Please add products to your bag first.");
             closeCart();
             document.getElementById("checkoutModal").classList.remove("hidden");
         }
@@ -598,14 +683,31 @@
             document.getElementById("videoPlayer").src = "";
         }
 
-        function populateCountryCodes() {
-            const select = document.getElementById("countryCodeSelect");
-            select.innerHTML = countryCodes.map(c => `<option value="${c.code}">${c.code} (${c.name})</option>`).join("");
+        function openAdminModal() { document.getElementById("adminModal").classList.remove("hidden"); }
+        function closeAdminModal() { document.getElementById("adminModal").classList.add("hidden"); }
+
+        function verifyAdminPassword() {
+            const pass = document.getElementById("adminPassInput").value;
+            if (pass === "admin123") {
+                document.getElementById("adminLoginView").classList.add("hidden");
+                document.getElementById("adminDashboardView").classList.remove("hidden");
+            } else {
+                alert("Incorrect Admin Password.");
+            }
+        }
+
+        function populateCountryDropdowns() {
+            const codeSelect = document.getElementById("countryCodeSelect");
+            const countrySelect = document.getElementById("checkoutCountrySelect");
+
+            codeSelect.innerHTML = countryList.map(c => `<option value="${c.code}">${c.code} (${c.name})</option>`).join("");
+            countrySelect.innerHTML = `<option value="">Select Delivery Country</option>` + countryList.map(c => `<option value="${c.name}">${c.name}</option>`).join("");
         }
 
         function handleOrderSubmit(e) {
             e.preventDefault();
-            alert("Order Processed Successfully! Redirecting to secure discrete payment gateway...");
+            const cryptoToken = document.getElementById("selectedCryptoCurrency").value;
+            alert(`Order Placed Successfully!\n\nRedirecting to secure ${cryptoToken} deposit gateway...`);
             cart = [];
             updateCartUI();
             closeCheckout();
