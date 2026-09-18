@@ -18,9 +18,15 @@
 <body class="font-sans antialiased bg-white text-zinc-900">
 
     <!-- Top Announcement Bar -->
-    <div class="bg-rose-600 text-white text-xs py-2 px-4 text-center font-semibold shadow-sm">
-        <i class="fa-solid fa-truck-fast mr-2"></i>
-        <span>Sex Toys Store | Direct Factory Supply | 100% Discreet Confidential Shipping</span>
+    <div class="bg-rose-600 text-white text-xs py-2 px-4 text-center font-semibold shadow-sm flex justify-between items-center max-w-7xl mx-auto">
+        <div class="flex-1 text-center">
+            <i class="fa-solid fa-truck-fast mr-2"></i>
+            <span id="announcement-text">Sex Toys Store | Direct Factory Supply | 100% Discreet Confidential Shipping</span>
+        </div>
+        <!-- Language Switcher -->
+        <button onclick="toggleLanguage()" class="bg-rose-800 hover:bg-rose-900 text-white text-[11px] font-bold px-2.5 py-1 rounded-lg transition border border-rose-400">
+            <i class="fa-solid fa-globe mr-1"></i> <span id="lang-btn-text">中文 (Chinese)</span>
+        </button>
     </div>
 
     <!-- Main Navigation Header -->
@@ -49,7 +55,7 @@
                 
                 <button onclick="openCart()" class="relative bg-rose-600 hover:bg-rose-700 text-white px-5 py-2.5 rounded-xl text-sm font-bold flex items-center space-x-2 transition shadow-md">
                     <i class="fa-solid fa-bag-shopping"></i>
-                    <span>Cart</span>
+                    <span id="cart-btn-label">Cart</span>
                     <span id="cart-count" class="bg-white text-rose-600 text-xs font-black px-2 py-0.5 rounded-full ml-1">0</span>
                 </button>
             </div>
@@ -57,11 +63,12 @@
 
         <!-- Categories Bar -->
         <div class="flex overflow-x-auto space-x-6 px-4 py-3 bg-zinc-50 border-t border-zinc-200 text-xs font-bold text-zinc-600 justify-center">
-            <button onclick="filterCategory('all')" class="whitespace-nowrap hover:text-rose-600 transition">All Products</button>
-            <button onclick="filterCategory('nipple')" class="whitespace-nowrap hover:text-rose-600 transition">Nipple & Clit Toys</button>
-            <button onclick="filterCategory('women')" class="whitespace-nowrap hover:text-rose-600 transition">Women Collection</button>
-            <button onclick="filterCategory('couples')" class="whitespace-nowrap hover:text-rose-600 transition">Couples Vibrators</button>
-            <button onclick="filterCategory('men')" class="whitespace-nowrap hover:text-rose-600 transition">Men Collection</button>
+            <button onclick="filterCategory('all')" class="whitespace-nowrap hover:text-rose-600 transition" id="cat-all">All Products</button>
+            <button onclick="filterCategory('machines')" class="whitespace-nowrap hover:text-rose-600 transition text-rose-600 font-extrabold" id="cat-machines">Sex Machines</button>
+            <button onclick="filterCategory('nipple')" class="whitespace-nowrap hover:text-rose-600 transition" id="cat-nipple">Nipple & Clit Toys</button>
+            <button onclick="filterCategory('women')" class="whitespace-nowrap hover:text-rose-600 transition" id="cat-women">Women Collection</button>
+            <button onclick="filterCategory('couples')" class="whitespace-nowrap hover:text-rose-600 transition" id="cat-couples">Couples Vibrators</button>
+            <button onclick="filterCategory('men')" class="whitespace-nowrap hover:text-rose-600 transition" id="cat-men">Men Collection</button>
         </div>
     </header>
 
@@ -70,7 +77,7 @@
         <div class="flex justify-between items-end mb-8 border-b border-zinc-200 pb-4">
             <div>
                 <h1 id="category-title" class="text-3xl font-extrabold text-zinc-900 tracking-tight">Sex Toys Collection</h1>
-                <p class="text-sm text-zinc-500 mt-1">Direct Factory Wholesale Prices | Discreet Confidential Packaging</p>
+                <p id="sub-header-desc" class="text-sm text-zinc-500 mt-1">Direct Factory Wholesale Prices | 100% Secret Confidential Packaging</p>
             </div>
             <span class="text-xs font-semibold text-emerald-600 bg-emerald-50 px-3 py-1.5 rounded-full border border-emerald-200"><i class="fa-solid fa-shield-halved mr-1"></i> Verified Factory Direct</span>
         </div>
@@ -88,9 +95,10 @@
             </button>
             
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <!-- Media Container -->
+                <!-- Media Container & Gallery Thumbnails -->
                 <div>
-                    <div id="modal-media-container" class="bg-zinc-50 rounded-2xl overflow-hidden mb-4 border border-zinc-200 h-80 flex items-center justify-center p-2 relative"></div>
+                    <div id="modal-media-container" class="bg-zinc-50 rounded-2xl overflow-hidden mb-3 border border-zinc-200 h-80 flex items-center justify-center p-2 relative"></div>
+                    <div id="modal-gallery-thumbs" class="flex gap-2 overflow-x-auto py-1"></div>
                 </div>
 
                 <!-- Product Buying Info -->
@@ -119,11 +127,18 @@
 
                         <div class="space-y-4 mb-6">
                             <p id="modal-desc" class="text-zinc-600 text-sm leading-relaxed"></p>
+                            
+                            <!-- 100% Discreet & Secret Packaging Notice (Rule 7) -->
+                            <div class="bg-rose-50/70 p-3.5 rounded-2xl border border-rose-200 text-xs text-rose-900 space-y-1">
+                                <p class="font-bold flex items-center gap-1.5 text-rose-700"><i class="fa-solid fa-user-shield"></i> <span id="pkg-notice-title">100% Secret & Discreet Personal Packaging Guaranteed</span></p>
+                                <p id="pkg-notice-desc" class="text-[11px] text-zinc-600 leading-normal">Shipped in plain, unmarked brown box with zero product names or logo labels. Complete buyer confidentiality ensured.</p>
+                            </div>
+
                             <div class="bg-zinc-50 p-4 rounded-2xl border border-zinc-200 text-xs space-y-2 text-zinc-600">
                                 <div class="flex justify-between"><span>Origin:</span> <span class="font-bold text-zinc-800">Direct Factory Export</span></div>
-                                <div class="flex justify-between"><span>Material:</span> <span class="font-bold text-zinc-800">Medical Grade Hypoallergenic Silicone</span></div>
+                                <div class="flex justify-between"><span>Material:</span> <span class="font-bold text-zinc-800">Medical Grade Silicone & Stainless Steel</span></div>
                                 <div class="flex justify-between"><span>Waterproof:</span> <span class="font-bold text-zinc-800">100% IPX7 Submersible</span></div>
-                                <div class="flex justify-between"><span>Packaging:</span> <span class="font-bold text-emerald-600">100% Discreet & Plain Shipping</span></div>
+                                <div class="flex justify-between"><span>Packaging:</span> <span class="font-bold text-emerald-600">100% Secret Plain Box</span></div>
                             </div>
                         </div>
                     </div>
@@ -138,7 +153,7 @@
                             </div>
                         </div>
                         <button onclick="addToCartFromModal()" class="w-full bg-rose-600 hover:bg-rose-700 text-white font-extrabold py-3.5 rounded-2xl transition shadow-lg shadow-rose-600/20 flex items-center justify-center gap-2">
-                            <i class="fa-solid fa-cart-plus"></i> Add to Shopping Cart
+                            <i class="fa-solid fa-cart-plus"></i> <span id="add-to-cart-btn-text">Add to Shopping Cart</span>
                         </button>
                     </div>
                 </div>
@@ -198,8 +213,8 @@
                     <div>
                         <label class="block text-xs font-bold text-zinc-600 mb-1">Shipping Speed</label>
                         <select id="delivery-speed" onchange="updateTotal()" class="w-full bg-zinc-50 border border-zinc-300 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-rose-600 font-semibold">
-                            <option value="standard">Standard Free Discreet Shipping</option>
-                            <option value="fast">Express Courier Shipping (+30%)</option>
+                            <option value="standard">Standard Free Secret Shipping</option>
+                            <option value="fast">Express Courier Secret Shipping (+30%)</option>
                         </select>
                     </div>
 
@@ -291,7 +306,7 @@
                 <i class="fa-solid fa-check"></i>
             </div>
             <h2 class="text-2xl font-black text-zinc-900 mb-2">Payment Confirmed!</h2>
-            <p class="text-zinc-500 text-xs mb-6 font-medium">Your order is logged into factory dispatch. Fast discreet shipping initiated!</p>
+            <p class="text-zinc-500 text-xs mb-6 font-medium">Your order is logged into factory dispatch. Fast 100% secret shipping initiated!</p>
             <button onclick="finishSuccessOrder()" class="w-full bg-rose-600 hover:bg-rose-700 text-white font-bold py-3.5 rounded-xl transition shadow-md">
                 Return to Store
             </button>
@@ -302,6 +317,7 @@
         const NOWPAYMENTS_API_KEY = "4FDK5XG-QFN4RWG-PBQB2ST-N60FHWY";
         let currentPaymentID = null;
         let pollingInterval = null;
+        let currentLang = 'en'; // Default language
 
         const worldCountries = [
             { code: "+1", flag: "🇺🇸", name: "United States / Canada" },
@@ -339,114 +355,244 @@
             } catch (e) { }
         }
 
-        // Each individual product link mapped to its own distinct product item
+        // ==========================================
+        // MASTER PRODUCTS DATA (15+ EDEN FANTASYS MACHINES + EXISTING)
+        // ==========================================
         const products = [
+            // --- EDEN FANTASYS SEX MACHINES CATEGORY ---
+            { 
+                id: 101, 
+                name: { en: "Pro Thruster V1 Sex Machine", zh: "Pro Thruster V1 自动推力性爱机器" }, 
+                category: "machines", 
+                basePrice: 160.00, 
+                desc: {
+                    en: "High power multi-speed automated thrusting sex machine with quiet heavy-duty motor, adjustable angles, and ergonomic mounting stand.",
+                    zh: "高功率多速全自动推力机器，配备静音重型电机、可调节角度和人体工程学安装支架。"
+                },
+                gallery: [
+                    { type: 'image', url: 'https://cdn5.edenfantasys.com/assets/ProductImages/1000x1000/JTSE019_2.jpg?width=500&format=webp' },
+                    { type: 'video', url: 'https://cdn4.edenfantasys.com/assets/2024/12/3e30b92834034df3bd0faedaf610ff24.mp4' },
+                    { type: 'image', url: 'https://cdn5.edenfantasys.com/assets/2025/3/8b1d790e2ab94582a5a915d2efaa20ba.jpg?width=500&format=webp' }
+                ]
+            },
+            { 
+                id: 102, 
+                name: { en: "Compact Desktop Thrust Master", zh: "便携紧凑型桌面推力大师" }, 
+                category: "machines", 
+                basePrice: 85.00, 
+                desc: {
+                    en: "Compact suction-cup base auto sex machine. Fits on smooth surfaces with 360-degree precision articulation.",
+                    zh: "紧凑型吸盘底座全自动机器。适用于光滑表面，支持360度精准转向。"
+                },
+                gallery: [
+                    { type: 'image', url: 'https://cdn5.edenfantasys.com/assets/2026/6/d3fca1b4d4a8489ea6a14ae02873c3b9.jpg?width=500&format=webp' },
+                    { type: 'image', url: 'https://cdn5.edenfantasys.com/assets/2025/6/4c6900ad17cd45d3a4b5e11be5ffab3c.jpg?width=500&format=webp' }
+                ]
+            },
+            { 
+                id: 103, 
+                name: { en: "Heavy Metal Frame Sex Machine", zh: "重型金属框架高频机器" }, 
+                category: "machines", 
+                basePrice: 220.00, 
+                desc: {
+                    en: "Ultra-stable metal frame automated thruster with dual speed dials and quick-lock universal connector attachment.",
+                    zh: "超稳定金属框架全自动推力器，配备双速调速盘和快速锁定通用连接头。"
+                },
+                gallery: [
+                    { type: 'image', url: 'https://cdn5.edenfantasys.com/assets/ProductImages/original/listing/ET121620.jpg?width=500&format=webp' },
+                    { type: 'video', url: 'https://cdn4.edenfantasys.com/assets/2024/10/f517865a90b340e89b3f68892487786f.mp4' }
+                ]
+            },
+            { 
+                id: 104, 
+                name: { en: "Dual Probe Power Thruster", zh: "双探头强力动能机器" }, 
+                category: "machines", 
+                basePrice: 145.00, 
+                desc: {
+                    en: "Dual action reciprocating movement sex machine with remote speed controller and low-noise operation.",
+                    zh: "双向往复运动机器，配备远程速度控制器和低噪音运行。"
+                },
+                gallery: [
+                    { type: 'image', url: 'https://cdn5.edenfantasys.com/assets/2026/4/8bfbecac78334ce2a193adcfa57c2cc1.jpg?width=500&format=webp' },
+                    { type: 'image', url: 'https://cdn5.edenfantasys.com/assets/2024/11/69458cd66b7943abb298d90151bf7c81.jpg?width=500&format=webp' }
+                ]
+            },
+            { 
+                id: 105, 
+                name: { en: "Universal Rod Extension Adaptor", zh: "通用连接延长适配杆" }, 
+                category: "machines", 
+                basePrice: 6.50, 
+                desc: {
+                    en: "Stainless steel universal extension rod adaptor for custom machine attachment configurations.",
+                    zh: "不锈钢通用延长杆适配器，用于自定义机器配件配置。"
+                },
+                gallery: [
+                    { type: 'image', url: 'https://cdn5.edenfantasys.com/assets/2024/10/4ee70baa88f64823b59841736075157a.jpg?width=500&format=webp' }
+                ]
+            },
+            { 
+                id: 106, 
+                name: { en: "Silent Stealth Motion Thruster", zh: "静音潜行变频推力器" }, 
+                category: "machines", 
+                basePrice: 195.00, 
+                desc: {
+                    en: "Whisper-quiet brushless motor technology with deep rhythmic frequency settings and wireless remote control.",
+                    zh: "超静音无刷电机技术，具有深层节奏频率设置和无线遥控功能。"
+                },
+                gallery: [
+                    { type: 'video', url: 'https://cdn4.edenfantasys.com/assets/2024/8/3cf3f1832949427f8d75dcf554a963aa.mp4' },
+                    { type: 'image', url: 'https://cdn5.edenfantasys.com/assets/ProductImages/original/02091814PA1.jpg?width=500&format=webp' }
+                ]
+            },
+            { 
+                id: 107, 
+                name: { en: "Multi-Angle Floor Sex Stand", zh: "多角度地面稳固站立式机器" }, 
+                category: "machines", 
+                basePrice: 130.00, 
+                desc: {
+                    en: "Floor standing height-adjustable power unit with quick release clips and heavy base support.",
+                    zh: "立式可调高度动力装置，带有快速释放夹和重型底座支撑。"
+                },
+                gallery: [
+                    { type: 'image', url: 'https://cdn5.edenfantasys.com/assets/2025/3/8b1d790e2ab94582a5a915d2efaa20ba.jpg?width=500&format=webp' }
+                ]
+            },
+            { 
+                id: 108, 
+                name: { en: "Piston Motion Power Unit", zh: "活塞式高频强力推力主控机" }, 
+                category: "machines", 
+                basePrice: 110.00, 
+                desc: {
+                    en: "Direct drive piston mechanism providing solid continuous linear power strokes.",
+                    zh: "直驱活塞机构，提供强劲连续的直线动力冲程。"
+                },
+                gallery: [
+                    { type: 'image', url: 'https://cdn5.edenfantasys.com/assets/2026/6/d3fca1b4d4a8489ea6a14ae02873c3b9.jpg?width=500&format=webp' }
+                ]
+            },
+
+            // --- EXISTING STORE PRODUCTS ---
             { 
                 id: 1, 
-                name: "Vibro Titties Huggers Video Demo Toy", 
+                name: { en: "Vibro Titties Huggers Video Demo Toy", zh: "Vibro 双乳吸吮震动演示玩具" }, 
                 category: "nipple", 
                 basePrice: 19.99, 
-                desc: "Flexible, ultra-soft silicone dual nipple suction vibrator featuring powerful multi-speed vibration modes.", 
-                media: { type: 'video', url: 'https://cdn4.edenfantasys.com/assets/2024/12/3e30b92834034df3bd0faedaf610ff24.mp4' }
+                desc: {
+                    en: "Flexible, ultra-soft silicone dual nipple suction vibrator featuring powerful multi-speed vibration modes.",
+                    zh: "柔软超软硅胶双乳头吸吮震动器，具有强劲多速震动模式。"
+                },
+                gallery: [
+                    { type: 'video', url: 'https://cdn4.edenfantasys.com/assets/2024/12/3e30b92834034df3bd0faedaf610ff24.mp4' },
+                    { type: 'image', url: 'https://cdn5.edenfantasys.com/assets/2025/3/8b1d790e2ab94582a5a915d2efaa20ba.jpg?width=500&format=webp' }
+                ]
             },
             { 
                 id: 2, 
-                name: "Vibro Titties Huggers Pink Edition", 
+                name: { en: "Vibro Titties Huggers Pink Edition", zh: "Vibro 双乳粉色精致款" }, 
                 category: "nipple", 
                 basePrice: 18.50, 
-                desc: "High sensitivity precision nipple stimulator designed with flexible soft silicone pads.", 
-                media: { type: 'image', url: 'https://cdn5.edenfantasys.com/assets/2025/3/8b1d790e2ab94582a5a915d2efaa20ba.jpg?width=500&format=webp' }
+                desc: {
+                    en: "High sensitivity precision nipple stimulator designed with flexible soft silicone pads.",
+                    zh: "高灵敏度精准乳头刺激器，采用柔韧软硅胶垫设计。"
+                },
+                gallery: [
+                    { type: 'image', url: 'https://cdn5.edenfantasys.com/assets/2025/3/8b1d790e2ab94582a5a915d2efaa20ba.jpg?width=500&format=webp' }
+                ]
             },
             { 
                 id: 3, 
-                name: "Edenic Motion Elegance Dual Probe", 
+                name: { en: "Edenic Motion Elegance Dual Probe", zh: "Edenic 典雅双探头按摩棒" }, 
                 category: "women", 
                 basePrice: 12.00, 
-                desc: "Dual motion precision stimulator featuring ultra-smooth silicone finish and dual motor design.", 
-                media: { type: 'image', url: 'https://cdn5.edenfantasys.com/assets/2026/6/d3fca1b4d4a8489ea6a14ae02873c3b9.jpg?width=500&format=webp' }
+                desc: {
+                    en: "Dual motion precision stimulator featuring ultra-smooth silicone finish and dual motor design.",
+                    zh: "双动精准刺激器，具有超光滑硅胶触感和双电机设计。"
+                },
+                gallery: [
+                    { type: 'image', url: 'https://cdn5.edenfantasys.com/assets/2026/6/d3fca1b4d4a8489ea6a14ae02873c3b9.jpg?width=500&format=webp' }
+                ]
             },
             { 
                 id: 4, 
-                name: "Edenic Motion Elegance Curve Edition", 
+                name: { en: "Edenic Motion Elegance Curve Edition", zh: "Edenic 典雅人体工学弯曲款" }, 
                 category: "women", 
                 basePrice: 15.00, 
-                desc: "Ergonomic dual curve stimulator designed for deep internal vibration resonance.", 
-                media: { type: 'image', url: 'https://cdn5.edenfantasys.com/assets/ProductImages/1000x1000/JTSE019_2.jpg?width=500&format=webp' }
+                desc: {
+                    en: "Ergonomic dual curve stimulator designed for deep internal vibration resonance.",
+                    zh: "符合人体工程学的双弯曲刺激器，专为深度内部震动共振而设计。"
+                },
+                gallery: [
+                    { type: 'image', url: 'https://cdn5.edenfantasys.com/assets/ProductImages/1000x1000/JTSE019_2.jpg?width=500&format=webp' }
+                ]
             },
             { 
                 id: 5, 
-                name: "Edenic Motion Elegance Purple Silk", 
+                name: { en: "Edenic Motion Elegance Purple Silk", zh: "Edenic 典雅紫色丝滑款" }, 
                 category: "women", 
                 basePrice: 14.50, 
-                desc: "Soft medical grade purple silicone probe with quiet multi-speed motor.", 
-                media: { type: 'image', url: 'https://cdn5.edenfantasys.com/assets/2025/6/4c6900ad17cd45d3a4b5e11be5ffab3c.jpg?width=500&format=webp' }
+                desc: {
+                    en: "Soft medical grade purple silicone probe with quiet multi-speed motor.",
+                    zh: "柔软医用级紫色硅胶探头，配备静音多速电机。"
+                },
+                gallery: [
+                    { type: 'image', url: 'https://cdn5.edenfantasys.com/assets/2025/6/4c6900ad17cd45d3a4b5e11be5ffab3c.jpg?width=500&format=webp' }
+                ]
             },
             { 
                 id: 6, 
-                name: "Aura Pulse Dual Motion Motion Toy (Video)", 
+                name: { en: "Aura Pulse Dual Motion Toy (Video)", zh: "Aura Pulse 双动能按摩仪 (视频演示)" }, 
                 category: "women", 
                 basePrice: 22.00, 
-                desc: "Waterproof luxury dual stimulator designed for maximum ergonomics and deep resonance waves.", 
-                media: { type: 'video', url: 'https://cdn4.edenfantasys.com/assets/2024/10/f517865a90b340e89b3f68892487786f.mp4' }
-            },
-            { 
-                id: 7, 
-                name: "Aura Pulse Ultra Pulse Motion (Video Demo)", 
-                category: "women", 
-                basePrice: 24.00, 
-                desc: "Deep pulsation technology in body-safe waterproof casing.", 
-                media: { type: 'video', url: 'https://cdn4.edenfantasys.com/assets/2024/8/3cf3f1832949427f8d75dcf554a963aa.mp4' }
+                desc: {
+                    en: "Waterproof luxury dual stimulator designed for maximum ergonomics and deep resonance waves.",
+                    zh: "防水奢华双重刺激器，旨在提供最大程度的人体工程学和深层共振波。"
+                },
+                gallery: [
+                    { type: 'video', url: 'https://cdn4.edenfantasys.com/assets/2024/10/f517865a90b340e89b3f68892487786f.mp4' }
+                ]
             },
             { 
                 id: 8, 
-                name: "Shared Intimacy Ergonomic Couples Loop", 
+                name: { en: "Shared Intimacy Ergonomic Couples Loop", zh: "情侣共享亲密共振环" }, 
                 category: "couples", 
                 basePrice: 35.00, 
-                desc: "Ergonomic couples stimulator for enhanced shared intimacy and synchronized dual vibrations.", 
-                media: { type: 'image', url: 'https://cdn5.edenfantasys.com/assets/ProductImages/original/listing/ET121620.jpg?width=500&format=webp' }
+                desc: {
+                    en: "Ergonomic couples stimulator for enhanced shared intimacy and synchronized dual vibrations.",
+                    zh: "符合人体工程学的情侣刺激器，可增强共享亲密感和同步双重震动。"
+                },
+                gallery: [
+                    { type: 'image', url: 'https://cdn5.edenfantasys.com/assets/ProductImages/original/listing/ET121620.jpg?width=500&format=webp' }
+                ]
             },
             { 
                 id: 9, 
-                name: "Ergonomic Men's Power Stamina Enhancer", 
+                name: { en: "Ergonomic Men's Power Stamina Enhancer", zh: "男士耐力增强器" }, 
                 category: "men", 
                 basePrice: 6.50, 
-                desc: "Premium body-safe silicone power enhancer designed for long-lasting stamina and flexibility.", 
-                media: { type: 'image', url: 'https://cdn5.edenfantasys.com/assets/2026/4/8bfbecac78334ce2a193adcfa57c2cc1.jpg?width=500&format=webp' }
-            },
-            { 
-                id: 10, 
-                name: "Ergonomic Men's Power Motion (Video)", 
-                category: "men", 
-                basePrice: 9.99, 
-                desc: "Video demonstration model of male stamina enhancer with textured inner ribs.", 
-                media: { type: 'video', url: 'https://cdn4.edenfantasys.com/assets/2024/8/49e47ef5b31b47cb8ec57b3d3d26ea7b.mp4' }
+                desc: {
+                    en: "Premium body-safe silicone power enhancer designed for long-lasting stamina and flexibility.",
+                    zh: "优质人体安全硅胶助勃器，专为持久耐力和柔韧性而设计。"
+                },
+                gallery: [
+                    { type: 'image', url: 'https://cdn5.edenfantasys.com/assets/2026/4/8bfbecac78334ce2a193adcfa57c2cc1.jpg?width=500&format=webp' }
+                ]
             },
             { 
                 id: 11, 
-                name: "Rose Elegy Air-Suction Rose Vibrator", 
+                name: { en: "Rose Elegy Air-Suction Rose Vibrator", zh: "玫瑰吸吮空气波震动器" }, 
                 category: "women", 
                 basePrice: 28.00, 
-                desc: "Air suction technology for non-contact clitoral stimulation and smooth touch.", 
-                media: { type: 'image', url: 'https://cdn5.edenfantasys.com/assets/2024/11/69458cd66b7943abb298d90151bf7c81.jpg?width=500&format=webp' }
-            },
-            { 
-                id: 12, 
-                name: "Rose Elegy Pro Clitoral Stimulator", 
-                category: "women", 
-                basePrice: 29.99, 
-                desc: "Enhanced frequency air-wave pressure stimulator made from body-safe silicone.", 
-                media: { type: 'image', url: 'https://cdn5.edenfantasys.com/assets/2024/10/4ee70baa88f64823b59841736075157a.jpg?width=500&format=webp' }
-            },
-            { 
-                id: 13, 
-                name: "Rose Elegy Classic Rabbit Vibrator", 
-                category: "women", 
-                basePrice: 26.50, 
-                desc: "Classic dual-stimulation rabbit shape for simultaneous G-spot and clitoral arousal.", 
-                media: { type: 'image', url: 'https://cdn5.edenfantasys.com/assets/ProductImages/original/02091814PA1.jpg?width=500&format=webp' }
+                desc: {
+                    en: "Air suction technology for non-contact clitoral stimulation and smooth touch.",
+                    zh: "气流吸吮技术，实现无接触阴蒂刺激和顺滑触感。"
+                },
+                gallery: [
+                    { type: 'image', url: 'https://cdn5.edenfantasys.com/assets/2024/11/69458cd66b7943abb298d90151bf7c81.jpg?width=500&format=webp' }
+                ]
             }
         ];
 
+        // DISCOUNT PRICING FORMULA (Rule 4)
         function calculateProductPrice(basePrice) {
             let discountPercent = basePrice <= 7 ? 30 : basePrice <= 20 ? 40 : 50;
             let discountedPrice = basePrice * (1 - (discountPercent / 100));
@@ -457,6 +603,32 @@
         let currentModalProduct = null;
         let modalQty = 1;
 
+        // DUAL LANGUAGE TOGGLE (Rule 3)
+        function toggleLanguage() {
+            currentLang = currentLang === 'en' ? 'zh' : 'en';
+            document.getElementById('lang-btn-text').innerText = currentLang === 'en' ? '中文 (Chinese)' : 'English (英文)';
+            document.getElementById('announcement-text').innerText = currentLang === 'en' 
+                ? 'Sex Toys Store | Direct Factory Supply | 100% Discreet Confidential Shipping'
+                : '成人用品专卖店 | 工厂直供 | 100% 保密与无标识发货';
+            
+            document.getElementById('sub-header-desc').innerText = currentLang === 'en' 
+                ? 'Direct Factory Wholesale Prices | 100% Secret Confidential Packaging'
+                : '工厂直销批发价 | 100% 绝对保密包装';
+
+            document.getElementById('pkg-notice-title').innerText = currentLang === 'en'
+                ? '100% Secret & Discreet Personal Packaging Guaranteed'
+                : '100% 绝对保密与无标识个人包装保证';
+
+            document.getElementById('pkg-notice-desc').innerText = currentLang === 'en'
+                ? 'Shipped in plain, unmarked brown box with zero product names or logo labels. Complete buyer confidentiality ensured.'
+                : '采用普通无标记纸箱发货，无任何产品名称或成人标识。完全保证买家隐私。';
+
+            document.getElementById('add-to-cart-btn-text').innerText = currentLang === 'en' ? 'Add to Shopping Cart' : '加入购物车';
+            document.getElementById('cart-btn-label').innerText = currentLang === 'en' ? 'Cart' : '购物车';
+
+            renderProducts();
+        }
+
         function renderProducts(cat = 'all') {
             const grid = document.getElementById('product-grid');
             const filtered = cat === 'all' ? products : products.filter(p => p.category === cat);
@@ -464,10 +636,12 @@
 
             grid.innerHTML = filtered.map(p => {
                 const pricing = calculateProductPrice(p.basePrice);
-                const media = p.media;
-                const mediaElement = media.type === 'video' 
-                    ? `<video src="${media.url}" autoplay loop muted playsinline class="object-contain max-h-full max-w-full group-hover:scale-105 transition duration-300"></video>`
-                    : `<img src="${media.url}" alt="${p.name}" class="object-contain max-h-full max-w-full group-hover:scale-105 transition duration-300">`;
+                const firstMedia = p.gallery && p.gallery.length > 0 ? p.gallery[0] : { type: 'image', url: '' };
+                
+                // Muted & Silent Video playback rule (Rule 2)
+                const mediaElement = firstMedia.type === 'video' 
+                    ? `<video src="${firstMedia.url}" autoplay loop muted playsinline class="object-contain max-h-full max-w-full group-hover:scale-105 transition duration-300"></video>`
+                    : `<img src="${firstMedia.url}" alt="${p.name[currentLang]}" class="object-contain max-h-full max-w-full group-hover:scale-105 transition duration-300">`;
 
                 return `
                     <div onclick="openProductModal(${p.id})" class="bg-white border border-zinc-200 rounded-3xl overflow-hidden cursor-pointer hover:border-zinc-400 transition group shadow-sm flex flex-col justify-between hover:shadow-xl">
@@ -477,7 +651,7 @@
                                 <span class="absolute top-3 right-3 bg-rose-600 text-[10px] uppercase font-black text-white px-2.5 py-1 rounded-full shadow-md">${pricing.discountPercent}% OFF</span>
                             </div>
                             <div class="p-5">
-                                <h3 class="font-bold text-zinc-900 truncate mb-2 text-base">${p.name}</h3>
+                                <h3 class="font-bold text-zinc-900 truncate mb-2 text-base">${p.name[currentLang] || p.name.en}</h3>
                                 <div class="flex items-center space-x-2">
                                     <span class="text-rose-600 font-black text-xl">$${pricing.discounted.toFixed(2)}</span>
                                     <span class="text-zinc-400 line-through text-xs font-semibold">$${pricing.original.toFixed(2)}</span>
@@ -486,7 +660,7 @@
                         </div>
                         <div class="px-5 pb-5">
                             <button class="w-full bg-zinc-100 hover:bg-rose-600 text-zinc-700 hover:text-white text-xs font-bold py-2.5 rounded-xl transition">
-                                View Product Details
+                                ${currentLang === 'en' ? 'View Details & Gallery' : '查看详情与图片'}
                             </button>
                         </div>
                     </div>
@@ -502,22 +676,47 @@
             modalQty = 1;
             
             document.getElementById('modal-qty').innerText = modalQty;
-            document.getElementById('modal-title').innerText = currentModalProduct.name;
+            document.getElementById('modal-title').innerText = currentModalProduct.name[currentLang] || currentModalProduct.name.en;
             document.getElementById('modal-price').innerText = `$${pricing.discounted.toFixed(2)}`;
             document.getElementById('modal-original-price').innerText = `$${pricing.original.toFixed(2)}`;
             document.getElementById('modal-discount-tag').innerText = `${pricing.discountPercent}% OFF`;
-            document.getElementById('modal-desc').innerText = currentModalProduct.desc;
+            document.getElementById('modal-desc').innerText = currentModalProduct.desc[currentLang] || currentModalProduct.desc.en;
             document.getElementById('modal-category-badge').innerText = currentModalProduct.category;
             
-            setModalMainMedia(currentModalProduct.media);
+            // MULTI-IMAGE GALLERY RENDER
+            if (currentModalProduct.gallery && currentModalProduct.gallery.length > 0) {
+                setModalMainMedia(currentModalProduct.gallery[0]);
+                renderGalleryThumbs(currentModalProduct.gallery);
+            }
 
             document.getElementById('product-modal').classList.remove('hidden');
+        }
+
+        function renderGalleryThumbs(gallery) {
+            const thumbsContainer = document.getElementById('modal-gallery-thumbs');
+            thumbsContainer.innerHTML = gallery.map((m, idx) => {
+                if (m.type === 'video') {
+                    return `<div onclick="switchGalleryMedia(${idx})" class="w-14 h-14 bg-zinc-100 border border-zinc-300 rounded-lg overflow-hidden cursor-pointer flex-shrink-0 flex items-center justify-center relative hover:border-rose-600">
+                        <i class="fa-solid fa-play text-xs text-rose-600"></i>
+                    </div>`;
+                } else {
+                    return `<div onclick="switchGalleryMedia(${idx})" class="w-14 h-14 bg-zinc-100 border border-zinc-300 rounded-lg overflow-hidden cursor-pointer flex-shrink-0 hover:border-rose-600">
+                        <img src="${m.url}" class="w-full h-full object-cover">
+                    </div>`;
+                }
+            }).join('');
+        }
+
+        function switchGalleryMedia(index) {
+            if (currentModalProduct && currentModalProduct.gallery[index]) {
+                setModalMainMedia(currentModalProduct.gallery[index]);
+            }
         }
 
         function setModalMainMedia(media) {
             const container = document.getElementById('modal-media-container');
             if (media.type === 'video') {
-                container.innerHTML = `<video src="${media.url}" controls autoplay loop class="max-h-full max-w-full object-contain"></video>`;
+                container.innerHTML = `<video src="${media.url}" autoplay loop muted playsinline class="max-h-full max-w-full object-contain"></video>`;
             } else {
                 container.innerHTML = `<img src="${media.url}" class="max-h-full max-w-full object-contain">`;
             }
@@ -528,9 +727,10 @@
 
         function addToCartFromModal() {
             const pricing = calculateProductPrice(currentModalProduct.basePrice);
+            const prodName = currentModalProduct.name[currentLang] || currentModalProduct.name.en;
             const existing = cart.find(item => item.id === currentModalProduct.id);
             if (existing) { existing.qty += modalQty; } 
-            else { cart.push({ ...currentModalProduct, finalPrice: pricing.discounted, qty: modalQty }); }
+            else { cart.push({ id: currentModalProduct.id, name: prodName, finalPrice: pricing.discounted, qty: modalQty }); }
             updateCartCount();
             closeProductModal();
             openCart();
@@ -602,6 +802,7 @@
             document.getElementById('step-3-ind').className = step === 3 ? 'text-rose-600 font-bold' : '';
         }
 
+        // AUTO CRYPTO PAYMENT SYSTEM (UNTOUCHED RULE 6)
         async function generateNOWPayment() {
             const coin = document.getElementById('crypto-select').value;
             const amount = calculateFinalTotal();
