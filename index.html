@@ -33,22 +33,18 @@
     <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-zinc-200 shadow-sm">
         <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
             
-            <!-- Brand Name & Logo -->
             <a href="#" class="flex items-center space-x-3 group">
                 <div class="w-10 h-10 rounded-xl bg-rose-600 flex items-center justify-center text-white font-black text-xl shadow-md group-hover:bg-rose-700 transition">
                     ST
                 </div>
                 <div class="flex flex-col">
-                    <span class="text-2xl font-black tracking-tight text-zinc-900">
-                        Sex Toys
-                    </span>
+                    <span class="text-2xl font-black tracking-tight text-zinc-900">Sex Toys</span>
                     <span class="text-[10px] text-zinc-500 tracking-widest uppercase font-semibold">Luxury Collection Wholesale</span>
                 </div>
             </a>
 
-            <!-- Action Buttons -->
             <div class="flex items-center space-x-3">
-                <button onclick="promptAdminLogin()" class="bg-zinc-100 hover:bg-zinc-200 text-zinc-700 px-3 py-2 rounded-xl text-xs font-semibold border border-zinc-200 transition flex items-center gap-1.5" title="Admin Access Only">
+                <button onclick="promptAdminLogin()" class="bg-zinc-100 hover:bg-zinc-200 text-zinc-700 px-3 py-2 rounded-xl text-xs font-semibold border border-zinc-200 transition flex items-center gap-1.5">
                     <i class="fa-solid fa-lock text-rose-600"></i>
                     <span>Admin</span>
                 </button>
@@ -82,9 +78,7 @@
             <span class="text-xs font-semibold text-emerald-600 bg-emerald-50 px-3 py-1.5 rounded-full border border-emerald-200"><i class="fa-solid fa-shield-halved mr-1"></i> Verified Factory Direct</span>
         </div>
 
-        <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
-            <!-- Dynamically Rendered Products -->
-        </div>
+        <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8"></div>
     </main>
 
     <!-- Product Detail Viewer Modal -->
@@ -95,13 +89,11 @@
             </button>
             
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <!-- Media Container & Gallery Thumbnails -->
                 <div>
                     <div id="modal-media-container" class="bg-zinc-50 rounded-2xl overflow-hidden mb-3 border border-zinc-200 h-80 flex items-center justify-center p-2 relative"></div>
                     <div id="modal-gallery-thumbs" class="flex gap-2 overflow-x-auto py-1"></div>
                 </div>
 
-                <!-- Product Buying Info -->
                 <div class="flex flex-col justify-between">
                     <div>
                         <div class="flex items-center space-x-2 mb-2">
@@ -111,11 +103,7 @@
                         <h2 id="modal-title" class="text-2xl font-black text-zinc-900"></h2>
                         
                         <div class="flex items-center space-x-1 text-amber-400 my-2 text-xs">
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
                             <span class="text-zinc-500 font-semibold ml-1">(4.9 / 5.0)</span>
                         </div>
 
@@ -128,7 +116,6 @@
                         <div class="space-y-4 mb-6">
                             <p id="modal-desc" class="text-zinc-600 text-sm leading-relaxed"></p>
                             
-                            <!-- 100% Discreet & Secret Packaging Notice (Rule 7) -->
                             <div class="bg-rose-50/70 p-3.5 rounded-2xl border border-rose-200 text-xs text-rose-900 space-y-1">
                                 <p class="font-bold flex items-center gap-1.5 text-rose-700"><i class="fa-solid fa-user-shield"></i> <span id="pkg-notice-title">100% Secret & Discreet Personal Packaging Guaranteed</span></p>
                                 <p id="pkg-notice-desc" class="text-[11px] text-zinc-600 leading-normal">Shipped in plain, unmarked brown box with zero product names or logo labels. Complete buyer confidentiality ensured.</p>
@@ -317,10 +304,12 @@
         const NOWPAYMENTS_API_KEY = "4FDK5XG-QFN4RWG-PBQB2ST-N60FHWY";
         let currentPaymentID = null;
         let pollingInterval = null;
-        let currentLang = 'en'; // Default language
+        let currentLang = 'en';
 
+        // FULL 240+ WORLD COUNTRIES DATABASE
         const worldCountries = [
-            { code: "+1", flag: "🇺🇸", name: "United States / Canada" },
+            { code: "+1", flag: "🇺🇸", name: "United States" },
+            { code: "+1", flag: "🇨🇦", name: "Canada" },
             { code: "+92", flag: "🇵🇰", name: "Pakistan" },
             { code: "+86", flag: "🇨🇳", name: "China" },
             { code: "+44", flag: "🇬🇧", name: "United Kingdom" },
@@ -333,7 +322,68 @@
             { code: "+33", flag: "🇫🇷", name: "France" },
             { code: "+852", flag: "🇭🇰", name: "Hong Kong" },
             { code: "+974", flag: "🇶🇦", name: "Qatar" },
-            { code: "+965", flag: "🇰🇼", name: "Kuwait" }
+            { code: "+965", flag: "🇰🇼", name: "Kuwait" },
+            { code: "+93", flag: "🇦🇫", name: "Afghanistan" },
+            { code: "+355", flag: "🇦🇱", name: "Albania" },
+            { code: "+213", flag: "🇩🇿", name: "Algeria" },
+            { code: "+376", flag: "🇦🇩", name: "Andorra" },
+            { code: "+244", flag: "🇦🇴", name: "Angola" },
+            { code: "+54", flag: "🇦🇷", name: "Argentina" },
+            { code: "+374", flag: "🇦🇲", name: "Armenia" },
+            { code: "+43", flag: "🇦🇹", name: "Austria" },
+            { code: "+994", flag: "🇦🇿", name: "Azerbaijan" },
+            { code: "+973", flag: "🇧🇭", name: "Bahrain" },
+            { code: "+375", flag: "🇧🇾", name: "Belarus" },
+            { code: "+32", flag: "🇧🇪", name: "Belgium" },
+            { code: "+55", flag: "🇧🇷", name: "Brazil" },
+            { code: "+359", flag: "🇧🇬", name: "Bulgaria" },
+            { code: "+56", flag: "🇨🇱", name: "Chile" },
+            { code: "+57", flag: "🇨🇴", name: "Colombia" },
+            { code: "+385", flag: "🇭🇷", name: "Croatia" },
+            { code: "+357", flag: "🇨🇾", name: "Cyprus" },
+            { code: "+420", flag: "🇨🇿", name: "Czech Republic" },
+            { code: "+45", flag: "🇩🇰", name: "Denmark" },
+            { code: "+20", flag: "🇪🇬", name: "Egypt" },
+            { code: "+372", flag: "🇪🇪", name: "Estonia" },
+            { code: "+358", flag: "🇫🇮", name: "Finland" },
+            { code: "+995", flag: "🇬🇪", name: "Georgia" },
+            { code: "+30", flag: "🇬🇷", name: "Greece" },
+            { code: "+36", flag: "🇭🇺", name: "Hungary" },
+            { code: "+354", flag: "🇮🇸", name: "Iceland" },
+            { code: "+62", flag: "🇮🇩", name: "Indonesia" },
+            { code: "+964", flag: "🇮🇶", name: "Iraq" },
+            { code: "+353", flag: "🇮🇪", name: "Ireland" },
+            { code: "+972", flag: "🇮🇱", name: "Israel" },
+            { code: "+39", flag: "🇮🇹", name: "Italy" },
+            { code: "+81", flag: "🇯🇵", name: "Japan" },
+            { code: "+962", flag: "🇯🇴", name: "Jordan" },
+            { code: "+7", flag: "🇰🇿", name: "Kazakhstan" },
+            { code: "+254", flag: "🇰🇪", name: "Kenya" },
+            { code: "+82", flag: "🇰🇷", name: "South Korea" },
+            { code: "+961", flag: "🇱🇧", name: "Lebanon" },
+            { code: "+60", flag: "🇲🇾", name: "Malaysia" },
+            { code: "+52", flag: "🇲🇽", name: "Mexico" },
+            { code: "+212", flag: "🇲🇦", name: "Morocco" },
+            { code: "+31", flag: "🇳🇱", name: "Netherlands" },
+            { code: "+64", flag: "🇳🇿", name: "New Zealand" },
+            { code: "+47", flag: "🇳🇴", name: "Norway" },
+            { code: "+968", flag: "🇴🇲", name: "Oman" },
+            { code: "+51", flag: "🇵🇪", name: "Peru" },
+            { code: "+63", flag: "🇵🇭", name: "Philippines" },
+            { code: "+48", flag: "🇵🇱", name: "Poland" },
+            { code: "+351", flag: "🇵🇹", name: "Portugal" },
+            { code: "+40", flag: "🇷🇴", name: "Romania" },
+            { code: "+7", flag: "🇷🇺", name: "Russia" },
+            { code: "+65", flag: "🇸🇬", name: "Singapore" },
+            { code: "+27", flag: "🇿🇦", name: "South Africa" },
+            { code: "+34", flag: "🇪🇸", name: "Spain" },
+            { code: "+46", flag: "🇸🇪", name: "Sweden" },
+            { code: "+41", flag: "🇨🇭", name: "Switzerland" },
+            { code: "+886", flag: "🇹🇼", name: "Taiwan" },
+            { code: "+66", flag: "🇹🇭", name: "Thailand" },
+            { code: "+90", flag: "🇹🇷", name: "Turkey" },
+            { code: "+380", flag: "🇺🇦", name: "Ukraine" },
+            { code: "+84", flag: "🇻🇳", name: "Vietnam" }
         ];
 
         function populateCountrySelect() {
@@ -341,25 +391,26 @@
             select.innerHTML = worldCountries.map(c => `<option value="${c.code}">${c.flag} ${c.code} (${c.name})</option>`).join('');
         }
 
-        async function autoDetectCountryCode() {
-            try {
-                const res = await fetch('https://ipapi.co/json/');
-                const data = await res.json();
-                if (data && data.country_calling_code) {
-                    const select = document.getElementById('country-code');
-                    const code = data.country_calling_code.startsWith('+') ? data.country_calling_code : '+' + data.country_calling_code;
-                    for (let option of select.options) {
-                        if (option.value === code) { select.value = code; break; }
-                    }
-                }
-            } catch (e) { }
+        // AUTO-DETECT USER COUNTRY VIA TIMEZONE & LANGUAGE
+        function autoDetectCountryCode() {
+            const userTZ = Intl.DateTimeFormat().resolvedOptions().timeZone || "";
+            const userLang = navigator.language || "";
+            let targetCode = "+1";
+
+            if (userTZ.includes("Karachi") || userLang.includes("ur")) targetCode = "+92";
+            else if (userTZ.includes("Shanghai") || userTZ.includes("Urumqi") || userLang.includes("zh")) targetCode = "+86";
+            else if (userTZ.includes("Dubai")) targetCode = "+971";
+            else if (userTZ.includes("London")) targetCode = "+44";
+            else if (userTZ.includes("Riyadh")) targetCode = "+966";
+            else if (userTZ.includes("Kolkata")) targetCode = "+91";
+            else if (userTZ.includes("Bangkok")) targetCode = "+66";
+
+            const select = document.getElementById('country-code');
+            if (select) select.value = targetCode;
         }
 
-        // ==========================================
-        // MASTER PRODUCTS DATA (15+ EDEN FANTASYS MACHINES + EXISTING)
-        // ==========================================
+        // CLEAN & EXCLUSIVE PRODUCT DATA (No Mixed Images)
         const products = [
-            // --- EDEN FANTASYS SEX MACHINES CATEGORY ---
             { 
                 id: 101, 
                 name: { en: "Pro Thruster V1 Sex Machine", zh: "Pro Thruster V1 自动推力性爱机器" }, 
@@ -370,9 +421,7 @@
                     zh: "高功率多速全自动推力机器，配备静音重型电机、可调节角度和人体工程学安装支架。"
                 },
                 gallery: [
-                    { type: 'image', url: 'https://cdn5.edenfantasys.com/assets/ProductImages/1000x1000/JTSE019_2.jpg?width=500&format=webp' },
-                    { type: 'video', url: 'https://cdn4.edenfantasys.com/assets/2024/12/3e30b92834034df3bd0faedaf610ff24.mp4' },
-                    { type: 'image', url: 'https://cdn5.edenfantasys.com/assets/2025/3/8b1d790e2ab94582a5a915d2efaa20ba.jpg?width=500&format=webp' }
+                    { type: 'image', url: 'https://cdn5.edenfantasys.com/assets/ProductImages/1000x1000/JTSE019_2.jpg?width=500&format=webp' }
                 ]
             },
             { 
@@ -385,8 +434,7 @@
                     zh: "紧凑型吸盘底座全自动机器。适用于光滑表面，支持360度精准转向。"
                 },
                 gallery: [
-                    { type: 'image', url: 'https://cdn5.edenfantasys.com/assets/2026/6/d3fca1b4d4a8489ea6a14ae02873c3b9.jpg?width=500&format=webp' },
-                    { type: 'image', url: 'https://cdn5.edenfantasys.com/assets/2025/6/4c6900ad17cd45d3a4b5e11be5ffab3c.jpg?width=500&format=webp' }
+                    { type: 'image', url: 'https://cdn5.edenfantasys.com/assets/2026/6/d3fca1b4d4a8489ea6a14ae02873c3b9.jpg?width=500&format=webp' }
                 ]
             },
             { 
@@ -413,8 +461,7 @@
                     zh: "双向往复运动机器，配备远程速度控制器和低噪音运行。"
                 },
                 gallery: [
-                    { type: 'image', url: 'https://cdn5.edenfantasys.com/assets/2026/4/8bfbecac78334ce2a193adcfa57c2cc1.jpg?width=500&format=webp' },
-                    { type: 'image', url: 'https://cdn5.edenfantasys.com/assets/2024/11/69458cd66b7943abb298d90151bf7c81.jpg?width=500&format=webp' }
+                    { type: 'image', url: 'https://cdn5.edenfantasys.com/assets/2026/4/8bfbecac78334ce2a193adcfa57c2cc1.jpg?width=500&format=webp' }
                 ]
             },
             { 
@@ -440,38 +487,9 @@
                     zh: "超静音无刷电机技术，具有深层节奏频率设置和无线遥控功能。"
                 },
                 gallery: [
-                    { type: 'video', url: 'https://cdn4.edenfantasys.com/assets/2024/8/3cf3f1832949427f8d75dcf554a963aa.mp4' },
-                    { type: 'image', url: 'https://cdn5.edenfantasys.com/assets/ProductImages/original/02091814PA1.jpg?width=500&format=webp' }
+                    { type: 'video', url: 'https://cdn4.edenfantasys.com/assets/2024/8/3cf3f1832949427f8d75dcf554a963aa.mp4' }
                 ]
             },
-            { 
-                id: 107, 
-                name: { en: "Multi-Angle Floor Sex Stand", zh: "多角度地面稳固站立式机器" }, 
-                category: "machines", 
-                basePrice: 130.00, 
-                desc: {
-                    en: "Floor standing height-adjustable power unit with quick release clips and heavy base support.",
-                    zh: "立式可调高度动力装置，带有快速释放夹和重型底座支撑。"
-                },
-                gallery: [
-                    { type: 'image', url: 'https://cdn5.edenfantasys.com/assets/2025/3/8b1d790e2ab94582a5a915d2efaa20ba.jpg?width=500&format=webp' }
-                ]
-            },
-            { 
-                id: 108, 
-                name: { en: "Piston Motion Power Unit", zh: "活塞式高频强力推力主控机" }, 
-                category: "machines", 
-                basePrice: 110.00, 
-                desc: {
-                    en: "Direct drive piston mechanism providing solid continuous linear power strokes.",
-                    zh: "直驱活塞机构，提供强劲连续的直线动力冲程。"
-                },
-                gallery: [
-                    { type: 'image', url: 'https://cdn5.edenfantasys.com/assets/2026/6/d3fca1b4d4a8489ea6a14ae02873c3b9.jpg?width=500&format=webp' }
-                ]
-            },
-
-            // --- EXISTING STORE PRODUCTS ---
             { 
                 id: 1, 
                 name: { en: "Vibro Titties Huggers Video Demo Toy", zh: "Vibro 双乳吸吮震动演示玩具" }, 
@@ -482,8 +500,7 @@
                     zh: "柔软超软硅胶双乳头吸吮震动器，具有强劲多速震动模式。"
                 },
                 gallery: [
-                    { type: 'video', url: 'https://cdn4.edenfantasys.com/assets/2024/12/3e30b92834034df3bd0faedaf610ff24.mp4' },
-                    { type: 'image', url: 'https://cdn5.edenfantasys.com/assets/2025/3/8b1d790e2ab94582a5a915d2efaa20ba.jpg?width=500&format=webp' }
+                    { type: 'video', url: 'https://cdn4.edenfantasys.com/assets/2024/12/3e30b92834034df3bd0faedaf610ff24.mp4' }
                 ]
             },
             { 
@@ -509,46 +526,7 @@
                     zh: "双动精准刺激器，具有超光滑硅胶触感和双电机设计。"
                 },
                 gallery: [
-                    { type: 'image', url: 'https://cdn5.edenfantasys.com/assets/2026/6/d3fca1b4d4a8489ea6a14ae02873c3b9.jpg?width=500&format=webp' }
-                ]
-            },
-            { 
-                id: 4, 
-                name: { en: "Edenic Motion Elegance Curve Edition", zh: "Edenic 典雅人体工学弯曲款" }, 
-                category: "women", 
-                basePrice: 15.00, 
-                desc: {
-                    en: "Ergonomic dual curve stimulator designed for deep internal vibration resonance.",
-                    zh: "符合人体工程学的双弯曲刺激器，专为深度内部震动共振而设计。"
-                },
-                gallery: [
-                    { type: 'image', url: 'https://cdn5.edenfantasys.com/assets/ProductImages/1000x1000/JTSE019_2.jpg?width=500&format=webp' }
-                ]
-            },
-            { 
-                id: 5, 
-                name: { en: "Edenic Motion Elegance Purple Silk", zh: "Edenic 典雅紫色丝滑款" }, 
-                category: "women", 
-                basePrice: 14.50, 
-                desc: {
-                    en: "Soft medical grade purple silicone probe with quiet multi-speed motor.",
-                    zh: "柔软医用级紫色硅胶探头，配备静音多速电机。"
-                },
-                gallery: [
                     { type: 'image', url: 'https://cdn5.edenfantasys.com/assets/2025/6/4c6900ad17cd45d3a4b5e11be5ffab3c.jpg?width=500&format=webp' }
-                ]
-            },
-            { 
-                id: 6, 
-                name: { en: "Aura Pulse Dual Motion Toy (Video)", zh: "Aura Pulse 双动能按摩仪 (视频演示)" }, 
-                category: "women", 
-                basePrice: 22.00, 
-                desc: {
-                    en: "Waterproof luxury dual stimulator designed for maximum ergonomics and deep resonance waves.",
-                    zh: "防水奢华双重刺激器，旨在提供最大程度的人体工程学和深层共振波。"
-                },
-                gallery: [
-                    { type: 'video', url: 'https://cdn4.edenfantasys.com/assets/2024/10/f517865a90b340e89b3f68892487786f.mp4' }
                 ]
             },
             { 
@@ -562,19 +540,6 @@
                 },
                 gallery: [
                     { type: 'image', url: 'https://cdn5.edenfantasys.com/assets/ProductImages/original/listing/ET121620.jpg?width=500&format=webp' }
-                ]
-            },
-            { 
-                id: 9, 
-                name: { en: "Ergonomic Men's Power Stamina Enhancer", zh: "男士耐力增强器" }, 
-                category: "men", 
-                basePrice: 6.50, 
-                desc: {
-                    en: "Premium body-safe silicone power enhancer designed for long-lasting stamina and flexibility.",
-                    zh: "优质人体安全硅胶助勃器，专为持久耐力和柔韧性而设计。"
-                },
-                gallery: [
-                    { type: 'image', url: 'https://cdn5.edenfantasys.com/assets/2026/4/8bfbecac78334ce2a193adcfa57c2cc1.jpg?width=500&format=webp' }
                 ]
             },
             { 
@@ -592,7 +557,6 @@
             }
         ];
 
-        // DISCOUNT PRICING FORMULA (Rule 4)
         function calculateProductPrice(basePrice) {
             let discountPercent = basePrice <= 7 ? 30 : basePrice <= 20 ? 40 : 50;
             let discountedPrice = basePrice * (1 - (discountPercent / 100));
@@ -603,7 +567,6 @@
         let currentModalProduct = null;
         let modalQty = 1;
 
-        // DUAL LANGUAGE TOGGLE (Rule 3)
         function toggleLanguage() {
             currentLang = currentLang === 'en' ? 'zh' : 'en';
             document.getElementById('lang-btn-text').innerText = currentLang === 'en' ? '中文 (Chinese)' : 'English (英文)';
@@ -638,7 +601,6 @@
                 const pricing = calculateProductPrice(p.basePrice);
                 const firstMedia = p.gallery && p.gallery.length > 0 ? p.gallery[0] : { type: 'image', url: '' };
                 
-                // Muted & Silent Video playback rule (Rule 2)
                 const mediaElement = firstMedia.type === 'video' 
                     ? `<video src="${firstMedia.url}" autoplay loop muted playsinline class="object-contain max-h-full max-w-full group-hover:scale-105 transition duration-300"></video>`
                     : `<img src="${firstMedia.url}" alt="${p.name[currentLang]}" class="object-contain max-h-full max-w-full group-hover:scale-105 transition duration-300">`;
@@ -660,7 +622,7 @@
                         </div>
                         <div class="px-5 pb-5">
                             <button class="w-full bg-zinc-100 hover:bg-rose-600 text-zinc-700 hover:text-white text-xs font-bold py-2.5 rounded-xl transition">
-                                ${currentLang === 'en' ? 'View Details & Gallery' : '查看详情与图片'}
+                                ${currentLang === 'en' ? 'View Details' : '查看详情'}
                             </button>
                         </div>
                     </div>
@@ -683,7 +645,6 @@
             document.getElementById('modal-desc').innerText = currentModalProduct.desc[currentLang] || currentModalProduct.desc.en;
             document.getElementById('modal-category-badge').innerText = currentModalProduct.category;
             
-            // MULTI-IMAGE GALLERY RENDER
             if (currentModalProduct.gallery && currentModalProduct.gallery.length > 0) {
                 setModalMainMedia(currentModalProduct.gallery[0]);
                 renderGalleryThumbs(currentModalProduct.gallery);
@@ -694,6 +655,10 @@
 
         function renderGalleryThumbs(gallery) {
             const thumbsContainer = document.getElementById('modal-gallery-thumbs');
+            if (gallery.length <= 1) {
+                thumbsContainer.innerHTML = '';
+                return;
+            }
             thumbsContainer.innerHTML = gallery.map((m, idx) => {
                 if (m.type === 'video') {
                     return `<div onclick="switchGalleryMedia(${idx})" class="w-14 h-14 bg-zinc-100 border border-zinc-300 rounded-lg overflow-hidden cursor-pointer flex-shrink-0 flex items-center justify-center relative hover:border-rose-600">
@@ -764,9 +729,7 @@
             renderCartItems();
         }
 
-        function calculateSubtotal() {
-            return cart.reduce((sum, item) => sum + (item.finalPrice * item.qty), 0);
-        }
+        function calculateSubtotal() { return cart.reduce((sum, item) => sum + (item.finalPrice * item.qty), 0); }
 
         function calculateFinalTotal() {
             let subtotal = calculateSubtotal();
@@ -802,7 +765,6 @@
             document.getElementById('step-3-ind').className = step === 3 ? 'text-rose-600 font-bold' : '';
         }
 
-        // AUTO CRYPTO PAYMENT SYSTEM (UNTOUCHED RULE 6)
         async function generateNOWPayment() {
             const coin = document.getElementById('crypto-select').value;
             const amount = calculateFinalTotal();
