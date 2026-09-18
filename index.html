@@ -18,13 +18,13 @@
 </head>
 <body class="font-sans antialiased bg-slate-50 text-slate-900">
 
-    <!-- Eden Fantasys Style Top Announcement Bar -->
+    <!-- Top Announcement Bar -->
     <div class="bg-gradient-to-r from-rose-700 via-rose-600 to-pink-600 text-white text-xs py-2 px-4 shadow-sm">
         <div class="max-w-7xl mx-auto flex flex-wrap justify-between items-center gap-2">
             <div class="flex items-center space-x-6 text-[11px] font-medium mx-auto sm:mx-0">
-                <span class="flex items-center gap-1.5"><i class="fa-solid fa-bolt text-amber-300"></i> <strong id="top-ann-1">24 Hour Dispatch</strong></span>
-                <span class="hidden md:inline flex items-center gap-1.5"><i class="fa-solid fa-shield-cat text-emerald-300"></i> <strong id="top-ann-2">100% Confidential Secret Shipping</strong></span>
-                <span class="hidden lg:inline flex items-center gap-1.5"><i class="fa-solid fa-award text-sky-300"></i> <strong id="top-ann-3">Top Quality Direct Wholesale</strong></span>
+                <span class="flex items-center gap-1.5"><i class="fa-solid fa-plane-departure text-amber-300"></i> <strong id="top-ann-1">Factory Direct Shipping from China</strong></span>
+                <span class="hidden md:inline flex items-center gap-1.5"><i class="fa-solid fa-store text-emerald-300"></i> <strong id="top-ann-2">Available Stores in Multiple Countries</strong></span>
+                <span class="hidden lg:inline flex items-center gap-1.5"><i class="fa-solid fa-tags text-sky-300"></i> <strong id="top-ann-3">Factory Rates & Wholesale Bulk Supply</strong></span>
             </div>
             
             <div class="flex items-center space-x-3 mx-auto sm:mx-0">
@@ -35,7 +35,7 @@
         </div>
     </div>
 
-    <!-- Main Eden Navigation Header -->
+    <!-- Main Header Navigation -->
     <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-sm">
         <div class="max-w-7xl mx-auto px-4 py-3.5 flex flex-col md:flex-row items-center justify-between gap-4">
             
@@ -59,10 +59,10 @@
                 </div>
             </div>
 
-            <!-- Eden Search System -->
+            <!-- Search Bar -->
             <div class="w-full md:max-w-md relative">
                 <div class="relative flex items-center">
-                    <input type="text" id="site-search" onkeyup="handleSearch()" placeholder="Search sex machines, vibrators, nipple toys..." class="w-full bg-slate-100 border border-slate-200 rounded-2xl pl-10 pr-10 py-2.5 text-xs focus:outline-none focus:bg-white focus:border-rose-500 transition font-medium">
+                    <input type="text" id="site-search" onkeyup="handleSearch()" placeholder="Search products, machines, accessories..." class="w-full bg-slate-100 border border-slate-200 rounded-2xl pl-10 pr-10 py-2.5 text-xs focus:outline-none focus:bg-white focus:border-rose-500 transition font-medium">
                     <i class="fa-solid fa-magnifying-glass absolute left-3.5 text-slate-400 text-xs"></i>
                     <button onclick="clearSearch()" id="search-clear-btn" class="hidden absolute right-3 text-slate-400 hover:text-slate-600 text-xs">
                         <i class="fa-solid fa-xmark"></i>
@@ -79,74 +79,84 @@
                 
                 <button onclick="openCart()" class="relative bg-rose-600 hover:bg-rose-700 text-white px-5 py-2.5 rounded-xl text-xs font-black flex items-center space-x-2 transition shadow-md shadow-rose-600/20">
                     <i class="fa-solid fa-bag-shopping text-sm"></i>
-                    <span id="cart-btn-label">Cart</span>
+                    <span>Cart</span>
                     <span id="cart-count" class="bg-white text-rose-600 text-xs font-black px-2 py-0.5 rounded-full ml-1">0</span>
                 </button>
             </div>
         </div>
 
-        <!-- Categories Navigation -->
+        <!-- Categories Bar -->
         <div class="bg-slate-100/80 border-t border-slate-200">
             <div class="max-w-7xl mx-auto px-4 flex overflow-x-auto space-x-8 py-2.5 text-xs font-bold text-slate-600 no-scrollbar">
                 <button onclick="filterCategory('all')" class="whitespace-nowrap hover:text-rose-600 transition nav-cat-btn active text-rose-600" id="cat-all"><i class="fa-solid fa-border-all mr-1.5"></i>All Products</button>
-                <button onclick="filterCategory('machines')" class="whitespace-nowrap hover:text-rose-600 transition nav-cat-btn" id="cat-machines"><i class="fa-solid fa-gear mr-1.5 text-rose-600"></i>Sex Machines</button>
-                <button onclick="filterCategory('nipple')" class="whitespace-nowrap hover:text-rose-600 transition nav-cat-btn" id="cat-nipple"><i class="fa-solid fa-heart mr-1.5 text-pink-500"></i>Nipple & Clit Toys</button>
+                <button onclick="filterCategory('machines')" class="whitespace-nowrap hover:text-rose-600 transition nav-cat-btn" id="cat-machines"><i class="fa-solid fa-gear mr-1.5 text-rose-600"></i>Machines</button>
+                <button onclick="filterCategory('nipple')" class="whitespace-nowrap hover:text-rose-600 transition nav-cat-btn" id="cat-nipple"><i class="fa-solid fa-heart mr-1.5 text-pink-500"></i>Nipple Toys</button>
                 <button onclick="filterCategory('women')" class="whitespace-nowrap hover:text-rose-600 transition nav-cat-btn" id="cat-women"><i class="fa-solid fa-venus mr-1.5 text-purple-500"></i>Women Collection</button>
-                <button onclick="filterCategory('couples')" class="whitespace-nowrap hover:text-rose-600 transition nav-cat-btn" id="cat-couples"><i class="fa-solid fa-user-group mr-1.5 text-amber-500"></i>Couples Vibrators</button>
+                <button onclick="filterCategory('couples')" class="whitespace-nowrap hover:text-rose-600 transition nav-cat-btn" id="cat-couples"><i class="fa-solid fa-user-group mr-1.5 text-amber-500"></i>Couples Collection</button>
                 <button onclick="filterCategory('men')" class="whitespace-nowrap hover:text-rose-600 transition nav-cat-btn" id="cat-men"><i class="fa-solid fa-mars mr-1.5 text-blue-500"></i>Men Collection</button>
             </div>
         </div>
     </header>
 
-    <!-- Hero / Features Strip -->
+    <!-- Main Features Strip -->
     <section class="max-w-7xl mx-auto px-4 mt-6">
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <div class="grid grid-cols-1 sm:grid-cols-4 gap-4">
             <div class="bg-white p-4 rounded-2xl border border-slate-200/80 shadow-sm flex items-center space-x-3">
                 <div class="w-10 h-10 rounded-xl bg-rose-50 text-rose-600 flex items-center justify-center text-lg font-bold">
-                    <i class="fa-solid fa-box-open"></i>
+                    <i class="fa-solid fa-industry"></i>
                 </div>
                 <div>
-                    <h4 class="text-xs font-black text-slate-900" id="feat-1-t">Discreet Packaging</h4>
-                    <p class="text-[11px] text-slate-400" id="feat-1-d">Zero product name or logo labels</p>
+                    <h4 class="text-xs font-black text-slate-900" id="feat-1-t">Factory Direct Shipping</h4>
+                    <p class="text-[11px] text-slate-400" id="feat-1-d">Direct dispatch from China factories</p>
                 </div>
             </div>
 
             <div class="bg-white p-4 rounded-2xl border border-slate-200/80 shadow-sm flex items-center space-x-3">
                 <div class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-lg font-bold">
-                    <i class="fa-solid fa-plane-departure"></i>
+                    <i class="fa-solid fa-globe"></i>
                 </div>
                 <div>
-                    <h4 class="text-xs font-black text-slate-900" id="feat-2-t">24-Hour Dispatch</h4>
-                    <p class="text-[11px] text-slate-400" id="feat-2-d">Direct factory global shipping</p>
+                    <h4 class="text-xs font-black text-slate-900" id="feat-2-t">Global Store Availability</h4>
+                    <p class="text-[11px] text-slate-400" id="feat-2-d">Local distribution points worldwide</p>
                 </div>
             </div>
 
             <div class="bg-white p-4 rounded-2xl border border-slate-200/80 shadow-sm flex items-center space-x-3">
                 <div class="w-10 h-10 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center text-lg font-bold">
-                    <i class="fa-solid fa-coins"></i>
+                    <i class="fa-solid fa-boxes-packing"></i>
                 </div>
                 <div>
-                    <h4 class="text-xs font-black text-slate-900" id="feat-3-t">Crypto Checkout</h4>
-                    <p class="text-[11px] text-slate-400" id="feat-3-d">USDT (TRC20) & Bitcoin support</p>
+                    <h4 class="text-xs font-black text-slate-900" id="feat-3-t">Wholesale & Bulk Discount</h4>
+                    <p class="text-[11px] text-slate-400" id="feat-3-d">Auto 30% OFF on 5+ pieces</p>
+                </div>
+            </div>
+
+            <div class="bg-white p-4 rounded-2xl border border-slate-200/80 shadow-sm flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-xl bg-sky-50 text-sky-600 flex items-center justify-center text-lg font-bold">
+                    <i class="fa-solid fa-shield-cat"></i>
+                </div>
+                <div>
+                    <h4 class="text-xs font-black text-slate-900" id="feat-4-t">100% Secret Packaging</h4>
+                    <p class="text-[11px] text-slate-400" id="feat-4-d">Plain unmarked box delivery</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Main Content Area -->
+    <!-- Main Content Grid -->
     <main class="max-w-7xl mx-auto px-4 py-8">
         <div class="flex justify-between items-end mb-6 border-b border-slate-200 pb-4">
             <div>
-                <h1 id="category-title" class="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">Sex Toys Collection</h1>
-                <p id="sub-header-desc" class="text-xs text-slate-500 mt-1">Direct Factory Wholesale Prices | 100% Secret Confidential Packaging</p>
+                <h1 id="category-title" class="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">Direct Factory Collection</h1>
+                <p id="sub-header-desc" class="text-xs text-slate-500 mt-1">Direct Factory Wholesale Rates | 30% Auto Discount on 5+ Items</p>
             </div>
-            <span class="hidden sm:inline-flex text-xs font-bold text-emerald-700 bg-emerald-50 px-3 py-1.5 rounded-full border border-emerald-200 items-center gap-1.5"><i class="fa-solid fa-circle-check text-emerald-500"></i> Verified Factory Store</span>
+            <span class="hidden sm:inline-flex text-xs font-bold text-emerald-700 bg-emerald-50 px-3 py-1.5 rounded-full border border-emerald-200 items-center gap-1.5"><i class="fa-solid fa-circle-check text-emerald-500"></i> Verified Factory Direct Store</span>
         </div>
 
         <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"></div>
     </main>
 
-    <!-- Product Detail Viewer Modal -->
+    <!-- Product Detail Viewer Modal (Only English) -->
     <div id="product-modal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm hidden flex items-center justify-center p-4 overflow-y-auto">
         <div class="bg-white rounded-3xl max-w-4xl w-full p-6 relative max-h-[90vh] overflow-y-auto shadow-2xl border border-slate-200">
             <button onclick="closeProductModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-800 bg-slate-100 w-9 h-9 rounded-full flex items-center justify-center transition z-10">
@@ -182,14 +192,14 @@
                             <p id="modal-desc" class="text-slate-600 text-xs leading-relaxed"></p>
                             
                             <div class="bg-rose-50/80 p-3.5 rounded-2xl border border-rose-200 text-xs text-rose-900 space-y-1">
-                                <p class="font-bold flex items-center gap-1.5 text-rose-700"><i class="fa-solid fa-user-shield"></i> <span id="pkg-notice-title">100% Secret & Discreet Personal Packaging Guaranteed</span></p>
-                                <p id="pkg-notice-desc" class="text-[11px] text-slate-600 leading-normal">Shipped in plain, unmarked brown box with zero product names or logo labels. Complete buyer confidentiality ensured.</p>
+                                <p class="font-bold flex items-center gap-1.5 text-rose-700"><i class="fa-solid fa-user-shield"></i> 100% Secret & Discreet Personal Packaging Guaranteed</p>
+                                <p class="text-[11px] text-slate-600 leading-normal">Shipped in plain, unmarked brown box with zero product names or logo labels. Complete buyer confidentiality ensured.</p>
                             </div>
 
                             <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200 text-xs space-y-2 text-slate-600">
-                                <div class="flex justify-between"><span>Origin:</span> <span class="font-bold text-slate-800">Direct Factory Export</span></div>
+                                <div class="flex justify-between"><span>Origin:</span> <span class="font-bold text-slate-800">Direct Factory Export (China)</span></div>
                                 <div class="flex justify-between"><span>Material:</span> <span class="font-bold text-slate-800">Medical Grade Silicone & Stainless Steel</span></div>
-                                <div class="flex justify-between"><span>Waterproof:</span> <span class="font-bold text-slate-800">100% IPX7 Submersible</span></div>
+                                <div class="flex justify-between"><span>Waterproof:</span> <span class="font-bold text-slate-800">100% Submersible</span></div>
                                 <div class="flex justify-between"><span>Packaging:</span> <span class="font-bold text-emerald-600">100% Secret Plain Box</span></div>
                             </div>
                         </div>
@@ -205,7 +215,7 @@
                             </div>
                         </div>
                         <button onclick="addToCartFromModal()" class="w-full bg-rose-600 hover:bg-rose-700 text-white font-black py-3.5 rounded-2xl transition shadow-lg shadow-rose-600/20 flex items-center justify-center gap-2 text-sm">
-                            <i class="fa-solid fa-cart-plus"></i> <span id="add-to-cart-btn-text">Add to Shopping Cart</span>
+                            <i class="fa-solid fa-cart-plus"></i> Add to Shopping Cart
                         </button>
                     </div>
                 </div>
@@ -213,7 +223,7 @@
         </div>
     </div>
 
-    <!-- Checkout Cart Drawer -->
+    <!-- Checkout Cart Drawer (Only English) -->
     <div id="cart-drawer" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm hidden flex justify-end">
         <div class="bg-white border-l border-slate-200 w-full max-w-md h-full flex flex-col justify-between p-6 overflow-y-auto">
             <div>
@@ -224,49 +234,75 @@
 
                 <div class="flex justify-between mb-6 text-xs text-slate-400 border-b border-slate-200 pb-2 font-bold">
                     <span id="step-1-ind" class="text-rose-600">1. Cart</span>
-                    <span id="step-2-ind">2. Shipping Address</span>
+                    <span id="step-2-ind">2. Delivery Info</span>
                     <span id="step-3-ind">3. Crypto Payment</span>
                 </div>
 
                 <!-- Step 1: Cart Items -->
                 <div id="step-1-content">
-                    <div id="cart-items-list" class="space-y-3 mb-6 max-h-60 overflow-y-auto"></div>
-                    <div class="border-t border-slate-200 pt-4 mb-6">
-                        <div class="flex justify-between text-base font-black text-slate-900">
-                            <span>Total Discount Price:</span>
+                    <div id="cart-items-list" class="space-y-3 mb-4 max-h-60 overflow-y-auto"></div>
+                    
+                    <div id="bulk-discount-notice" class="hidden bg-emerald-50 border border-emerald-200 rounded-xl p-2.5 mb-4 text-[11px] text-emerald-800 font-bold flex items-center justify-between">
+                        <span><i class="fa-solid fa-tags text-emerald-600 mr-1"></i> Bulk Order (5+ Pieces):</span>
+                        <span class="bg-emerald-600 text-white px-2 py-0.5 rounded text-[10px] uppercase font-black">30% OFF Applied</span>
+                    </div>
+
+                    <div class="border-t border-slate-200 pt-4 mb-6 space-y-1.5 text-xs">
+                        <div class="flex justify-between text-slate-500 font-semibold">
+                            <span>Item Subtotal:</span>
+                            <span id="cart-raw-subtotal">$0.00</span>
+                        </div>
+                        <div id="bulk-discount-row" class="hidden flex justify-between text-emerald-600 font-bold">
+                            <span>Bulk 30% Discount:</span>
+                            <span id="cart-bulk-discount">-$0.00</span>
+                        </div>
+                        <div class="flex justify-between text-base font-black text-slate-900 pt-1 border-t border-slate-100">
+                            <span>Total Price:</span>
                             <span id="cart-subtotal">$0.00</span>
                         </div>
                     </div>
+                    
                     <button onclick="goToStep(2)" class="w-full bg-rose-600 hover:bg-rose-700 text-white font-bold py-3.5 rounded-xl transition shadow-md text-xs">
                         Proceed to Delivery Info
                     </button>
                 </div>
 
-                <!-- Step 2: Shipping Info & Dynamic Country Selector -->
+                <!-- Step 2: Delivery Info -->
                 <div id="step-2-content" class="hidden space-y-4">
-                    <div>
-                        <label class="block text-xs font-bold text-slate-600 mb-1">Full Name *</label>
-                        <input type="text" id="cust-name" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-2.5 text-xs focus:outline-none focus:border-rose-600" placeholder="Enter full name">
+                    <div class="grid grid-cols-2 gap-3">
+                        <div>
+                            <label class="block text-xs font-bold text-slate-600 mb-1">First Name *</label>
+                            <input type="text" id="cust-first-name" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2.5 text-xs focus:outline-none focus:border-rose-600" placeholder="First Name">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-600 mb-1">Last Name *</label>
+                            <input type="text" id="cust-last-name" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2.5 text-xs focus:outline-none focus:border-rose-600" placeholder="Last Name">
+                        </div>
                     </div>
                     
+                    <div>
+                        <label class="block text-xs font-bold text-slate-600 mb-1">Country *</label>
+                        <select id="cust-country" onchange="syncCountryCodeWithDropdown()" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2.5 text-xs text-slate-800 focus:outline-none focus:border-rose-600 font-semibold"></select>
+                    </div>
+
                     <div>
                         <label class="block text-xs font-bold text-slate-600 mb-1">Mobile / Phone Number *</label>
                         <div class="flex space-x-2">
                             <select id="country-code" class="w-2/5 bg-slate-50 border border-slate-300 rounded-xl px-2 py-2.5 text-xs text-slate-800 focus:outline-none focus:border-rose-600 truncate font-semibold"></select>
-                            <input type="text" id="cust-phone" class="w-3/5 bg-slate-50 border border-slate-300 rounded-xl px-4 py-2.5 text-xs focus:outline-none focus:border-rose-600" placeholder="Phone number">
+                            <input type="text" id="cust-phone" class="w-3/5 bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2.5 text-xs focus:outline-none focus:border-rose-600" placeholder="Phone Number">
                         </div>
                     </div>
 
                     <div>
-                        <label class="block text-xs font-bold text-slate-600 mb-1">Complete Delivery Address *</label>
-                        <textarea id="cust-address" rows="3" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-2.5 text-xs focus:outline-none focus:border-rose-600" placeholder="Street, City, Postal Code, Country"></textarea>
+                        <label class="block text-xs font-bold text-slate-600 mb-1">Full Delivery Address *</label>
+                        <textarea id="cust-address" rows="3" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2.5 text-xs focus:outline-none focus:border-rose-600" placeholder="Street Address, Apartment, Suite, City, Postal Code"></textarea>
                     </div>
 
                     <div>
-                        <label class="block text-xs font-bold text-slate-600 mb-1">Shipping Speed</label>
-                        <select id="delivery-speed" onchange="updateTotal()" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-2.5 text-xs focus:outline-none focus:border-rose-600 font-semibold">
-                            <option value="standard">Standard Free Secret Shipping</option>
-                            <option value="fast">Express Courier Secret Shipping (+30%)</option>
+                        <label class="block text-xs font-bold text-slate-600 mb-1">Shipping Option</label>
+                        <select id="delivery-speed" onchange="updateTotal()" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2.5 text-xs focus:outline-none focus:border-rose-600 font-semibold">
+                            <option value="standard">Standard Secret Shipping (Free)</option>
+                            <option value="fast">Express Courier Secret Shipping (24 Hours Delivery) (+30%)</option>
                         </select>
                     </div>
 
@@ -276,7 +312,7 @@
                     </div>
                 </div>
 
-                <!-- Step 3: Crypto Payment Section -->
+                <!-- Step 3: Crypto Payment -->
                 <div id="step-3-content" class="hidden space-y-4">
                     <div>
                         <label class="block text-xs font-bold text-slate-600 mb-1">Select Crypto Coin</label>
@@ -318,7 +354,7 @@
         </div>
     </div>
 
-    <!-- Admin Modal -->
+    <!-- Admin Panel Modal -->
     <div id="admin-modal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
         <div class="bg-white rounded-3xl max-w-6xl w-full p-6 relative max-h-[90vh] overflow-y-auto border border-slate-200 shadow-2xl">
             <div class="flex justify-between items-center mb-6 border-b border-slate-200 pb-4">
@@ -334,7 +370,7 @@
                             <th class="p-3">Date</th>
                             <th class="p-3">Customer</th>
                             <th class="p-3">Phone</th>
-                            <th class="p-3">Address</th>
+                            <th class="p-3">Country / Address</th>
                             <th class="p-3">Items</th>
                             <th class="p-3">Method</th>
                             <th class="p-3">Amount</th>
@@ -351,14 +387,14 @@
         </div>
     </div>
 
-    <!-- Success Modal -->
+    <!-- Payment Success Modal -->
     <div id="success-modal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
         <div class="bg-white rounded-3xl max-w-md w-full p-8 text-center shadow-2xl border border-slate-200">
             <div class="w-16 h-16 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto mb-4 text-3xl">
                 <i class="fa-solid fa-check"></i>
             </div>
             <h2 class="text-2xl font-black text-slate-900 mb-2">Payment Confirmed!</h2>
-            <p class="text-slate-500 text-xs mb-6 font-medium">Your order is logged into factory dispatch. Fast 100% secret shipping initiated!</p>
+            <p class="text-slate-500 text-xs mb-6 font-medium">Your order has been sent to factory dispatch. Express 100% secret shipping initiated!</p>
             <button onclick="finishSuccessOrder()" class="w-full bg-rose-600 hover:bg-rose-700 text-white font-bold py-3.5 rounded-xl transition shadow-md text-xs">
                 Return to Store
             </button>
@@ -389,7 +425,7 @@
             { code: "+852", flag: "🇭🇰", name: "Hong Kong" },
             { code: "+974", flag: "🇶🇦", name: "Qatar" },
             { code: "+965", flag: "🇰🇼", name: "Kuwait" },
-            { code: "+93", flag: "🇦ف", name: "Afghanistan" },
+            { code: "+93", flag: "🇦🇫", name: "Afghanistan" },
             { code: "+355", flag: "🇦🇱", name: "Albania" },
             { code: "+213", flag: "🇩🇿", name: "Algeria" },
             { code: "+376", flag: "🇦🇩", name: "Andorra" },
@@ -453,28 +489,42 @@
         ];
 
         function populateCountrySelect() {
-            const select = document.getElementById('country-code');
-            select.innerHTML = worldCountries.map(c => `<option value="${c.code}">${c.flag} ${c.code} (${c.name})</option>`).join('');
+            const selectCode = document.getElementById('country-code');
+            const selectCountry = document.getElementById('cust-country');
+
+            selectCode.innerHTML = worldCountries.map(c => `<option value="${c.code}">${c.flag} ${c.code} (${c.name})</option>`).join('');
+            selectCountry.innerHTML = worldCountries.map(c => `<option value="${c.name}">${c.flag} ${c.name}</option>`).join('');
+        }
+
+        function syncCountryCodeWithDropdown() {
+            const countryName = document.getElementById('cust-country').value;
+            const found = worldCountries.find(c => c.name === countryName);
+            if (found) {
+                document.getElementById('country-code').value = found.code;
+            }
         }
 
         function autoDetectCountryCode() {
             const userTZ = Intl.DateTimeFormat().resolvedOptions().timeZone || "";
             const userLang = navigator.language || "";
             let targetCode = "+1";
+            let targetCountry = "United States";
 
-            if (userTZ.includes("Karachi") || userLang.includes("ur")) targetCode = "+92";
-            else if (userTZ.includes("Shanghai") || userTZ.includes("Urumqi") || userLang.includes("zh")) targetCode = "+86";
-            else if (userTZ.includes("Dubai")) targetCode = "+971";
-            else if (userTZ.includes("London")) targetCode = "+44";
-            else if (userTZ.includes("Riyadh")) targetCode = "+966";
-            else if (userTZ.includes("Kolkata")) targetCode = "+91";
-            else if (userTZ.includes("Bangkok")) targetCode = "+66";
+            if (userTZ.includes("Karachi") || userLang.includes("ur")) { targetCode = "+92"; targetCountry = "Pakistan"; }
+            else if (userTZ.includes("Shanghai") || userTZ.includes("Urumqi") || userLang.includes("zh")) { targetCode = "+86"; targetCountry = "China"; }
+            else if (userTZ.includes("Dubai")) { targetCode = "+971"; targetCountry = "United Arab Emirates"; }
+            else if (userTZ.includes("London")) { targetCode = "+44"; targetCountry = "United Kingdom"; }
+            else if (userTZ.includes("Riyadh")) { targetCode = "+966"; targetCountry = "Saudi Arabia"; }
+            else if (userTZ.includes("Kolkata")) { targetCode = "+91"; targetCountry = "India"; }
+            else if (userTZ.includes("Bangkok")) { targetCode = "+66"; targetCountry = "Thailand"; }
 
-            const select = document.getElementById('country-code');
-            if (select) select.value = targetCode;
+            const selectCode = document.getElementById('country-code');
+            const selectCountry = document.getElementById('cust-country');
+            if (selectCode) selectCode.value = targetCode;
+            if (selectCountry) selectCountry.value = targetCountry;
         }
 
-        // PRODUCTS DATABASE (MAPPED FROM EDEN FANTASYS SECTIONS)
+        // PRODUCTS DATABASE
         const products = [
             { 
                 id: 101, 
@@ -482,7 +532,7 @@
                 category: "machines", 
                 basePrice: 160.00, 
                 desc: {
-                    en: "High power multi-speed automated thrusting sex machine with quiet heavy-duty motor, adjustable angles, and ergonomic mounting stand.",
+                    en: "High power multi-speed automated thrusting machine with quiet heavy-duty motor, adjustable angles, and ergonomic mounting stand.",
                     zh: "高功率多速全自动推力机器，配备静音重型电机、可调节角度和人体工程学安装支架。"
                 },
                 gallery: [
@@ -495,7 +545,7 @@
                 category: "machines", 
                 basePrice: 85.00, 
                 desc: {
-                    en: "Compact suction-cup base auto sex machine. Fits on smooth surfaces with 360-degree precision articulation.",
+                    en: "Compact suction-cup base auto machine. Fits on smooth surfaces with 360-degree precision articulation.",
                     zh: "紧凑型吸盘底座全自动机器。适用于光滑表面，支持360度精准转向。"
                 },
                 gallery: [
@@ -521,7 +571,7 @@
                 category: "machines", 
                 basePrice: 145.00, 
                 desc: {
-                    en: "Dual action reciprocating movement sex machine with remote speed controller and low-noise operation.",
+                    en: "Dual action reciprocating movement machine with remote speed controller and low-noise operation.",
                     zh: "双向往复运动机器，配备远程速度控制器和低噪音运行。"
                 },
                 gallery: [
@@ -612,8 +662,8 @@
                 category: "women", 
                 basePrice: 28.00, 
                 desc: {
-                    en: "Air suction technology for non-contact clitoral stimulation and smooth touch.",
-                    zh: "气流吸吮技术，实现无接触阴蒂刺激和顺滑触感。"
+                    en: "Air suction technology for non-contact stimulation and smooth touch.",
+                    zh: "气流吸吮技术，实现无接触刺激和顺滑触感。"
                 },
                 gallery: [
                     { type: 'image', url: 'https://cdn5.edenfantasys.com/assets/2024/11/69458cd66b7943abb298d90151bf7c81.jpg?width=500&format=webp' }
@@ -635,20 +685,22 @@
             currentLang = currentLang === 'en' ? 'zh' : 'en';
             document.getElementById('lang-btn-text').innerText = currentLang === 'en' ? '中文 (Chinese)' : 'English (英文)';
             
-            document.getElementById('top-ann-1').innerText = currentLang === 'en' ? '24 Hour Dispatch' : '24小时快速发货';
-            document.getElementById('top-ann-2').innerText = currentLang === 'en' ? '100% Confidential Secret Shipping' : '100% 隐私保密包装发货';
-            document.getElementById('top-ann-3').innerText = currentLang === 'en' ? 'Top Quality Direct Wholesale' : '高品质工厂直供批发';
+            document.getElementById('top-ann-1').innerText = currentLang === 'en' ? 'Factory Direct Shipping from China' : '中国工厂直发';
+            document.getElementById('top-ann-2').innerText = currentLang === 'en' ? 'Available Stores in Multiple Countries' : '多国现货门店供应';
+            document.getElementById('top-ann-3').innerText = currentLang === 'en' ? 'Factory Rates & Wholesale Bulk Supply' : '工厂直销价与批发大货';
 
             document.getElementById('sub-header-desc').innerText = currentLang === 'en' 
-                ? 'Direct Factory Wholesale Prices | 100% Secret Confidential Packaging'
-                : '工厂直销批发价 | 100% 绝对保密包装';
+                ? 'Direct Factory Wholesale Rates | 30% Auto Discount on 5+ Items'
+                : '工厂直销批发价 | 购买 5 件以上自动享受 30% 折扣';
 
-            document.getElementById('pkg-notice-title').innerText = currentLang === 'en'
-                ? '100% Secret & Discreet Personal Packaging Guaranteed'
-                : '100% 绝对保密与无标识个人包装保证';
-
-            document.getElementById('add-to-cart-btn-text').innerText = currentLang === 'en' ? 'Add to Shopping Cart' : '加入购物车';
-            document.getElementById('cart-btn-label').innerText = currentLang === 'en' ? 'Cart' : '购物车';
+            document.getElementById('feat-1-t').innerText = currentLang === 'en' ? 'Factory Direct Shipping' : '中国工厂直发';
+            document.getElementById('feat-1-d').innerText = currentLang === 'en' ? 'Direct dispatch from China factories' : '中国工厂直接发货';
+            document.getElementById('feat-2-t').innerText = currentLang === 'en' ? 'Global Store Availability' : '全球多国门店';
+            document.getElementById('feat-2-d').innerText = currentLang === 'en' ? 'Local distribution points worldwide' : '全球多个国家设有分布点';
+            document.getElementById('feat-3-t').innerText = currentLang === 'en' ? 'Wholesale & Bulk Discount' : '批发与大货折扣';
+            document.getElementById('feat-3-d').innerText = currentLang === 'en' ? 'Auto 30% OFF on 5+ pieces' : '满5件自动享受30%折扣';
+            document.getElementById('feat-4-t').innerText = currentLang === 'en' ? '100% Secret Packaging' : '100% 保密包装';
+            document.getElementById('feat-4-d').innerText = currentLang === 'en' ? 'Plain unmarked box delivery' : '无标识纸箱保密配送';
 
             renderProducts();
         }
@@ -661,7 +713,7 @@
                 listToRender = currentCategory === 'all' ? products : products.filter(p => p.category === currentCategory);
             }
 
-            document.getElementById('category-title').innerText = currentCategory === 'all' ? 'Sex Toys Collection' : currentCategory.toUpperCase() + ' Collection';
+            document.getElementById('category-title').innerText = currentCategory === 'all' ? 'Direct Factory Collection' : currentCategory.toUpperCase() + ' Collection';
 
             if (listToRender.length === 0) {
                 grid.innerHTML = `<div class="col-span-full py-12 text-center text-slate-400 font-bold text-xs"><i class="fa-solid fa-magnifying-glass text-2xl mb-2 block"></i>No matching products found.</div>`;
@@ -746,11 +798,11 @@
             modalQty = 1;
             
             document.getElementById('modal-qty').innerText = modalQty;
-            document.getElementById('modal-title').innerText = currentModalProduct.name[currentLang] || currentModalProduct.name.en;
+            document.getElementById('modal-title').innerText = currentModalProduct.name.en;
             document.getElementById('modal-price').innerText = `$${pricing.discounted.toFixed(2)}`;
             document.getElementById('modal-original-price').innerText = `$${pricing.original.toFixed(2)}`;
             document.getElementById('modal-discount-tag').innerText = `${pricing.discountPercent}% OFF`;
-            document.getElementById('modal-desc').innerText = currentModalProduct.desc[currentLang] || currentModalProduct.desc.en;
+            document.getElementById('modal-desc').innerText = currentModalProduct.desc.en;
             document.getElementById('modal-category-badge').innerText = currentModalProduct.category;
             
             if (currentModalProduct.gallery && currentModalProduct.gallery.length > 0) {
@@ -790,7 +842,7 @@
 
         function addToCartFromModal() {
             const pricing = calculateProductPrice(currentModalProduct.basePrice);
-            const prodName = currentModalProduct.name[currentLang] || currentModalProduct.name.en;
+            const prodName = currentModalProduct.name.en;
             const existing = cart.find(item => item.id === currentModalProduct.id);
             if (existing) { existing.qty += modalQty; } 
             else { cart.push({ id: currentModalProduct.id, name: prodName, finalPrice: pricing.discounted, qty: modalQty }); }
@@ -850,28 +902,57 @@
             renderCartItems();
         }
 
-        function calculateSubtotal() { return cart.reduce((sum, item) => sum + (item.finalPrice * item.qty), 0); }
+        function calculateRawSubtotal() { return cart.reduce((sum, item) => sum + (item.finalPrice * item.qty), 0); }
+        function calculateTotalPieces() { return cart.reduce((sum, item) => sum + item.qty, 0); }
+
+        function calculateSubtotalWithBulk() {
+            let rawSubtotal = calculateRawSubtotal();
+            let totalPieces = calculateTotalPieces();
+            if (totalPieces > 5) {
+                return rawSubtotal * 0.70; // 30% discount
+            }
+            return rawSubtotal;
+        }
 
         function calculateFinalTotal() {
-            let subtotal = calculateSubtotal();
+            let subtotal = calculateSubtotalWithBulk();
             const speed = document.getElementById('delivery-speed').value;
             if (speed === 'fast') { subtotal *= 1.30; }
             return subtotal;
         }
 
         function updateTotal() {
-            const total = calculateFinalTotal();
-            document.getElementById('cart-subtotal').innerText = `$${calculateSubtotal().toFixed(2)}`;
-            document.getElementById('final-payable-amount').innerText = `$${total.toFixed(2)}`;
+            const rawSubtotal = calculateRawSubtotal();
+            const totalPieces = calculateTotalPieces();
+            const bulkNotice = document.getElementById('bulk-discount-notice');
+            const bulkRow = document.getElementById('bulk-discount-row');
+            
+            if (totalPieces > 5) {
+                const discountAmt = rawSubtotal * 0.30;
+                bulkNotice.classList.remove('hidden');
+                bulkRow.classList.remove('hidden');
+                document.getElementById('cart-bulk-discount').innerText = `-$${discountAmt.toFixed(2)}`;
+            } else {
+                bulkNotice.classList.add('hidden');
+                bulkRow.classList.add('hidden');
+            }
+
+            document.getElementById('cart-raw-subtotal').innerText = `$${rawSubtotal.toFixed(2)}`;
+            document.getElementById('cart-subtotal').innerText = `$${calculateSubtotalWithBulk().toFixed(2)}`;
+            document.getElementById('final-payable-amount').innerText = `$${calculateFinalTotal().toFixed(2)}`;
         }
 
         function goToStep(step) {
             if (step === 2 && cart.length === 0) { alert('Your cart is empty! Please add at least one product.'); return; }
             if (step === 3) {
-                const name = document.getElementById('cust-name').value;
+                const firstName = document.getElementById('cust-first-name').value;
+                const lastName = document.getElementById('cust-last-name').value;
                 const phone = document.getElementById('cust-phone').value;
                 const address = document.getElementById('cust-address').value;
-                if (!name || !phone || !address) { alert('Please fill in all shipping details first!'); return; }
+                if (!firstName || !lastName || !phone || !address) { 
+                    alert('Please fill in all mandatory delivery details first!'); 
+                    return; 
+                }
                 generateNOWPayment();
             }
 
@@ -976,12 +1057,15 @@
 
         function saveOrderToAdmin(method, amount, status) {
             const orders = JSON.parse(localStorage.getItem('admin_orders') || '[]');
+            const fullName = document.getElementById('cust-first-name').value + ' ' + document.getElementById('cust-last-name').value;
+            const fullCountry = document.getElementById('cust-country').value;
+            
             const newOrder = {
                 id: 'ORD-' + Math.floor(1000 + Math.random() * 9000),
                 date: new Date().toLocaleString(),
-                customer: document.getElementById('cust-name').value,
+                customer: fullName,
                 phone: document.getElementById('country-code').value + ' ' + document.getElementById('cust-phone').value,
-                address: document.getElementById('cust-address').value,
+                address: fullCountry + ' - ' + document.getElementById('cust-address').value,
                 items: cart.map(i => `${i.name} (x${i.qty})`).join(', '),
                 method: method,
                 amount: `$${amount}`,
@@ -1004,37 +1088,4 @@
         function closeAdminModal() { document.getElementById('admin-modal').classList.add('hidden'); }
 
         function renderAdminOrders() {
-            const tbody = document.getElementById('admin-orders-tbody');
-            const orders = JSON.parse(localStorage.getItem('admin_orders') || '[]');
-            if (orders.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="9" class="p-4 text-center text-slate-400 font-bold">No orders logged yet.</td></tr>';
-            } else {
-                tbody.innerHTML = orders.map(o => `
-                    <tr class="hover:bg-slate-50">
-                        <td class="p-3 font-bold">${o.id}</td>
-                        <td class="p-3 whitespace-nowrap">${o.date}</td>
-                        <td class="p-3 font-semibold">${o.customer}</td>
-                        <td class="p-3 font-mono text-[11px]">${o.phone}</td>
-                        <td class="p-3 max-w-xs truncate">${o.address}</td>
-                        <td class="p-3 max-w-xs truncate">${o.items}</td>
-                        <td class="p-3 font-semibold">${o.method}</td>
-                        <td class="p-3 font-black text-rose-600">${o.amount}</td>
-                        <td class="p-3"><span class="bg-emerald-100 text-emerald-800 font-bold px-2 py-0.5 rounded text-[10px]">${o.status}</span></td>
-                    </tr>
-                `).join('');
-            }
-        }
-
-        function clearAllOrders() {
-            if (confirm('Are you sure you want to clear all logged order history?')) {
-                localStorage.removeItem('admin_orders');
-                renderAdminOrders();
-            }
-        }
-
-        populateCountrySelect();
-        autoDetectCountryCode();
-        renderProducts();
-    </script>
-</body>
-</html>
+    
