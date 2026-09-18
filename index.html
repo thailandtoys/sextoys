@@ -323,7 +323,7 @@
             { code: "+852", flag: "🇭🇰", name: "Hong Kong" },
             { code: "+974", flag: "🇶🇦", name: "Qatar" },
             { code: "+965", flag: "🇰🇼", name: "Kuwait" },
-            { code: "+93", flag: "🇦🇫", name: "Afghanistan" },
+            { code: "+93", flag: "🇦ف", name: "Afghanistan" },
             { code: "+355", flag: "🇦🇱", name: "Albania" },
             { code: "+213", flag: "🇩🇿", name: "Algeria" },
             { code: "+376", flag: "🇦🇩", name: "Andorra" },
@@ -391,7 +391,6 @@
             select.innerHTML = worldCountries.map(c => `<option value="${c.code}">${c.flag} ${c.code} (${c.name})</option>`).join('');
         }
 
-        // AUTO-DETECT USER COUNTRY VIA TIMEZONE & LANGUAGE
         function autoDetectCountryCode() {
             const userTZ = Intl.DateTimeFormat().resolvedOptions().timeZone || "";
             const userLang = navigator.language || "";
@@ -409,7 +408,7 @@
             if (select) select.value = targetCode;
         }
 
-        // CLEAN & EXCLUSIVE PRODUCT DATA (No Mixed Images)
+        // STRICT ACCURATE PRODUCT DATABASE (NO MIXED IMAGES)
         const products = [
             { 
                 id: 101, 
@@ -447,8 +446,7 @@
                     zh: "超稳定金属框架全自动推力器，配备双速调速盘和快速锁定通用连接头。"
                 },
                 gallery: [
-                    { type: 'image', url: 'https://cdn5.edenfantasys.com/assets/ProductImages/original/listing/ET121620.jpg?width=500&format=webp' },
-                    { type: 'video', url: 'https://cdn4.edenfantasys.com/assets/2024/10/f517865a90b340e89b3f68892487786f.mp4' }
+                    { type: 'image', url: 'https://cdn5.edenfantasys.com/assets/ProductImages/original/listing/ET121620.jpg?width=500&format=webp' }
                 ]
             },
             { 
@@ -487,7 +485,7 @@
                     zh: "超静音无刷电机技术，具有深层节奏频率设置和无线遥控功能。"
                 },
                 gallery: [
-                    { type: 'video', url: 'https://cdn4.edenfantasys.com/assets/2024/8/3cf3f1832949427f8d75dcf554a963aa.mp4' }
+                    { type: 'image', url: 'https://cdn5.edenfantasys.com/assets/2024/11/69458cd66b7943abb298d90151bf7c81.jpg?width=500&format=webp' }
                 ]
             },
             { 
@@ -500,7 +498,7 @@
                     zh: "柔软超软硅胶双乳头吸吮震动器，具有强劲多速震动模式。"
                 },
                 gallery: [
-                    { type: 'video', url: 'https://cdn4.edenfantasys.com/assets/2024/12/3e30b92834034df3bd0faedaf610ff24.mp4' }
+                    { type: 'image', url: 'https://cdn5.edenfantasys.com/assets/2025/3/8b1d790e2ab94582a5a915d2efaa20ba.jpg?width=500&format=webp' }
                 ]
             },
             { 
@@ -601,9 +599,7 @@
                 const pricing = calculateProductPrice(p.basePrice);
                 const firstMedia = p.gallery && p.gallery.length > 0 ? p.gallery[0] : { type: 'image', url: '' };
                 
-                const mediaElement = firstMedia.type === 'video' 
-                    ? `<video src="${firstMedia.url}" autoplay loop muted playsinline class="object-contain max-h-full max-w-full group-hover:scale-105 transition duration-300"></video>`
-                    : `<img src="${firstMedia.url}" alt="${p.name[currentLang]}" class="object-contain max-h-full max-w-full group-hover:scale-105 transition duration-300">`;
+                const mediaElement = `<img src="${firstMedia.url}" alt="${p.name[currentLang] || p.name.en}" class="object-contain max-h-full max-w-full group-hover:scale-105 transition duration-300">`;
 
                 return `
                     <div onclick="openProductModal(${p.id})" class="bg-white border border-zinc-200 rounded-3xl overflow-hidden cursor-pointer hover:border-zinc-400 transition group shadow-sm flex flex-col justify-between hover:shadow-xl">
@@ -634,6 +630,8 @@
 
         function openProductModal(id) {
             currentModalProduct = products.find(p => p.id === id);
+            if (!currentModalProduct) return;
+
             const pricing = calculateProductPrice(currentModalProduct.basePrice);
             modalQty = 1;
             
@@ -655,21 +653,15 @@
 
         function renderGalleryThumbs(gallery) {
             const thumbsContainer = document.getElementById('modal-gallery-thumbs');
-            if (gallery.length <= 1) {
+            if (!gallery || gallery.length <= 1) {
                 thumbsContainer.innerHTML = '';
                 return;
             }
-            thumbsContainer.innerHTML = gallery.map((m, idx) => {
-                if (m.type === 'video') {
-                    return `<div onclick="switchGalleryMedia(${idx})" class="w-14 h-14 bg-zinc-100 border border-zinc-300 rounded-lg overflow-hidden cursor-pointer flex-shrink-0 flex items-center justify-center relative hover:border-rose-600">
-                        <i class="fa-solid fa-play text-xs text-rose-600"></i>
-                    </div>`;
-                } else {
-                    return `<div onclick="switchGalleryMedia(${idx})" class="w-14 h-14 bg-zinc-100 border border-zinc-300 rounded-lg overflow-hidden cursor-pointer flex-shrink-0 hover:border-rose-600">
-                        <img src="${m.url}" class="w-full h-full object-cover">
-                    </div>`;
-                }
-            }).join('');
+            thumbsContainer.innerHTML = gallery.map((m, idx) => `
+                <div onclick="switchGalleryMedia(${idx})" class="w-14 h-14 bg-zinc-100 border border-zinc-300 rounded-lg overflow-hidden cursor-pointer flex-shrink-0 hover:border-rose-600">
+                    <img src="${m.url}" class="w-full h-full object-cover">
+                </div>
+            `).join('');
         }
 
         function switchGalleryMedia(index) {
@@ -680,11 +672,7 @@
 
         function setModalMainMedia(media) {
             const container = document.getElementById('modal-media-container');
-            if (media.type === 'video') {
-                container.innerHTML = `<video src="${media.url}" autoplay loop muted playsinline class="max-h-full max-w-full object-contain"></video>`;
-            } else {
-                container.innerHTML = `<img src="${media.url}" class="max-h-full max-w-full object-contain">`;
-            }
+            container.innerHTML = `<img src="${media.url}" class="max-h-full max-w-full object-contain">`;
         }
 
         function closeProductModal() { document.getElementById('product-modal').classList.add('hidden'); }
@@ -705,22 +693,43 @@
         function openCart() { renderCartItems(); document.getElementById('cart-drawer').classList.remove('hidden'); }
         function closeCart() { if (pollingInterval) clearInterval(pollingInterval); document.getElementById('cart-drawer').classList.add('hidden'); }
 
+        // RENDER CART WITH DELETE BUTTON & QUANTITY CONTROLS
         function renderCartItems() {
             const list = document.getElementById('cart-items-list');
             if (cart.length === 0) {
-                list.innerHTML = '<p class="text-zinc-400 text-center py-4 text-xs">Your cart is empty</p>';
+                list.innerHTML = '<p class="text-zinc-400 text-center py-6 text-xs font-semibold">Your cart is empty.</p>';
             } else {
                 list.innerHTML = cart.map((item, idx) => `
-                    <div class="flex justify-between items-center bg-zinc-50 p-3 rounded-xl border border-zinc-200">
-                        <div>
-                            <h4 class="text-xs font-bold text-zinc-800">${item.name}</h4>
-                            <p class="text-xs text-rose-600 font-black">$${item.finalPrice.toFixed(2)} x ${item.qty}</p>
+                    <div class="flex justify-between items-center bg-zinc-50 p-3 rounded-xl border border-zinc-200 shadow-sm">
+                        <div class="flex-1 pr-2">
+                            <h4 class="text-xs font-bold text-zinc-800 truncate">${item.name}</h4>
+                            <p class="text-xs text-rose-600 font-black mt-0.5">$${item.finalPrice.toFixed(2)} x ${item.qty} = $${(item.finalPrice * item.qty).toFixed(2)}</p>
                         </div>
-                        <button onclick="removeFromCart(${idx})" class="text-rose-600 hover:text-rose-700 text-xs font-bold"><i class="fa-solid fa-trash"></i></button>
+                        <div class="flex items-center space-x-3">
+                            <div class="flex items-center border border-zinc-300 rounded-lg overflow-hidden bg-white">
+                                <button onclick="updateCartItemQty(${idx}, -1)" class="px-2 py-0.5 bg-zinc-100 hover:bg-zinc-200 text-zinc-800 text-xs font-bold">-</button>
+                                <span class="px-2.5 py-0.5 text-xs font-bold text-zinc-800">${item.qty}</span>
+                                <button onclick="updateCartItemQty(${idx}, 1)" class="px-2 py-0.5 bg-zinc-100 hover:bg-zinc-200 text-zinc-800 text-xs font-bold">+</button>
+                            </div>
+                            <button onclick="removeFromCart(${idx})" class="text-rose-600 hover:text-rose-800 text-sm p-1.5 bg-rose-50 rounded-lg hover:bg-rose-100 transition" title="Delete Product">
+                                <i class="fa-solid fa-trash"></i>
+                            </button>
+                        </div>
                     </div>
                 `).join('');
             }
             updateTotal();
+        }
+
+        function updateCartItemQty(index, change) {
+            if (cart[index]) {
+                cart[index].qty += change;
+                if (cart[index].qty <= 0) {
+                    cart.splice(index, 1);
+                }
+                updateCartCount();
+                renderCartItems();
+            }
         }
 
         function removeFromCart(index) {
@@ -745,7 +754,7 @@
         }
 
         function goToStep(step) {
-            if (step === 2 && cart.length === 0) { alert('Your cart is empty!'); return; }
+            if (step === 2 && cart.length === 0) { alert('Your cart is empty! Please add at least one product.'); return; }
             if (step === 3) {
                 const name = document.getElementById('cust-name').value;
                 const phone = document.getElementById('cust-phone').value;
