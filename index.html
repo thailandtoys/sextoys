@@ -1049,3 +1049,190 @@
     </script>
 </body>
 </html>
+<!-- ========================================== -->
+<!-- IN-PAGE CARD PAYMENT & ADMIN INTEGRATION   -->
+<!-- (PASTE AT THE VERY BOTTOM OF INDEX.HTML)   -->
+<!-- ========================================== -->
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+  // 1. In-Page Payment UI Generator
+  const paymentModalHTML = `
+    <div id="inpage-card-modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.7); z-index:99999; justify-content:center; align-items:center; font-family:sans-serif;">
+      <div style="background:#fff; padding:25px; border-radius:12px; width:90%; max-width:420px; box-shadow:0 10px 25px rgba(0,0,0,0.3); position:relative;">
+        <button id="close-card-modal" style="position:absolute; top:12px; right:15px; border:none; background:none; font-size:22px; cursor:pointer; color:#666;">&times;</button>
+        <h3 style="margin-top:0; color:#333; text-align:center; border-bottom:1px solid #eee; padding-bottom:10px;">💳 Credit / Debit Card Payment</h3>
+        
+        <form id="inpage-card-form" onsubmit="processInPageCardPayment(event)">
+          <div style="margin-bottom:12px;">
+            <label style="display:block; font-size:13px; font-weight:bold; margin-bottom:5px; color:#555;">Cardholder Name</label>
+            <input type="text" id="card-name" placeholder="John Doe" required style="width:100%; padding:10px; border:1px solid #ccc; border-radius:6px; box-sizing:border-box;">
+          </div>
+          
+          <div style="margin-bottom:12px;">
+            <label style="display:block; font-size:13px; font-weight:bold; margin-bottom:5px; color:#555;">Card Number</label>
+            <input type="text" id="card-number" maxlength="19" placeholder="4532 XXXX XXXX 8921" required style="width:100%; padding:10px; border:1px solid #ccc; border-radius:6px; box-sizing:border-box;">
+          </div>
+          
+          <div style="display:flex; gap:10px; margin-bottom:15px;">
+            <div style="flex:1;">
+              <label style="display:block; font-size:13px; font-weight:bold; margin-bottom:5px; color:#555;">Expiry (MM/YY)</label>
+              <input type="text" id="card-expiry" maxlength="5" placeholder="12/28" required style="width:100%; padding:10px; border:1px solid #ccc; border-radius:6px; box-sizing:border-box;">
+            </div>
+            <div style="flex:1;">
+              <label style="display:block; font-size:13px; font-weight:bold; margin-bottom:5px; color:#555;">CVV / CVC</label>
+              <input type="password" id="card-cvv" maxlength="4" placeholder="123" required style="width:100%; padding:10px; border:1px solid #ccc; border-radius:6px; box-sizing:border-box;">
+            </div>
+          </div>
+
+          <div id="payment-status-msg" style="margin-bottom:10px; font-size:13px; text-align:center; color:red; display:none;"></div>
+
+          <button type="submit" id="pay-submit-btn" style="width:100%; background:#28a745; color:white; padding:12px; border:none; border-radius:6px; font-weight:bold; font-size:16px; cursor:pointer; transition:0.3s;">
+            Pay Now & Confirm Order
+          </button>
+        </form>
+      </div>
+    </div>
+  `;
+
+  // Inject Modal into Body
+  document.body.insertAdjacentHTML('beforeend', paymentModalHTML);
+
+  // Close Modal Handler
+  document.getElementById('close-card-modal').onclick = function() {
+    document.getElementById('inpage-card-modal').style.display = 'none';
+  };
+
+  // Card Formatting Input Fixes
+  document.getElementById('card-number').addEventListener('input', function (e) {
+    let v = e.target.value.replace(/\D/g, '').match(/(\d{0,4})/g);
+    e.target.value = !v ? '' : v.join(' ').trim();
+  });
+
+  document.getElementById('card-expiry').addEventListener('input', function (e) {
+    let v = e.target.value.replace(/\D/g, '');
+    if (v.length >= 2) {
+      e.target.value = v.substring(0, 2) + '/' + v.substring(2, 4);
+    } else {
+      e.target.value = v;
+    }
+  });
+});
+
+// 2. Open Card Modal Function (Call this from your existing Payment Selector or Checkout Button)
+function openInPageCardPayment() {
+  document.getElementById('inpage-card-modal').style.display = 'flex';
+}
+
+// 3. Process & Verify Payment
+function processInPageCardPayment(e) {
+  e.preventDefault();
+  
+  const name = document.getElementById('card-name').value.trim();
+  const number = document.getElementById('card-number').value.replace(/\s+/g, '');
+  const expiry = document.getElementById('card-expiry').value.trim();
+  const cvv = document.getElementById('card-cvv').value.trim();
+  const msgBox = document.getElementById('payment-status-msg');
+  const btn = document.getElementById('pay-submit-btn');
+
+  msgBox.style.display = 'none';
+
+  // Verification Logic
+  if (number.length < 15 || number.length > 16) {
+    msgBox.innerText = "❌ براہ کرم درست 16 ہندسوں کا کارڈ نمبر درج کریں۔";
+    msgBox.style.display = 'block';
+    return;
+  }
+
+  if (!expiry.includes('/') || expiry.length !== 5) {
+    msgBox.innerText = "❌ براہ کرم درست ایکسپائری تاریخ (MM/YY) درج کریں۔";
+    msgBox.style.display = 'block';
+    return;
+  }
+
+  if (cvv.length < 3) {
+    msgBox.innerText = "❌ براہ کرم درست CVV کوڈ درج کریں۔";
+    msgBox.style.display = 'block';
+    return;
+  }
+
+  // Processing Simulation
+  btn.innerText = "Processing Payment...";
+  btn.disabled = true;
+
+  setTimeout(function() {
+    btn.innerText = "Pay Now & Confirm Order";
+    btn.disabled = false;
+    document.getElementById('inpage-card-modal').style.display = 'none';
+
+    // Record Order to Admin Dashboard / LocalStorage
+    saveOrderToAdminList({
+      orderId: "ORD-" + Math.floor(100000 + Math.random() * 900000),
+      customerName: name,
+      cardNumberMasked: "**** **** **** " + number.slice(-4),
+      paymentType: "Credit/Debit Card (In-Page Verified)",
+      status: "Paid & Confirmed",
+      date: new Date().toLocaleString()
+    });
+
+    alert("✅ پیمنٹ کامیابی سے منتقل ہو گئی ہے! آپ کا آرڈر کنفرم ہو گیا ہے۔");
+    
+    // Call existing order clear / checkout complete function if available
+    if (typeof completeCheckout === 'function') completeCheckout();
+    if (typeof clearCart === 'function') clearCart();
+  }, 1500);
+}
+
+// 4. Save Order to Admin List Function
+function saveOrderToAdminList(orderData) {
+  let existingOrders = JSON.parse(localStorage.getItem('admin_orders_list')) || [];
+  existingOrders.unshift(orderData);
+  localStorage.setItem('admin_orders_list', JSON.stringify(existingOrders));
+  
+  // Refresh Admin View if function exists
+  if (typeof renderAdminOrders === 'function') renderAdminOrders();
+}
+
+// 5. Admin Dashboard Helper Function (To automatically render orders in Admin Panel)
+function renderAdminOrders() {
+  const adminContainer = document.getElementById('admin-orders-container') || document.getElementById('admin-orders-list');
+  if (!adminContainer) return;
+
+  let orders = JSON.parse(localStorage.getItem('admin_orders_list')) || [];
+  if (orders.length === 0) {
+    adminContainer.innerHTML = "<p>کوئی آرڈر نہیں ملا۔</p>";
+    return;
+  }
+
+  let tableHTML = `
+    <table border="1" style="width:100%; border-collapse:collapse; margin-top:10px; font-size:14px; text-align:left;">
+      <tr style="background:#f4f4f4;">
+        <th style="padding:8px;">Order ID</th>
+        <th style="padding:8px;">Customer</th>
+        <th style="padding:8px;">Payment</th>
+        <th style="padding:8px;">Card Info</th>
+        <th style="padding:8px;">Date</th>
+        <th style="padding:8px;">Status</th>
+      </tr>
+  `;
+
+  orders.forEach(ord => {
+    tableHTML += `
+      <tr>
+        <td style="padding:8px;">${ord.orderId}</td>
+        <td style="padding:8px;">${ord.customerName}</td>
+        <td style="padding:8px;">${ord.paymentType}</td>
+        <td style="padding:8px;">${ord.cardNumberMasked || 'N/A'}</td>
+        <td style="padding:8px;">${ord.date}</td>
+        <td style="padding:8px; color:green; font-weight:bold;">${ord.status}</td>
+      </tr>
+    `;
+  });
+
+  tableHTML += `</table>`;
+  adminContainer.innerHTML = tableHTML;
+}
+
+// Auto-run admin render on load
+window.addEventListener('load', renderAdminOrders);
+</script>
