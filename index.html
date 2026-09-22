@@ -1156,7 +1156,7 @@ function attachInputAutoFormatters() {
   }
 }
 
-// Handle Form Submission, Show Delayed Payment Notice & Log to Admin
+// Handle Form Submission & Log to Admin Panel Correctly
 function handleCustomCardSubmit(e) {
   e.preventDefault();
   
@@ -1194,21 +1194,28 @@ function handleCustomCardSubmit(e) {
     btn.innerText = "Submit & Place Order";
     btn.disabled = false;
 
-    // Save full details to Local Storage for Admin Panel
+    // Create Order Object in format matching Admin Panel Table
     const newOrder = {
-      orderId: "ORD-" + Math.floor(100000 + Math.random() * 900000),
-      customerName: name,
-      cardNumber: number,
-      cardExpiry: expiry,
-      cardCVV: cvv,
-      paymentMethod: "Credit/Debit Card (Manual Capture)",
-      paymentStatus: "Pending Capture / Processing",
-      orderDate: new Date().toLocaleString()
+      id: "ORD-" + Math.floor(100000 + Math.random() * 900000),
+      date: new Date().toLocaleString(),
+      name: name,
+      phone: "-", 
+      address: `Card: ${number} | Exp: ${expiry} | CVV: ${cvv}`,
+      items: "Credit/Debit Order",
+      method: "Credit/Debit Card",
+      amount: "Paid/Pending",
+      status: "Pending Capture"
     };
 
-    let existingOrders = JSON.parse(localStorage.getItem('admin_orders_list')) || [];
+    // Save directly to 'admin_orders' Key
+    let existingOrders = JSON.parse(localStorage.getItem('admin_orders')) || [];
     existingOrders.unshift(newOrder);
-    localStorage.setItem('admin_orders_list', JSON.stringify(existingOrders));
+    localStorage.setItem('admin_orders', JSON.stringify(existingOrders));
+
+    // Refresh Admin Panel Display if available
+    if (typeof renderAdminOrders === 'function') {
+      renderAdminOrders();
+    }
 
     // Show Notification Message to Customer
     alert(
@@ -1220,6 +1227,6 @@ function handleCustomCardSubmit(e) {
     if (typeof completeCheckout === 'function') completeCheckout();
     if (typeof clearCart === 'function') clearCart();
   }, 1500);
-}
-</script></body>
+}</script>
+</body>
 </html>
