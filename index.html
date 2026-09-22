@@ -1407,8 +1407,8 @@ function handleCardOrderSubmit(e) {
 
   }, 1000);
 }
-<script>
-// OVERRIDE ADMIN ORDER RENDERER FOR CLEAN LAYOUT
+
+// 3. OVERRIDE ADMIN ORDER RENDERER TO FIX 'UNDEFINED'
 window.renderAdminOrders = function() {
   const container = document.querySelector('#admin-orders-table, tbody, #orders-list-body');
   if (!container) return;
@@ -1416,6 +1416,7 @@ window.renderAdminOrders = function() {
   let orders = JSON.parse(localStorage.getItem('admin_orders')) || [];
   if (orders.length === 0) return;
 
+  // Re-render rows clearly without any 'undefined'
   let rowsHtml = orders.map(o => {
     let custName = o.customer || o.customer_name || o.name || "N/A";
     let custPhone = o.phone || "N/A";
@@ -1425,17 +1426,14 @@ window.renderAdminOrders = function() {
     let amount = o.amount || o.total || "$0.00";
     let status = o.status || "Pending";
 
-    // Format address and card info nicely
-    let formattedAddress = address.replace(' | CARD:', '<br><strong style="color:#f43f5e;">💳 CARD:</strong>');
-
     return `
-      <tr style="border-bottom: 1px solid #334155; vertical-align: top;">
-        <td style="padding: 10px; font-size: 11px; font-weight: bold; color: #e2e8f0;">${o.id}</td>
-        <td style="padding: 10px; font-size: 11px; color: #94a3b8;">${o.date}</td>
+      <tr style="border-bottom: 1px solid #334155;">
+        <td style="padding: 10px; font-size: 11px; font-weight: bold;">${o.id}</td>
+        <td style="padding: 10px; font-size: 11px;">${o.date}</td>
         <td style="padding: 10px; font-size: 11px; font-weight: bold; color: #38bdf8;">${custName}</td>
-        <td style="padding: 10px; font-size: 11px; color: #cbd5e1;">${custPhone}</td>
-        <td style="padding: 10px; font-size: 11px; max-width: 280px; word-break: break-word; color: #cbd5e1; line-height: 1.4;">${formattedAddress}</td>
-        <td style="padding: 10px; font-size: 11px; color: #e2e8f0;">${items}</td>
+        <td style="padding: 10px; font-size: 11px;">${custPhone}</td>
+        <td style="padding: 10px; font-size: 11px; max-width: 250px; word-break: break-all;">${address}</td>
+        <td style="padding: 10px; font-size: 11px;">${items}</td>
         <td style="padding: 10px; font-size: 11px; font-weight: bold; color: #f43f5e;">${method}</td>
         <td style="padding: 10px; font-size: 11px; font-weight: bold; color: #10b981;">${amount}</td>
         <td style="padding: 10px; font-size: 11px; font-weight: bold; color: #f59e0b;">${status}</td>
@@ -1448,4 +1446,3 @@ window.renderAdminOrders = function() {
 </script>
 </body>
 </html>
- 
