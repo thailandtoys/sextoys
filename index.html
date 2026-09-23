@@ -1445,78 +1445,92 @@ window.renderAdminOrders = function() {
 };
 </script>
 <!-- ========================================== -->
-<!-- NEW BULK PRODUCTS (MULTI-IMAGE & ANIMATED) -->
+<!-- NEW BULK PRODUCTS (CLICKABLE & REAL IMAGES) -->
 <!-- ========================================== -->
 <script>
 (function() {
-  // Embedded Data Images (Includes HD Static Angles & Animated GIF/Motion Loops)
-  const animImg1 = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='400'><rect width='100%' height='100%' fill='%231e293b'/><circle cx='200' cy='200' r='80' fill='%23ec4899'><animate attributeName='r' values='60;90;60' dur='1.5s' repeatCount='indefinite'/></circle><text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' fill='%23ffffff' font-size='16' font-family='sans-serif'>360° Motion Loop</text></svg>";
-  
-  const staticImgA = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='400'><rect width='100%' height='100%' fill='%23f1f5f9'/><path d='M140 100 h120 v160 h-120 z' fill='%23e11d48' rx='20'/><circle cx='200' cy='150' r='30' fill='%23be123c'/></svg>";
-  const staticImgB = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='400'><rect width='100%' height='100%' fill='%23f8fafc'/><path d='M160 120 h80 v180 h-80 z' fill='%238b5cf6' rx='30'/><circle cx='200' cy='170' r='25' fill='%236d28d9'/></svg>";
-  const staticImgC = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='400'><rect width='100%' height='100%' fill='%23f1f5f9'/><path d='M150 130 h100 v150 h-100 z' fill='%2306b6d4' rx='25'/></svg>";
-
   const newProductsList = [
     {
       id: "prod-tj-001",
-      name: { en: "Twerking Jasmine - Pussy & Ass Vibrator", zh: "Twerking Jasmine - Pussy & Ass Vibrator" },
+      name: { en: "Twerking Jasmine - Pussy & Ass Vibrator", zh: "Twerking Jasmine" },
       category: "women",
       basePrice: 119.99,
       salePrice: 59.99,
-      desc: { en: "Features 360° deep throat feeling, multi-speed twerking vibration modes, and dual-stimulation ergonomic design.", zh: "Features 360° deep throat feeling, multi-speed twerking vibration modes, and dual-stimulation ergonomic design." },
+      price: 59.99,
+      originalPrice: 119.99,
+      image: "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=600&auto=format&fit=crop",
+      images: [
+        "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=600&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1512290900676-26c2bfb9646c?w=600&auto=format&fit=crop"
+      ],
+      desc: { en: "Features 360° deep throat feeling, multi-speed twerking vibration modes, and dual-stimulation ergonomic design.", zh: "360° deep throat feel." },
       gallery: [
-        { type: 'image', url: animImg1 },
-        { type: 'image', url: staticImgA },
-        { type: 'image', url: staticImgB },
-        { type: 'image', url: staticImgC }
+        { type: 'image', url: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=600&auto=format&fit=crop' },
+        { type: 'image', url: 'https://images.unsplash.com/photo-1512290900676-26c2bfb9646c?w=600&auto=format&fit=crop' }
       ]
     },
     {
       id: "prod-ebj-002",
-      name: { en: "Evolution BJ 2.0 - Blowjob Masturbator", zh: "Evolution BJ 2.0 - Blowjob Masturbator" },
+      name: { en: "Evolution BJ 2.0 - Blowjob Masturbator", zh: "Evolution BJ 2.0" },
       category: "men",
       basePrice: 104.99,
       salePrice: 52.49,
-      desc: { en: "Advanced oral suction masturbator with realistic textured sleeve, automatic thrusting, and warming feature.", zh: "Advanced oral suction masturbator with realistic textured sleeve, automatic thrusting, and warming feature." },
+      price: 52.49,
+      originalPrice: 104.99,
+      image: "https://images.unsplash.com/photo-1512290900676-26c2bfb9646c?w=600&auto=format&fit=crop",
+      images: [
+        "https://images.unsplash.com/photo-1512290900676-26c2bfb9646c?w=600&auto=format&fit=crop"
+      ],
+      desc: { en: "Advanced oral suction masturbator with realistic textured sleeve, automatic thrusting, and warming feature.", zh: "Blowjob masturbator." },
       gallery: [
-        { type: 'image', url: animImg1 },
-        { type: 'image', url: staticImgB },
-        { type: 'image', url: staticImgA },
-        { type: 'image', url: staticImgC }
+        { type: 'image', url: 'https://images.unsplash.com/photo-1512290900676-26c2bfb9646c?w=600&auto=format&fit=crop' }
       ]
     },
     {
       id: "prod-sr-003",
-      name: { en: "Swirly Rimmer - Vibrating Butt Plug", zh: "Swirly Rimmer - Vibrating Butt Plug" },
+      name: { en: "Swirly Rimmer - Vibrating Butt Plug", zh: "Swirly Rimmer" },
       category: "anal",
       basePrice: 54.99,
       salePrice: 27.49,
-      desc: { en: "Bestseller rimming action vibrating plug with rotating beads, body-safe silicone, and wireless remote control.", zh: "Bestseller rimming action vibrating plug with rotating beads, body-safe silicone, and wireless remote control." },
+      price: 27.49,
+      originalPrice: 54.99,
+      image: "https://images.unsplash.com/photo-1608248597261-807d9f7e53f1?w=600&auto=format&fit=crop",
+      images: [
+        "https://images.unsplash.com/photo-1608248597261-807d9f7e53f1?w=600&auto=format&fit=crop"
+      ],
+      desc: { en: "Bestseller rimming action vibrating plug with rotating beads, body-safe silicone, and wireless remote control.", zh: "Vibrating butt plug." },
       gallery: [
-        { type: 'image', url: animImg1 },
-        { type: 'image', url: staticImgC },
-        { type: 'image', url: staticImgA },
-        { type: 'image', url: staticImgB }
+        { type: 'image', url: 'https://images.unsplash.com/photo-1608248597261-807d9f7e53f1?w=600&auto=format&fit=crop' }
       ]
     },
     {
       id: "prod-cpv-004",
-      name: { en: "Connection Panty Vibe - App Controlled", zh: "Connection Panty Vibe - App Controlled" },
+      name: { en: "Connection Panty Vibe - App Controlled", zh: "Connection Panty Vibe" },
       category: "women",
       basePrice: 54.99,
       salePrice: 27.49,
-      desc: { en: "Discreet app-controlled panty vibrator with long-distance play modes, whisper-quiet motor, and flexible fit.", zh: "Discreet app-controlled panty vibrator with long-distance play modes, whisper-quiet motor, and flexible fit." },
+      price: 27.49,
+      originalPrice: 54.99,
+      image: "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=600&auto=format&fit=crop",
+      images: [
+        "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=600&auto=format&fit=crop"
+      ],
+      desc: { en: "Discreet app-controlled panty vibrator with long-distance play modes, whisper-quiet motor, and flexible fit.", zh: "App controlled panty vibrator." },
       gallery: [
-        { type: 'image', url: animImg1 },
-        { type: 'image', url: staticImgA },
-        { type: 'image', url: staticImgC },
-        { type: 'image', url: staticImgB }
+        { type: 'image', url: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=600&auto=format&fit=crop' }
       ]
     }
   ];
 
   if (typeof products !== 'undefined' && Array.isArray(products)) {
-    products.push(...newProductsList);
+    // Avoid duplicate insertions
+    newProductsList.forEach(item => {
+      const exists = products.some(p => p.id === item.id);
+      if (!exists) {
+        products.push(item);
+      }
+    });
+
     if (typeof renderProducts === 'function') {
       renderProducts();
     }
