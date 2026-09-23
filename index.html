@@ -1444,12 +1444,18 @@ window.renderAdminOrders = function() {
   container.innerHTML = rowsHtml;
 };
 </script>
-    <!-- ========================================== -->
 <!-- ========================================== -->
-<!-- NEW BULK PRODUCTS SCRIPT (UPDATED IMAGES) -->
+<!-- NEW BULK PRODUCTS (EMBEDDED DATA IMAGES) -->
 <!-- ========================================== -->
 <script>
 (function() {
+  // SVG Vector Embedded Images (No external links required)
+  const imgData1 = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='400' viewBox='0 0 400 400'><rect width='100%' height='100%' fill='%23f1f5f9'/><path d='M140 100 h120 v160 h-120 z' fill='%236366f1' rx='20'/><circle cx='200' cy='150' r='30' fill='%234f46e5'/><rect x='180' y='200' width='40' height='80' fill='%23818cf8' rx='10'/></svg>";
+  
+  const imgData2 = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='400' viewBox='0 0 400 400'><rect width='100%' height='100%' fill='%23f1f5f9'/><path d='M160 120 h80 v180 h-80 z' fill='%23ec4899' rx='40'/><circle cx='200' cy='160' r='25' fill='%23db2777'/><rect x='185' y='210' width='30' height='60' fill='%23f472b6' rx='15'/></svg>";
+
+  const imgData3 = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='400' viewBox='0 0 400 400'><rect width='100%' height='100%' fill='%23f1f5f9'/><path d='M150 140 h100 v140 h-100 z' fill='%2314b8a6' rx='30'/><ellipse cx='200' cy='180' rx='35' ry='20' fill='%230d9488'/><rect x='190' y='220' width='20' height='40' fill='%232dd4bf' rx='10'/></svg>";
+
   const newProductsList = [
     {
       id: "prod-eden-101",
@@ -1458,7 +1464,7 @@ window.renderAdminOrders = function() {
       basePrice: 49.00,
       desc: { en: "High performance desktop thrusting system with multiple speed settings and ultra-quiet motor.", zh: "High performance desktop thrusting system with multiple speed settings and ultra-quiet motor." },
       gallery: [
-        { type: 'image', url: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=500&auto=format&fit=crop' }
+        { type: 'image', url: imgData1 }
       ]
     },
     {
@@ -1468,7 +1474,7 @@ window.renderAdminOrders = function() {
       basePrice: 65.00,
       desc: { en: "Ergonomic body massager with soft silicone tip, multiple vibration modes, and USB fast charging.", zh: "Ergonomic body massager with soft silicone tip, multiple vibration modes, and USB fast charging." },
       gallery: [
-        { type: 'image', url: 'https://images.unsplash.com/photo-1512290900676-26c2bfb9646c?w=500&auto=format&fit=crop' }
+        { type: 'image', url: imgData2 }
       ]
     },
     {
@@ -1478,7 +1484,7 @@ window.renderAdminOrders = function() {
       basePrice: 42.00,
       desc: { en: "Ergonomic rechargeable massager with multiple vibration levels and soft touch body-safe silicone.", zh: "Ergonomic rechargeable massager with multiple vibration levels and soft touch body-safe silicone." },
       gallery: [
-        { type: 'image', url: 'https://images.unsplash.com/photo-1608248597261-807d9f7e53f1?w=500&auto=format&fit=crop' }
+        { type: 'image', url: imgData3 }
       ]
     }
   ];
