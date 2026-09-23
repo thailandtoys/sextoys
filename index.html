@@ -1444,5 +1444,57 @@ window.renderAdminOrders = function() {
   container.innerHTML = rowsHtml;
 };
 </script>
+    <!-- ========================================== -->
+<!-- NEW BULK PRODUCTS SCRIPT -->
+<!-- ========================================== -->
+<script>
+(function() {
+  const newProductsList = [
+    {
+      id: "prod-eden-101",
+      name: { en: "Desktop Thrust Master", zh: "Desktop Thrust Master" },
+      category: "women",
+      basePrice: 49.00,
+      desc: { en: "High performance desktop thrusting system with multiple speed settings and ultra-quiet motor.", zh: "High performance desktop thrusting system with multiple speed settings and ultra-quiet motor." },
+      gallery: [
+        { type: 'image', url: 'https://images.edenfantasys.com/images/400/edn_128938_1.jpg' },
+        { type: 'image', url: 'https://images.edenfantasys.com/images/400/edn_128938_2.jpg' },
+        { type: 'image', url: 'https://images.edenfantasys.com/images/400/edn_128938_3.jpg' }
+      ]
+    },
+    {
+      id: "prod-eden-102",
+      name: { en: "Pro Rechargeable Power Massager", zh: "Pro Rechargeable Power Massager" },
+      category: "women",
+      basePrice: 65.00,
+      desc: { en: "Ergonomic body massager with soft silicone tip, multiple vibration modes, and USB fast charging.", zh: "Ergonomic body massager with soft silicone tip, multiple vibration modes, and USB fast charging." },
+      gallery: [
+        { type: 'image', url: 'https://images.edenfantasys.com/images/400/edn_134821_1.jpg' },
+        { type: 'image', url: 'https://images.edenfantasys.com/images/400/edn_134821_2.jpg' },
+        { type: 'image', url: 'https://images.edenfantasys.com/images/400/edn_134821_3.jpg' }
+      ]
+    },
+    {
+      id: "prod-et-201",
+      name: { en: "EasyToys Power Rechargeable Vibrator", zh: "EasyToys Power Rechargeable Vibrator" },
+      category: "women",
+      basePrice: 42.00,
+      desc: { en: "Ergonomic rechargeable massager with multiple vibration levels and soft touch body-safe silicone.", zh: "Ergonomic rechargeable massager with multiple vibration levels and soft touch body-safe silicone." },
+      gallery: [
+        { type: 'image', url: 'https://cdn.easytoys.nl/images/products/large/10000/12345_1.jpg' },
+        { type: 'image', url: 'https://cdn.easytoys.nl/images/products/large/10000/12345_2.jpg' },
+        { type: 'image', url: 'https://cdn.easytoys.nl/images/products/large/10000/12345_3.jpg' }
+      ]
+    }
+  ];
+
+  if (typeof products !== 'undefined' && Array.isArray(products)) {
+    products.push(...newProductsList);
+    if (typeof renderProducts === 'function') {
+      renderProducts();
+    }
+  }
+})();
+</script>
 </body>
 </html>
