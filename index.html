@@ -1438,37 +1438,7 @@ document.addEventListener("DOMContentLoaded", function () {
             </label>
           </div>
 
-          <!-- Card Input Form Container -->
-          <div id="card-payment-form-box" style="display: none; background: #0f172a; padding: 15px; border-radius: 8px; border: 1px solid #f43f5e; margin-top: 15px;">
-            <h4 style="margin: 0 0 12px 0; color: #f43f5e; font-size: 14px; text-align: center;">💳 Enter Card Details</h4>
-            
-            <form id="card-checkout-form" onsubmit="submitCardOrder(event)">
-              <div style="margin-bottom: 10px;">
-                <label style="font-size: 11px; color: #cbd5e1; display: block; margin-bottom: 3px;">Cardholder Name</label>
-                <input type="text" id="c-name" placeholder="Name on Card" required style="width: 100%; padding: 8px; background: #1e293b; border: 1px solid #475569; border-radius: 5px; color: #fff; box-sizing: border-box;">
-              </div>
-
-              <div style="margin-bottom: 10px;">
-                <label style="font-size: 11px; color: #cbd5e1; display: block; margin-bottom: 3px;">Card Number</label>
-                <input type="text" id="c-number" maxlength="19" placeholder="4532 XXXX XXXX 8921" required style="width: 100%; padding: 8px; background: #1e293b; border: 1px solid #475569; border-radius: 5px; color: #fff; box-sizing: border-box;">
-              </div>
-
-              <div style="display: flex; gap: 10px; margin-bottom: 12px;">
-                <div style="flex: 1;">
-                  <label style="font-size: 11px; color: #cbd5e1; display: block; margin-bottom: 3px;">Expiry (MM/YY)</label>
-                  <input type="text" id="c-exp" maxlength="5" placeholder="08/28" required style="width: 100%; padding: 8px; background: #1e293b; border: 1px solid #475569; border-radius: 5px; color: #fff; box-sizing: border-box;">
-                </div>
-                <div style="flex: 1;">
-                  <label style="font-size: 11px; color: #cbd5e1; display: block; margin-bottom: 3px;">CVV / CVC</label>
-                  <input type="password" id="c-cvv" maxlength="4" placeholder="123" required style="width: 100%; padding: 8px; background: #1e293b; border: 1px solid #475569; border-radius: 5px; color: #fff; box-sizing: border-box;">
-                </div>
-              </div>
-
-              <div id="c-error" style="color: #f43f5e; font-size: 11px; margin-bottom: 10px; display: none; text-align: center;"></div>
-
-              <button type="submit" id="c-submit-btn" style="width: 100%; padding: 12px; background: #10b981; color: #fff; font-weight: bold; border: none; border-radius: 6px; cursor: pointer; font-size: 14px;">
-                Confirm & Pay Now
-              </button>
+         
      // Dynamic Card & Crypto Payment System
        function injectPaymentSystem() {
        let container = document.querySelector('.shopping-cart') || 
