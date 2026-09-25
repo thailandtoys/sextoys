@@ -1440,13 +1440,15 @@ document.addEventListener("DOMContentLoaded", function () {
 
          
      // Dynamic Card & Crypto Payment System
-       function injectPaymentSystem() {
-       let container = document.querySelector('.shopping-cart') || 
+function injectPaymentSystem() {
+    let container = document.querySelector('.shopping-cart') || 
+                    document.querySelector('.modal-content') || 
                     document.querySelector('[class*="Crypto"]') || 
                     document.getElementById('paymentOptions') || 
-                    document.getElementById('payment-methods-container');
+                    document.body;
 
     if (!container) return;
+
     if (document.getElementById('custom_card_box')) return;
 
     let cardHTML = `
@@ -1542,7 +1544,7 @@ function processCardOrder() {
 }
 
 setInterval(injectPaymentSystem, 1000);
-}
+injectPaymentSystem();
 </script>
 </body>
 </html>
