@@ -1444,5 +1444,56 @@ window.renderAdminOrders = function() {
   container.innerHTML = rowsHtml;
 };
 </script>
+ <!-- ========================================== -->
+<!-- EVOLUTION BJ 2.0 - 100% EMBEDDED (NO LINKS)-->
+<!-- ========================================== -->
+<script>
+(function() {
+  // Pure inline embedded graphics (Browser safe, zero external server dependency)
+  const animLoop = "data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400' viewBox='0 0 400 400'%3E%3Crect width='100%25' height='100%25' fill='%23f0f9ff'/%3E%3Crect x='130' y='60' width='140' height='280' rx='40' fill='%230284c7'%3E%3Canimate attributeName='y' values='60;90;60' dur='1.5s' repeatCount='indefinite'/%3E%3C/rect%3E%3Ccircle cx='200' cy='130' r='35' fill='%23e0f2fe'%3E%3Canimate attributeName='cy' values='130;160;130' dur='1.5s' repeatCount='indefinite'/%3E%3C/circle%3E%3Crect x='170' y='230' width='60' height='60' fill='%230369a1' rx='10'/%3E%3C/svg%3E";
+
+  const imgDetail1 = "data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400' viewBox='0 0 400 400'%3E%3Crect width='100%25' height='100%25' fill='%23e0f2fe'/%3E%3Crect x='120' y='80' width='160' height='240' rx='30' fill='%230284c7'/%3E%3Cpath d='M160 180 Q200 220 240 180' stroke='%23ffffff' stroke-width='8' fill='none'/%3E%3C/svg%3E";
+
+  const imgDetail2 = "data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400' viewBox='0 0 400 400'%3E%3Crect width='100%25' height='100%25' fill='%23f0f9ff'/%3E%3Ccircle cx='200' cy='200' r='100' fill='%230369a1'/%3E%3Ccircle cx='200' cy='200' r='60' fill='%23bae6fd'/%3E%3C/svg%3E";
+
+  const evolutionProduct = {
+    id: "prod-ebj-2026",
+    name: { 
+      en: "Evolution BJ 2.0 - Blowjob Masturbator", 
+      zh: "Evolution BJ 2.0 口交模拟器" 
+    },
+    category: "men",
+    basePrice: 26.00,
+    salePrice: 13.00,
+    price: 13.00,
+    originalPrice: 26.00,
+    // Front card display uses embedded self-contained visual loop
+    image: animLoop,
+    images: [animLoop, imgDetail1, imgDetail2],
+    gallery: [
+      { type: 'image', url: animLoop },
+      { type: 'image', url: imgDetail1 },
+      { type: 'image', url: imgDetail2 }
+    ],
+    desc: { 
+      en: "Advanced oral suction masturbator with realistic textured sleeve, automatic thrusting movement, and silent high-speed vibration modes.", 
+      zh: "具备自动抽吸与逼真材质的高级口交模拟器。" 
+    }
+  };
+
+  if (typeof products !== 'undefined' && Array.isArray(products)) {
+    const index = products.findIndex(p => p.id === evolutionProduct.id || p.id === 'prod-ebj-002');
+    if (index !== -1) {
+      products[index] = evolutionProduct;
+    } else {
+      products.push(evolutionProduct);
+    }
+
+    if (typeof renderProducts === 'function') {
+      renderProducts();
+    }
+  }
+})();
+</script>  
 </body>
 </html>
